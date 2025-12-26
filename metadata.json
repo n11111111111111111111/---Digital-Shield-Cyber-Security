@@ -1,0 +1,8 @@
+{
+  "name": "الدرع الرقمي - Digital Shield Cyber Security",
+  "description": "منصة شاملة للأمن السيبراني، تضم أخباراً، مدونات، دورات تعليمية، وخرائط تهديدات تفاعلية بأسلوب رقمي حديث.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
