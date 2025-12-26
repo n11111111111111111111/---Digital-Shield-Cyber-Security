@@ -22,3 +22,21 @@ export interface ChatMessage {
   role: 'user' | 'model';
   text: string;
 }
+
+export interface Story {
+  id: string;
+  title: string;
+  preview: string;
+  content: string;
+  readTime: string;
+  category: string;
+  icon: string;
+}
+
+export interface Notification {
+  id: string;
+  title: string;
+  time: string;
+  type: 'alert' | 'update' | 'security';
+  unread: boolean;
+}

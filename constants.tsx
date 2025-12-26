@@ -1,43 +1,70 @@
 
-import { Article, ThreatEvent } from './types';
+import { Article, ThreatEvent, Story, Notification } from './types';
 
 export const ARTICLES: Article[] = [
   {
     id: '1',
-    title: 'Ransomware Evolution 2024: How to Protect Your Org?',
-    excerpt: 'A comprehensive study on new tactics used by cyber extortion gangs and how to counter them using AI.',
+    title: 'تطور برمجيات الفدية 2024: كيف تحمي مؤسستك؟',
+    excerpt: 'دراسة شاملة حول التكتيكات الجديدة التي تستخدمها عصابات الابتزاز الرقمي وكيفية مواجهتها باستخدام الذكاء الاصطناعي.',
     category: 'Threat Analysis',
     date: '2024-05-15',
-    image: 'https://picsum.photos/seed/cyber1/800/400',
-    author: 'Eng. Ahmed Al-Salem'
+    image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800',
+    author: 'م. أحمد السالم'
   },
   {
     id: '2',
-    title: 'Encryption Basics: From Caesar to Quantum',
-    excerpt: 'A simplified educational guide for beginners on cryptography and how it evolved to face quantum threats.',
+    title: 'أساسيات التشفير: من قيصر إلى الكوآنتوم',
+    excerpt: 'دليل تعليمي مبسط للمبتدئين حول علم التعمية وكيف تطور لمواجهة تهديدات الحوسبة الكمية القادمة.',
     category: 'Education',
     date: '2024-05-12',
-    image: 'https://picsum.photos/seed/cyber2/800/400',
-    author: 'Dr. Sarah Mansour'
+    image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc51?auto=format&fit=crop&q=80&w=800',
+    author: 'د. سارة منصور'
   },
   {
     id: '3',
-    title: 'Critical Zero-Day Discovered in Major Web Browsers',
-    excerpt: 'Technical analysis of a newly discovered critical vulnerability allowing remote code execution.',
+    title: 'اكتشاف ثغرة "يوم صفر" في المتصفحات الشهيرة',
+    excerpt: 'تحليل تقني لثغرة أمنية حرجة تم اكتشافها مؤخراً تسمح بتنفيذ برمجيات عن بعد دون علم المستخدم.',
     category: 'Vulnerabilities',
     date: '2024-05-10',
-    image: 'https://picsum.photos/seed/cyber3/800/400',
-    author: 'Digital Shield Team'
+    image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80&w=800',
+    author: 'فريق الدرع الرقمي'
+  }
+];
+
+export const STORIES: Story[] = [
+  {
+    id: 's1',
+    title: 'ليلة سقوط الخادم الرئيسي',
+    preview: 'كيف نجح فريق الاستجابة في صد هجوم DDoS بقوة 2 تيرابايت في الثانية...',
+    content: '',
+    readTime: '4 دقائق',
+    category: 'كواليس الدفاع',
+    icon: '🔥'
   },
   {
-    id: '4',
-    title: 'Report: 40% Increase in Cyber Attacks on Financial Sector',
-    excerpt: 'Latest statistics on cybersecurity in the Middle East and its impact on digital banking.',
-    category: 'News',
-    date: '2024-05-08',
-    image: 'https://picsum.photos/seed/cyber4/800/400',
-    author: 'Layla Al-Harbi'
+    id: 's2',
+    title: 'صياد الثغرات الصغير',
+    preview: 'قصة مراهق اكتشف ثغرة في أنظمة بنك عالمي وحصل على مكافأة تاريخية.',
+    content: '',
+    readTime: '6 دقائق',
+    category: 'نجاحات',
+    icon: '💎'
+  },
+  {
+    id: 's3',
+    title: 'تحقيق جنائي: بصمة المخترق',
+    preview: 'تتبع خيوط عملية اختراق معقدة بدأت برابط "صيد" بسيط وانتهت بكشف شبكة دولية.',
+    content: '',
+    readTime: '5 دقائق',
+    category: 'تحقيق جنائي',
+    icon: '🔎'
   }
+];
+
+export const NOTIFICATIONS: Notification[] = [
+  { id: 'n1', title: 'تم رصد محاولة دخول غير مصرح بها من عنوان IP مجهول.', time: 'منذ دقيقتين', type: 'alert', unread: true },
+  { id: 'n2', title: 'تحديث أمني جديد متاح لجدار الحماية الخاص بك.', time: 'منذ ساعة', type: 'security', unread: true },
+  { id: 'n3', title: 'نشرة أمنية: اكتشاف ثغرة في أنظمة Linux Kernal.', time: 'منذ 4 ساعات', type: 'update', unread: false }
 ];
 
 export const MOCK_THREATS: ThreatEvent[] = [
