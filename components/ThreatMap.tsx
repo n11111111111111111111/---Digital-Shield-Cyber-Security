@@ -1,224 +1,360 @@
 
-import React, { useState, useEffect } from 'react';
-import { ShieldAlert, Monitor, Maximize2, Crosshair, Terminal, Search, Map as MapIcon, Globe, AlertTriangle, Cpu } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Maximize2, Minimize2, Shield, RotateCcw, AlertTriangle, Crosshair, Terminal, Activity, Zap, Radio } from 'lucide-react';
+import * as d3 from 'd3';
 
-interface LiveAlert {
+interface Attack {
   id: string;
+  sourceName: string;
+  targetName: string;
   type: string;
   severity: 'CRITICAL' | 'HIGH' | 'MEDIUM';
-  target: string;
-  vector: string;
   timestamp: string;
+  color: string;
 }
 
-const COUNTRIES = [
-  'عرض عالمي',
-  'المملكة العربية السعودية',
-  'إسرائيل',
-  'الولايات المتحدة',
-  'روسيا',
-  'الصين',
-  'الإمارات',
-  'ألمانيا',
-  'المملكة المتحدة'
+const CITIES: { name: string; nameAr: string; coords: [number, number] }[] = [
+  { name: 'London', nameAr: 'لندن', coords: [0, 51] },
+  { name: 'New York', nameAr: 'نيويورك', coords: [-74, 40] },
+  { name: 'Beijing', nameAr: 'بكين', coords: [116, 39] },
+  { name: 'Riyadh', nameAr: 'الرياض', coords: [46.7, 24.7] },
+  { name: 'Moscow', nameAr: 'موسكو', coords: [37, 55] },
+  { name: 'Tokyo', nameAr: 'طوكيو', coords: [139, 35] },
+  { name: 'Sydney', nameAr: 'سيدني', coords: [151, -33] },
+  { name: 'Dubai', nameAr: 'دبي', coords: [55, 25] },
+  { name: 'Berlin', nameAr: 'برلين', coords: [13, 52] },
+  { name: 'Paris', nameAr: 'باريس', coords: [2, 48] },
+  { name: 'San Francisco', nameAr: 'سان فرانسيسكو', coords: [-122, 37] },
+  { name: 'Cairo', nameAr: 'القاهرة', coords: [31.2, 30] },
+];
+
+const ATTACK_CONFIGS = [
+  { type: 'هجوم DDoS مكثف', color: '#22d3ee' },
+  { type: 'حقن برمجيات فدية', color: '#a855f7' },
+  { type: 'ثغرة يوم صفر (Zero-Day)', color: '#ef4444' },
+  { type: 'محاولة اختراق SQL', color: '#eab308' },
+  { type: 'هجوم القوة الغاشمة', color: '#f97316' },
+  { type: 'تسلل عبر الأنفاق', color: '#22c55e' }
 ];
 
 const ThreatMap: React.FC = () => {
-  const [selectedCountry, setSelectedCountry] = useState<string>('عرض عالمي');
-  const [alerts, setAlerts] = useState<LiveAlert[]>([]);
-  const [activeNotification, setActiveNotification] = useState<LiveAlert | null>(null);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [liveLog, setLiveLog] = useState<Attack[]>([]);
+  const [activeAlert, setActiveAlert] = useState<Attack | null>(null);
+  const [hoveredCountry, setHoveredCountry] = useState<{name: string, x: number, y: number} | null>(null);
   
-  const mapSources = {
-    kaspersky: "https://cybermap.kaspersky.com/en/widget/",
-  };
+  const mapRef = useRef<HTMLDivElement>(null);
+  const svgRef = useRef<SVGSVGElement>(null);
+  const gRef = useRef<SVGGElement>(null);
 
   useEffect(() => {
-    const alertTypes = [
-      { type: 'هجوم DDoS مكثف', vector: 'UDP Flood' },
-      { type: 'نشر برمجية فدية', vector: 'Encrypted Payload' },
-      { type: 'محاولة اختراق SQLi', vector: 'WAF Bypass' },
-      { type: 'هجوم القوة الغاشمة', vector: 'Auth Failure' },
-      { type: 'حملة تصيد احتيالي', vector: 'SMTP/Email' }
-    ];
+    if (!svgRef.current) return;
 
-    const interval = setInterval(() => {
-      const targetCountry = selectedCountry === 'عرض عالمي' 
-        ? COUNTRIES[Math.floor(Math.random() * (COUNTRIES.length - 1)) + 1]
-        : selectedCountry;
+    const width = 1000;
+    const height = 600;
+    const svg = d3.select(svgRef.current);
+    const g = d3.select(gRef.current);
 
-      const randomType = alertTypes[Math.floor(Math.random() * alertTypes.length)];
-      const severity = (['CRITICAL', 'HIGH', 'MEDIUM'] as const)[Math.floor(Math.random() * 3)];
+    const projection = d3.geoEquirectangular()
+      .scale(160)
+      .translate([width / 2, height / 2]);
+
+    const path = d3.geoPath().projection(projection);
+
+    d3.json('https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson').then((data: any) => {
+      g.selectAll('path')
+        .data(data.features)
+        .enter()
+        .append('path')
+        .attr('d', path as any)
+        .attr('fill', '#05070a')
+        .attr('stroke', '#22d3ee10')
+        .attr('stroke-width', 0.5)
+        .attr('class', 'country-path cursor-crosshair transition-all duration-300')
+        .on('mouseover', function(event, d: any) {
+          d3.select(this).attr('fill', '#0f172a').attr('stroke', '#22d3ee44');
+          setHoveredCountry({
+            name: d.properties.name,
+            x: event.clientX,
+            y: event.clientY
+          });
+        })
+        .on('mousemove', function(event) {
+          setHoveredCountry(prev => prev ? { ...prev, x: event.clientX, y: event.clientY } : null);
+        })
+        .on('mouseout', function() {
+          d3.select(this).attr('fill', '#05070a').attr('stroke', '#22d3ee10');
+          setHoveredCountry(null);
+        });
+
+      // نقاط المدن كنبضات خفيفة جداً
+      CITIES.forEach(city => {
+        const [cx, cy] = projection(city.coords)!;
+        g.append('circle')
+          .attr('cx', cx).attr('cy', cy).attr('r', 1)
+          .attr('fill', '#22d3ee').attr('opacity', 0.3);
+      });
+    });
+
+    const zoom = d3.zoom<SVGSVGElement, unknown>()
+      .scaleExtent([1, 15])
+      .on('zoom', (event) => {
+        g.attr('transform', event.transform);
+      });
+
+    svg.call(zoom);
+
+    const triggerAttack = () => {
+      const source = CITIES[Math.floor(Math.random() * CITIES.length)];
+      let target = CITIES[Math.floor(Math.random() * CITIES.length)];
+      while (target.name === source.name) {
+        target = CITIES[Math.floor(Math.random() * CITIES.length)];
+      }
+
+      const id = Math.random().toString(36).substring(7);
+      const config = ATTACK_CONFIGS[Math.floor(Math.random() * ATTACK_CONFIGS.length)];
+      const severity = config.color === '#ef4444' ? 'CRITICAL' : (Math.random() > 0.6 ? 'HIGH' : 'MEDIUM');
       
-      const newAlert: LiveAlert = {
-        id: Math.random().toString(36).substr(2, 9),
-        type: randomType.type,
-        severity: severity,
-        target: targetCountry,
-        vector: randomType.vector,
-        timestamp: new Date().toLocaleTimeString('ar-EG'),
+      const newAttack: Attack = {
+        id,
+        sourceName: source.nameAr,
+        targetName: target.nameAr,
+        type: config.type,
+        severity,
+        color: config.color,
+        timestamp: new Date().toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
       };
 
-      setAlerts(prev => [newAlert, ...prev].slice(0, 15));
+      setLiveLog(prev => [newAttack, ...prev].slice(0, 15));
 
       if (severity === 'CRITICAL') {
-        setActiveNotification(newAlert);
-        setTimeout(() => setActiveNotification(null), 5000);
+        setActiveAlert(newAttack);
+        setTimeout(() => setActiveAlert(null), 3500);
       }
-    }, 4000);
 
-    return () => clearInterval(interval);
-  }, [selectedCountry]);
+      const [x0, y0] = projection(source.coords)!;
+      const [x1, y1] = projection(target.coords)!;
+      const midX = (x0 + x1) / 2;
+      const midY = Math.min(y0, y1) - (Math.abs(x1 - x0) * 0.25);
 
-  const filteredAlerts = selectedCountry === 'عرض عالمي' 
-    ? alerts 
-    : alerts.filter(a => a.target === selectedCountry);
+      const attackG = g.append('g').attr('class', `attack-group-${id}`);
+
+      // رسم قوس الهجوم (الخطوط السابقة)
+      const arcPath = attackG.append('path')
+        .attr('d', `M${x0},${y0} Q${midX},${midY} ${x1},${y1}`)
+        .attr('fill', 'none')
+        .attr('stroke', config.color)
+        .attr('stroke-width', severity === 'CRITICAL' ? 1.8 : 1.2)
+        .attr('stroke-dasharray', '1000')
+        .attr('stroke-dashoffset', '1000')
+        .style('filter', `drop-shadow(0 0 5px ${config.color})`);
+
+      arcPath.transition()
+        .duration(1500)
+        .ease(d3.easeCubicOut)
+        .attr('stroke-dashoffset', 0)
+        .on('end', () => {
+          // تأثير ارتطام بسيط جداً (نقطة وليس فقاعة)
+          const hit = attackG.append('circle')
+            .attr('cx', x1).attr('cy', y1)
+            .attr('r', 1.5)
+            .attr('fill', config.color);
+            
+          hit.transition()
+            .duration(1000)
+            .attr('r', 6)
+            .attr('opacity', 0)
+            .remove();
+
+          setTimeout(() => {
+            attackG.transition().duration(800).style('opacity', 0).remove();
+          }, 1000);
+        });
+    };
+
+    const interval = setInterval(triggerAttack, 1000);
+    return () => {
+      clearInterval(interval);
+      svg.on('.zoom', null);
+    };
+  }, []);
+
+  const toggleFullscreen = () => {
+    if (!document.fullscreenElement) {
+      mapRef.current?.requestFullscreen();
+      setIsFullscreen(true);
+    } else {
+      document.exitFullscreen();
+      setIsFullscreen(false);
+    }
+  };
+
+  const resetZoom = () => {
+    if (svgRef.current) {
+      d3.select(svgRef.current)
+        .transition()
+        .duration(750)
+        .call(d3.zoom<SVGSVGElement, unknown>().transform, d3.zoomIdentity);
+    }
+  };
 
   return (
-    <div id="threats" className="py-24 bg-slate-950 relative overflow-hidden">
-      {/* Critical Alert Toast */}
-      <div className={`fixed top-24 left-1/2 -translate-x-1/2 z-[100] transition-all duration-500 transform ${activeNotification ? 'translate-y-0 opacity-100' : '-translate-y-20 opacity-0 pointer-events-none'}`}>
-        <div className="bg-red-600/90 backdrop-blur-xl border border-red-400 text-white px-6 py-4 rounded shadow-[0_0_30px_rgba(239,68,68,0.4)] flex items-center gap-4 min-w-[340px]">
-          <div className="bg-white/20 p-2 rounded animate-pulse">
-            <AlertTriangle className="w-6 h-6" />
-          </div>
-          <div>
-            <div className="text-[10px] font-black uppercase tracking-widest opacity-80">SOC: تنبيه حرج</div>
-            <div className="font-bold text-lg leading-tight">{activeNotification?.type}</div>
-            <div className="text-xs opacity-90 mt-1">المستهدف: {activeNotification?.target}</div>
-          </div>
-        </div>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div id="threats" className="py-12 bg-slate-950 relative overflow-hidden">
+      <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(6,182,212,0.03),transparent_70%)] pointer-events-none"></div>
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Header Section */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-6">
-          <div className="text-right">
-            <div className="flex items-center gap-2 text-cyan-500 mb-2">
-              <div className="w-2 h-2 bg-cyan-500 rounded-full animate-ping"></div>
-              <span className="text-[10px] font-black uppercase tracking-[0.2em] mono">رادار الاستخبارات نشط</span>
-            </div>
-            <h2 className="text-3xl font-black text-white">متعقب <span className="text-cyan-400">التهديدات الجغرافية</span></h2>
+        {/* Tooltip */}
+        {hoveredCountry && (
+          <div 
+            className="fixed z-[200] pointer-events-none bg-slate-900/95 border border-cyan-500/30 px-3 py-1 rounded shadow-2xl backdrop-blur-md flex items-center gap-2"
+            style={{ left: hoveredCountry.x + 15, top: hoveredCountry.y + 15 }}
+          >
+            <div className="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse"></div>
+            <span className="text-white font-bold text-xs uppercase tracking-tighter mono">{hoveredCountry.name}</span>
           </div>
+        )}
 
-          <div className="flex flex-col md:flex-row items-center gap-4 w-full md:w-auto">
-            <div className="relative group w-full md:w-72">
-              <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-cyan-500">
-                <Search className="w-4 h-4" />
-              </div>
-              <select 
-                value={selectedCountry}
-                onChange={(e) => setSelectedCountry(e.target.value)}
-                className="block w-full bg-slate-900 border border-cyan-500/20 text-cyan-400 text-xs font-bold rounded-sm py-3 pr-10 pl-4 focus:outline-none focus:border-cyan-500 transition-all appearance-none cursor-pointer"
-              >
-                {COUNTRIES.map(c => (
-                  <option key={c} value={c}>{c}</option>
-                ))}
-              </select>
+        {/* تنبيه حرج */}
+        <div className={`fixed top-24 left-1/2 -translate-x-1/2 z-[150] transition-all duration-500 transform ${activeAlert ? 'translate-y-0 opacity-100' : '-translate-y-20 opacity-0 pointer-events-none'}`}>
+          <div className="bg-slate-900/90 backdrop-blur-xl border border-red-500/30 text-white px-6 py-3 rounded shadow-[0_0_30px_rgba(239,68,68,0.2)] flex items-center gap-4 min-w-[320px]">
+            <Zap className="w-6 h-6 text-red-500 animate-pulse" />
+            <div>
+              <div className="text-[9px] font-black uppercase tracking-widest text-red-400">تهديد نشط حرج</div>
+              <div className="font-bold text-base leading-tight">{activeAlert?.type}</div>
+              <div className="text-[10px] text-slate-400 mt-0.5">الهدف: {activeAlert?.targetName}</div>
             </div>
           </div>
         </div>
 
-        {/* HUD UI */}
-        <div className="grid lg:grid-cols-4 gap-1 border border-cyan-500/10 bg-cyan-500/5 rounded-sm overflow-hidden">
+        <div className="flex flex-col lg:flex-row gap-5 h-[720px]">
           
-          {/* Sidebar Feed */}
-          <div className="lg:col-span-1 bg-slate-950 flex flex-col h-[600px] border-l border-cyan-500/10">
-            <div className="p-4 bg-slate-900 border-b border-cyan-500/10 flex items-center justify-between">
-              <span className="text-[10px] font-black text-cyan-500 uppercase flex items-center gap-2">
-                <Terminal className="w-3 h-3" />
-                تحليل حي
-              </span>
-              <div className="flex items-center gap-1.5 px-2 py-0.5 border border-cyan-500/20 bg-cyan-500/5 rounded">
-                 <Cpu className="w-2.5 h-2.5 text-cyan-400" />
-                 <span className="text-[9px] text-cyan-400 font-mono">SOC_V4</span>
-              </div>
+          {/* سجل الرصد (يسار) */}
+          <div className="w-full lg:w-72 h-full flex flex-col bg-slate-900/30 border border-slate-800/50 rounded-lg overflow-hidden backdrop-blur-sm">
+            <div className="bg-slate-900/50 p-3.5 border-b border-slate-800/50 flex items-center justify-between">
+              <h3 className="text-xs font-black text-cyan-500 flex items-center gap-2 uppercase tracking-widest">
+                <Terminal className="w-4 h-4" />
+                رصد البيانات
+              </h3>
+              <div className="w-2 h-2 bg-red-500 rounded-full animate-ping"></div>
             </div>
             
-            <div className="flex-1 overflow-y-auto p-4 space-y-3">
-              {filteredAlerts.length > 0 ? (
-                filteredAlerts.map((alert) => (
-                  <div key={alert.id} className="p-3 border border-cyan-500/10 bg-cyan-500/5 hover:bg-cyan-500/10 transition-all group">
-                    <div className="flex justify-between items-center mb-2">
-                      <span className={`text-[9px] font-black px-1.5 py-0.5 border ${
-                        alert.severity === 'CRITICAL' ? 'border-red-500 text-red-500 bg-red-500/10' :
-                        alert.severity === 'HIGH' ? 'border-orange-500 text-orange-500 bg-orange-500/10' :
-                        'border-cyan-500 text-cyan-500 bg-cyan-500/10'
-                      }`}>
-                        {alert.severity}
-                      </span>
-                      <span className="text-[9px] text-cyan-700 font-mono">{alert.timestamp}</span>
-                    </div>
-                    <div className="text-[11px] font-bold text-cyan-100 mb-1">{alert.type}</div>
-                    <div className="flex items-center gap-2 text-[10px] text-cyan-500/70 italic">
-                      <Crosshair className="w-3 h-3" />
-                      <span>{alert.target}</span>
-                    </div>
+            <div className="flex-1 overflow-y-auto p-3 space-y-2.5 custom-scrollbar">
+              {liveLog.map((log) => (
+                <div key={log.id} className="group relative border-r-2 pr-3 py-2 bg-slate-900/40 rounded-sm animate-fade-in hover:bg-slate-800/50 transition-colors" style={{ borderRightColor: log.color }}>
+                  <div className="flex justify-between items-center mb-1 text-[9px]">
+                    <span className="text-slate-500 mono">{log.timestamp}</span>
+                    <span className="font-black" style={{ color: log.color }}>{log.severity}</span>
                   </div>
-                ))
-              ) : (
-                <div className="h-full flex flex-col items-center justify-center opacity-30">
-                  <Globe className="w-12 h-12 text-cyan-500 mb-4 animate-spin-slow" />
-                  <p className="text-[10px] text-cyan-500 font-bold uppercase tracking-widest text-center px-4">
-                    بانتظار البيانات لـ {selectedCountry}...
-                  </p>
+                  <div className="text-[11px] text-white font-bold truncate leading-tight">
+                    {log.type}
+                  </div>
+                  <div className="text-[9px] text-slate-400 mt-1 flex items-center gap-1.5">
+                    <span className="truncate max-w-[70px]">{log.sourceName}</span>
+                    <span className="opacity-20 text-cyan-400">→</span>
+                    <span className="font-bold text-slate-300 truncate max-w-[70px]">{log.targetName}</span>
+                  </div>
                 </div>
-              )}
-            </div>
-            
-            <div className="p-3 bg-cyan-500/5 text-center border-t border-cyan-500/10">
-               <span className="text-[9px] text-cyan-700 font-bold uppercase tracking-widest">Developed by Abbas Habib</span>
+              ))}
             </div>
           </div>
 
-          {/* Main Map Viewer */}
-          <div className="lg:col-span-3 relative h-[600px] bg-black group">
-            <div className="absolute top-4 left-4 z-20">
-               <div className="px-3 py-1.5 bg-slate-950/90 border border-cyan-500/40 backdrop-blur-xl text-[10px] text-cyan-400 font-black tracking-widest uppercase flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-cyan-500 animate-pulse"></div>
-                  Developed by Abbas Habib
-               </div>
-            </div>
-
-            <div className="absolute top-4 right-4 z-10 space-y-2 pointer-events-none">
-              <div className="flex items-center gap-2 px-3 py-1.5 bg-slate-950/80 border border-cyan-500/20 backdrop-blur-md rounded-sm">
-                <Monitor className="w-3 h-3 text-cyan-500" />
-                <span className="text-[10px] text-cyan-400 font-black uppercase">التشفير: SSL 256-Bit</span>
+          {/* الخريطة (يمين) */}
+          <div 
+            ref={mapRef}
+            className={`flex-1 relative bg-[#02050a] border border-cyan-500/10 rounded-lg overflow-hidden transition-all duration-500 shadow-2xl ${
+              isFullscreen ? 'fixed inset-0 z-[200] rounded-none' : ''
+            }`}
+          >
+            {/* أيقونة المطور (مصغرة جداً كما هو مطلوب) */}
+            <div className="absolute top-4 right-4 z-30 flex items-center gap-2.5 bg-slate-950/80 p-1.5 px-2.5 backdrop-blur-md border border-cyan-500/20 rounded shadow-lg">
+              <div className="flex flex-col items-end">
+                <span className="text-[6px] text-cyan-500/40 font-bold tracking-[0.4em] uppercase mono">Lead</span>
+                <span className="text-[11px] font-black text-white glow-text mono">Abbas Habib</span>
+              </div>
+              <div className="w-6 h-6 border border-cyan-500/20 rounded flex items-center justify-center bg-cyan-500/5">
+                <Shield className="w-3.5 h-3.5 text-cyan-400/80" />
               </div>
             </div>
 
-            <iframe 
-              src={mapSources.kaspersky} 
-              className="w-full h-full border-none grayscale contrast-125 opacity-70"
-              title="Global Threat Intelligence"
-            ></iframe>
+            {/* أزرار التحكم */}
+            <div className="absolute bottom-4 right-4 z-30 flex flex-col gap-2">
+              <button 
+                onClick={toggleFullscreen}
+                className="p-2 bg-slate-900/80 border border-slate-800 text-cyan-500/70 hover:bg-cyan-600 hover:text-white transition-all rounded"
+              >
+                {isFullscreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
+              </button>
+              <button 
+                onClick={resetZoom}
+                className="p-2 bg-slate-900/80 border border-slate-800 text-cyan-500/70 hover:bg-cyan-600 hover:text-white transition-all rounded"
+              >
+                <RotateCcw className="w-4 h-4" />
+              </button>
+            </div>
 
-            <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-cyan-500/5 via-transparent to-transparent h-24 animate-scanline"></div>
+            <svg 
+              ref={svgRef} 
+              viewBox="0 0 1000 600" 
+              preserveAspectRatio="xMidYMid slice"
+              className="w-full h-full cursor-crosshair outline-none"
+            >
+              <rect width="1000" height="600" fill="transparent" />
+              <g ref={gRef}></g>
+            </svg>
+
+            {/* تأثير المسح الراداري */}
+            <div className="absolute inset-0 pointer-events-none opacity-5">
+              <div className="h-[1px] bg-cyan-400 w-full absolute animate-radar-scan shadow-[0_0_10px_rgba(34,211,238,0.5)]"></div>
+            </div>
+
+            {/* زوايا ديكور */}
+            <div className="absolute top-0 left-0 w-10 h-10 border-t border-l border-cyan-500/10 pointer-events-none"></div>
+            <div className="absolute bottom-0 right-0 w-10 h-10 border-b border-r border-cyan-500/10 pointer-events-none"></div>
           </div>
         </div>
 
-        <div className="mt-8 flex items-center gap-4 p-4 border border-cyan-500/10 bg-cyan-500/5">
-          <ShieldAlert className="w-5 h-5 text-cyan-400 shrink-0" />
-          <p className="text-[11px] text-cyan-500/70 leading-relaxed font-bold italic">
-            ملاحظة استراتيجية: جميع البيانات مستمدة من حساسات عالمية حية. التنبيهات الحرجة تفعل التتبع الفوري عبر الأقمار الصناعية. السجل الجانبي متزامن مع الدولة المختارة: <span className="text-cyan-400">{selectedCountry}</span>.
-          </p>
+        {/* حالة النظام السفلية */}
+        <div className="mt-5 flex flex-wrap justify-between items-center text-[9px] text-slate-700 font-bold uppercase tracking-[0.3em] px-2 gap-4">
+          <div className="flex gap-6">
+            <span className="flex items-center gap-1.5"><Activity className="w-3 h-3" /> System Load: 14%</span>
+            <span className="flex items-center gap-1.5"><Terminal className="w-3 h-3" /> Grid: Active</span>
+          </div>
+          <div className="flex items-center gap-2 opacity-50">
+            <Shield className="w-3 h-3" />
+            <span>Digital Shield • Abbas Habib</span>
+          </div>
         </div>
       </div>
 
       <style>{`
-        .animate-scanline {
-          animation: scanline 4s linear infinite;
+        @keyframes radar-scan {
+          from { top: -2%; }
+          to { top: 102%; }
         }
-        @keyframes scanline {
-          0% { top: -100px; }
-          100% { top: 100%; }
+        .animate-radar-scan {
+          animation: radar-scan 16s linear infinite;
         }
-        .animate-spin-slow {
-          animation: spin 10s linear infinite;
+        @keyframes fade-in {
+          from { opacity: 0; transform: translateX(10px); }
+          to { opacity: 1; transform: translateX(0); }
         }
-        @keyframes spin {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
+        .animate-fade-in {
+          animation: fade-in 0.3s ease-out forwards;
+        }
+        .glow-text {
+          text-shadow: 0 0 10px rgba(34, 211, 238, 0.5);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 3px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: rgba(34, 211, 238, 0.1);
+          border-radius: 10px;
+        }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+        .country-path:hover {
+          filter: drop-shadow(0 0 5px rgba(34, 211, 238, 0.2));
         }
       `}</style>
     </div>
