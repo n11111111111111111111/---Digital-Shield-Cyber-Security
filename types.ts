@@ -40,3 +40,13 @@ export interface Notification {
   type: 'alert' | 'update' | 'security';
   unread: boolean;
 }
+
+export interface CommunityPost {
+  id: string;
+  author: string;
+  rank: string;
+  title: string;
+  content: string;
+  timestamp: string;
+  tag: string;
+}

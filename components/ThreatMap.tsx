@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Maximize2, Minimize2, Shield, RotateCcw, AlertTriangle, Crosshair, Terminal, Activity, Zap, Radio } from 'lucide-react';
+import { Maximize2, Minimize2, Shield, RotateCcw, AlertTriangle, Crosshair, Terminal, Activity, Zap, Radio, ShieldAlert, Cpu, Flame, Skull } from 'lucide-react';
 import * as d3 from 'd3';
 
 interface Attack {
@@ -87,7 +87,6 @@ const ThreatMap: React.FC = () => {
           setHoveredCountry(null);
         });
 
-      // نقاط المدن كنبضات خفيفة جداً
       CITIES.forEach(city => {
         const [cx, cy] = projection(city.coords)!;
         g.append('circle')
@@ -129,7 +128,7 @@ const ThreatMap: React.FC = () => {
 
       if (severity === 'CRITICAL') {
         setActiveAlert(newAttack);
-        setTimeout(() => setActiveAlert(null), 3500);
+        setTimeout(() => setActiveAlert(null), 5000);
       }
 
       const [x0, y0] = projection(source.coords)!;
@@ -139,7 +138,6 @@ const ThreatMap: React.FC = () => {
 
       const attackG = g.append('g').attr('class', `attack-group-${id}`);
 
-      // رسم قوس الهجوم (الخطوط السابقة)
       const arcPath = attackG.append('path')
         .attr('d', `M${x0},${y0} Q${midX},${midY} ${x1},${y1}`)
         .attr('fill', 'none')
@@ -154,7 +152,6 @@ const ThreatMap: React.FC = () => {
         .ease(d3.easeCubicOut)
         .attr('stroke-dashoffset', 0)
         .on('end', () => {
-          // تأثير ارتطام بسيط جداً (نقطة وليس فقاعة)
           const hit = attackG.append('circle')
             .attr('cx', x1).attr('cy', y1)
             .attr('r', 1.5)
@@ -172,7 +169,7 @@ const ThreatMap: React.FC = () => {
         });
     };
 
-    const interval = setInterval(triggerAttack, 1000);
+    const interval = setInterval(triggerAttack, 1200);
     return () => {
       clearInterval(interval);
       svg.on('.zoom', null);
@@ -180,8 +177,9 @@ const ThreatMap: React.FC = () => {
   }, []);
 
   const toggleFullscreen = () => {
+    if (!mapRef.current) return;
     if (!document.fullscreenElement) {
-      mapRef.current?.requestFullscreen();
+      mapRef.current.requestFullscreen();
       setIsFullscreen(true);
     } else {
       document.exitFullscreen();
@@ -199,34 +197,57 @@ const ThreatMap: React.FC = () => {
   };
 
   return (
-    <div id="threats" className="py-12 bg-slate-950 relative overflow-hidden">
+    <div id="threats" className="py-12 bg-slate-950 relative">
       <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(6,182,212,0.03),transparent_70%)] pointer-events-none"></div>
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
-        {/* Tooltip */}
-        {hoveredCountry && (
-          <div 
-            className="fixed z-[200] pointer-events-none bg-slate-900/95 border border-cyan-500/30 px-3 py-1 rounded shadow-2xl backdrop-blur-md flex items-center gap-2"
-            style={{ left: hoveredCountry.x + 15, top: hoveredCountry.y + 15 }}
-          >
-            <div className="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse"></div>
-            <span className="text-white font-bold text-xs uppercase tracking-tighter mono">{hoveredCountry.name}</span>
-          </div>
-        )}
-
-        {/* تنبيه حرج */}
-        <div className={`fixed top-24 left-1/2 -translate-x-1/2 z-[150] transition-all duration-500 transform ${activeAlert ? 'translate-y-0 opacity-100' : '-translate-y-20 opacity-0 pointer-events-none'}`}>
-          <div className="bg-slate-900/90 backdrop-blur-xl border border-red-500/30 text-white px-6 py-3 rounded shadow-[0_0_30px_rgba(239,68,68,0.2)] flex items-center gap-4 min-w-[320px]">
-            <Zap className="w-6 h-6 text-red-500 animate-pulse" />
-            <div>
-              <div className="text-[9px] font-black uppercase tracking-widest text-red-400">تهديد نشط حرج</div>
-              <div className="font-bold text-base leading-tight">{activeAlert?.type}</div>
-              <div className="text-[10px] text-slate-400 mt-0.5">الهدف: {activeAlert?.targetName}</div>
+      {/* ⚠️ إشعار التهديد الحرج - الحجم المصغر (Sleek Mode) */}
+      <div className={`fixed top-32 left-1/2 -translate-x-1/2 z-[9999] transition-all duration-700 transform pointer-events-auto ${activeAlert ? 'translate-y-0 opacity-100 scale-100' : '-translate-y-64 opacity-0 scale-90 pointer-events-none'}`}>
+        <div className="relative group">
+          {/* تأثيرات الضوء المحيطي المصغرة */}
+          <div className="absolute -inset-3 bg-red-600/20 blur-2xl rounded-xl animate-pulse"></div>
+          
+          <div className="relative bg-[#0d0202]/95 backdrop-blur-3xl border border-red-500/50 px-6 py-4 rounded-xl shadow-[0_0_60px_rgba(239,68,68,0.3)] flex items-center gap-6 min-w-[380px] max-w-[420px] overflow-hidden">
+            
+            {/* أنيميشن الرادار الداخلي */}
+            <div className="absolute inset-0 bg-[linear-gradient(rgba(239,68,68,0)_0%,rgba(239,68,68,0.1)_50%,rgba(239,68,68,0)_100%)] h-10 w-full -translate-y-full animate-radar-scan opacity-40"></div>
+            
+            {/* أيقونة التنبيه المصغرة */}
+            <div className="relative shrink-0">
+              <div className="absolute inset-0 bg-red-600/30 blur-xl rounded-full animate-ping"></div>
+              <div className="relative w-12 h-12 bg-red-950/60 border border-red-500/60 rounded-lg flex items-center justify-center rotate-3 group-hover:rotate-0 transition-transform">
+                <Skull className="w-7 h-7 text-red-500" />
+              </div>
             </div>
+
+            <div className="text-right flex-1 relative">
+              <div className="flex items-center justify-end gap-2 mb-1">
+                 <div className="flex items-center gap-1.5 px-2 py-0.5 bg-red-600/20 border border-red-500/30 rounded text-[8px] font-black uppercase tracking-[0.2em] text-red-400 animate-pulse">
+                   <Flame className="w-3 h-3" />
+                   CRITICAL BREACH
+                 </div>
+                 <AlertTriangle className="w-3.5 h-3.5 text-red-500" />
+              </div>
+              
+              <h4 className="text-lg font-black text-white leading-tight mb-1.5 tracking-tighter italic uppercase text-shadow-red">
+                {activeAlert?.type}
+              </h4>
+              
+              <div className="flex items-center justify-end gap-4 text-[11px] font-bold text-slate-300">
+                <span className="flex items-center gap-1.5"><Crosshair className="w-3 h-3 text-red-600" /> {activeAlert?.targetName}</span>
+                <span className="bg-red-600/20 text-red-400 px-2 py-0.5 rounded border border-red-500/30 mono font-black">
+                  {activeAlert?.timestamp}
+                </span>
+              </div>
+            </div>
+
+            {/* الحواف التزيينية المصغرة */}
+            <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-red-500/60"></div>
+            <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-red-500/60"></div>
           </div>
         </div>
+      </div>
 
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="flex flex-col lg:flex-row gap-5 h-[720px]">
           
           {/* سجل الرصد (يسار) */}
@@ -266,7 +287,6 @@ const ThreatMap: React.FC = () => {
               isFullscreen ? 'fixed inset-0 z-[200] rounded-none' : ''
             }`}
           >
-            {/* أيقونة المطور (مصغرة جداً كما هو مطلوب) */}
             <div className="absolute top-4 right-4 z-30 flex items-center gap-2.5 bg-slate-950/80 p-1.5 px-2.5 backdrop-blur-md border border-cyan-500/20 rounded shadow-lg">
               <div className="flex flex-col items-end">
                 <span className="text-[6px] text-cyan-500/40 font-bold tracking-[0.4em] uppercase mono">Lead</span>
@@ -277,85 +297,48 @@ const ThreatMap: React.FC = () => {
               </div>
             </div>
 
-            {/* أزرار التحكم */}
             <div className="absolute bottom-4 right-4 z-30 flex flex-col gap-2">
-              <button 
-                onClick={toggleFullscreen}
-                className="p-2 bg-slate-900/80 border border-slate-800 text-cyan-500/70 hover:bg-cyan-600 hover:text-white transition-all rounded"
-              >
+              <button onClick={toggleFullscreen} className="p-2 bg-slate-900/80 border border-slate-800 text-cyan-500/70 hover:bg-cyan-600 hover:text-white transition-all rounded">
                 {isFullscreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
               </button>
-              <button 
-                onClick={resetZoom}
-                className="p-2 bg-slate-900/80 border border-slate-800 text-cyan-500/70 hover:bg-cyan-600 hover:text-white transition-all rounded"
-              >
+              <button onClick={resetZoom} className="p-2 bg-slate-900/80 border border-slate-800 text-cyan-500/70 hover:bg-cyan-600 hover:text-white transition-all rounded">
                 <RotateCcw className="w-4 h-4" />
               </button>
             </div>
 
-            <svg 
-              ref={svgRef} 
-              viewBox="0 0 1000 600" 
-              preserveAspectRatio="xMidYMid slice"
-              className="w-full h-full cursor-crosshair outline-none"
-            >
+            <svg ref={svgRef} viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice" className="w-full h-full cursor-crosshair outline-none">
               <rect width="1000" height="600" fill="transparent" />
               <g ref={gRef}></g>
             </svg>
 
-            {/* تأثير المسح الراداري */}
             <div className="absolute inset-0 pointer-events-none opacity-5">
-              <div className="h-[1px] bg-cyan-400 w-full absolute animate-radar-scan shadow-[0_0_10px_rgba(34,211,238,0.5)]"></div>
+              <div className="h-[1px] bg-cyan-400 w-full absolute animate-radar-scan-map"></div>
             </div>
-
-            {/* زوايا ديكور */}
-            <div className="absolute top-0 left-0 w-10 h-10 border-t border-l border-cyan-500/10 pointer-events-none"></div>
-            <div className="absolute bottom-0 right-0 w-10 h-10 border-b border-r border-cyan-500/10 pointer-events-none"></div>
-          </div>
-        </div>
-
-        {/* حالة النظام السفلية */}
-        <div className="mt-5 flex flex-wrap justify-between items-center text-[9px] text-slate-700 font-bold uppercase tracking-[0.3em] px-2 gap-4">
-          <div className="flex gap-6">
-            <span className="flex items-center gap-1.5"><Activity className="w-3 h-3" /> System Load: 14%</span>
-            <span className="flex items-center gap-1.5"><Terminal className="w-3 h-3" /> Grid: Active</span>
-          </div>
-          <div className="flex items-center gap-2 opacity-50">
-            <Shield className="w-3 h-3" />
-            <span>Digital Shield • Abbas Habib</span>
           </div>
         </div>
       </div>
 
       <style>{`
         @keyframes radar-scan {
-          from { top: -2%; }
-          to { top: 102%; }
+          0% { transform: translateY(-50px); }
+          100% { transform: translateY(200px); }
+        }
+        @keyframes radar-scan-map {
+          0% { top: 0; }
+          100% { top: 100%; }
         }
         .animate-radar-scan {
-          animation: radar-scan 16s linear infinite;
+          animation: radar-scan 4s linear infinite;
         }
-        @keyframes fade-in {
-          from { opacity: 0; transform: translateX(10px); }
-          to { opacity: 1; transform: translateX(0); }
+        .animate-radar-scan-map {
+          animation: radar-scan-map 8s linear infinite;
         }
-        .animate-fade-in {
-          animation: fade-in 0.3s ease-out forwards;
-        }
-        .glow-text {
-          text-shadow: 0 0 10px rgba(34, 211, 238, 0.5);
-        }
-        .custom-scrollbar::-webkit-scrollbar {
-          width: 3px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: rgba(34, 211, 238, 0.1);
-          border-radius: 10px;
+        .text-shadow-red {
+          text-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
         }
         .mono { font-family: 'JetBrains Mono', monospace; }
-        .country-path:hover {
-          filter: drop-shadow(0 0 5px rgba(34, 211, 238, 0.2));
-        }
+        .custom-scrollbar::-webkit-scrollbar { width: 3px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(34, 211, 238, 0.1); border-radius: 10px; }
       `}</style>
     </div>
   );

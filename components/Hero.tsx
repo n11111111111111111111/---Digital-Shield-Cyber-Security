@@ -1,57 +1,63 @@
 
 import React from 'react';
-import { Terminal, ShieldCheck, Zap } from 'lucide-react';
+import { Terminal, ShieldCheck, Zap, Radio } from 'lucide-react';
 
 const Hero: React.FC = () => {
   return (
-    <div className="relative overflow-hidden pt-16 pb-32 cyber-grid">
+    <div className="relative overflow-hidden pt-20 pb-40 cyber-grid">
       <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-transparent to-slate-950"></div>
       
+      {/* Animated Scan Line */}
+      <div className="absolute inset-0 pointer-events-none opacity-10">
+        <div className="h-full w-[1px] bg-cyan-400 absolute left-1/2 -translate-x-1/2 animate-scan"></div>
+      </div>
+
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-bold uppercase tracking-widest mb-8 animate-pulse">
-          <Zap className="w-4 h-4" />
-          مستقبل الحماية يبدأ من هنا
+        <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-sm bg-cyan-500/5 border border-cyan-500/20 text-cyan-400 text-[10px] font-black uppercase tracking-[0.4em] mb-10 animate-pulse">
+          <Radio className="w-4 h-4" />
+          Intel Gathering System: Active
         </div>
         
-        <h1 className="text-5xl md:text-7xl font-black text-white mb-6 leading-tight tracking-tight">
-          حماية <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">أفقك الرقمي</span> <br />
-          ضد تهديدات الغد
+        <h1 className="text-6xl md:text-8xl font-black text-white mb-8 leading-tight tracking-tighter italic">
+          حماية <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-400 animate-gradient-x">أفقك الرقمي</span>
         </h1>
         
-        <p className="max-w-2xl mx-auto text-slate-400 text-lg md:text-xl mb-12 leading-relaxed">
-          الدرع الرقمي هو وجهتك الأساسية لتعلم الأمن السيبراني، تتبع الحوادث العالمية، والحصول على استشارات أمنية مدعومة بالذكاء الاصطناعي.
+        <p className="max-w-3xl mx-auto text-slate-400 text-xl md:text-2xl mb-16 leading-relaxed font-light">
+          الدرع الرقمي هو منصتك المركزية لاستخبارات التهديدات، تتبع الحوادث العالمية الحية، والتحليل الأمني المتقدم المدعوم بالذكاء الاصطناعي.
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <button className="bg-cyan-600 hover:bg-cyan-500 text-white px-8 py-4 rounded-sm font-bold text-lg transition-all flex items-center justify-center gap-2 glow-cyan group">
-            <ShieldCheck className="w-5 h-5 group-hover:scale-110 transition-transform" />
-            ابدأ التعلم
-          </button>
-          <button className="bg-slate-800 hover:bg-slate-700 text-white px-8 py-4 rounded-sm font-bold text-lg transition-all flex items-center justify-center gap-2 border border-slate-700">
-            <Terminal className="w-5 h-5" />
+        <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+          <button className="min-w-[220px] bg-slate-900/50 hover:bg-slate-800 text-white px-10 py-5 rounded-sm font-black text-lg transition-all flex items-center justify-center gap-3 border border-slate-700 hover:border-cyan-500/50 group backdrop-blur-md">
+            <Terminal className="w-6 h-6 text-cyan-500 group-hover:animate-pulse" />
             استشارة ذكية
           </button>
-        </div>
-
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-24 border-t border-slate-800 pt-12">
-          <div>
-            <div className="text-3xl font-black text-white glow-text">500K+</div>
-            <div className="text-slate-500 text-sm mt-1 uppercase font-bold tracking-wider">تهديد تم رصده</div>
-          </div>
-          <div>
-            <div className="text-3xl font-black text-white glow-text">150+</div>
-            <div className="text-slate-500 text-sm mt-1 uppercase font-bold tracking-wider">دورة احترافية</div>
-          </div>
-          <div>
-            <div className="text-3xl font-black text-white glow-text">50K+</div>
-            <div className="text-slate-500 text-sm mt-1 uppercase font-bold tracking-wider">خبير نشط</div>
-          </div>
-          <div>
-            <div className="text-3xl font-black text-white glow-text">24/7</div>
-            <div className="text-slate-500 text-sm mt-1 uppercase font-bold tracking-wider">دعم فني</div>
-          </div>
+          
+          <a href="#threats" className="min-w-[220px] bg-cyan-600 hover:bg-cyan-500 text-white px-10 py-5 rounded-sm font-black text-lg transition-all flex items-center justify-center gap-3 glow-cyan group">
+            <ShieldCheck className="w-6 h-6 group-hover:scale-110 transition-transform" />
+            رصد التهديدات
+          </a>
         </div>
       </div>
+
+      <style>{`
+        @keyframes scan {
+          0% { left: 0; opacity: 0; }
+          50% { opacity: 0.5; }
+          100% { left: 100%; opacity: 0; }
+        }
+        .animate-scan {
+          animation: scan 8s linear infinite;
+        }
+        @keyframes gradient-x {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+        .animate-gradient-x {
+          background-size: 200% 200%;
+          animation: gradient-x 15s ease infinite;
+        }
+      `}</style>
     </div>
   );
 };
