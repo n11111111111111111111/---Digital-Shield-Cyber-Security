@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Shield, Menu, X, Bell, Search, Info } from 'lucide-react';
+import { Shield, Menu, X, Bell, Search } from 'lucide-react';
 import { NOTIFICATIONS } from '../constants';
 
 const Navbar: React.FC = () => {
@@ -21,7 +21,6 @@ const Navbar: React.FC = () => {
               <a href="#" className="text-cyan-400 px-3 py-2 text-sm font-bold uppercase tracking-widest border-b-2 border-cyan-400">الرئيسية</a>
               <a href="#news" className="text-slate-300 hover:text-cyan-400 transition-colors px-3 py-2 text-sm font-bold">الأخبار</a>
               <a href="#stories" className="text-slate-300 hover:text-cyan-400 transition-colors px-3 py-2 text-sm font-bold">قصص سيبرانية</a>
-              <a href="#academy" className="text-slate-300 hover:text-cyan-400 transition-colors px-3 py-2 text-sm font-bold">الأكاديمية</a>
               <a href="#threats" className="text-slate-300 hover:text-cyan-400 transition-colors px-3 py-2 text-sm font-bold">خريطة التهديدات</a>
             </div>
           </div>
@@ -31,7 +30,6 @@ const Navbar: React.FC = () => {
               <Search className="w-5 h-5" />
             </button>
             
-            {/* Notification System */}
             <div className="relative">
               <button 
                 onClick={() => setShowNotifications(!showNotifications)}
@@ -84,7 +82,6 @@ const Navbar: React.FC = () => {
           <a href="#" className="block text-cyan-400 px-3 py-2 rounded-md text-base font-bold">الرئيسية</a>
           <a href="#news" className="block text-slate-300 hover:text-cyan-400 px-3 py-2 rounded-md text-base font-bold">الأخبار</a>
           <a href="#stories" className="block text-slate-300 hover:text-cyan-400 px-3 py-2 rounded-md text-base font-bold">قصص سيبرانية</a>
-          <a href="#academy" className="block text-slate-300 hover:text-cyan-400 px-3 py-2 rounded-md text-base font-bold">الأكاديمية</a>
           <a href="#threats" className="block text-slate-300 hover:text-cyan-400 px-3 py-2 rounded-md text-base font-bold">خريطة التهديدات</a>
         </div>
       )}
