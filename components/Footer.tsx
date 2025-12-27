@@ -1,106 +1,149 @@
 
 import React from 'react';
-import { Shield, Twitter, Linkedin, Github, Mail, Code2, Facebook, MessageSquare, Send, Instagram, Video } from 'lucide-react';
+import { Waves, Code2, Send, Linkedin, Twitter, LayoutGrid, ShieldCheck, Zap, Globe, Github } from 'lucide-react';
+import { AppView } from '../App';
 
-const Footer: React.FC = () => {
+interface FooterProps {
+  onNavigate: (view: AppView) => void;
+}
+
+const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   return (
-    <footer className="bg-slate-950 border-t border-slate-900 pt-24 pb-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-16 mb-20">
+    <footer className="bg-slate-950 border-t border-slate-900 pt-24 pb-12 relative overflow-hidden">
+      {/* Decorative background element */}
+      <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent"></div>
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="grid md:grid-cols-4 gap-12 mb-20 text-right">
           
-          {/* Main Info - Right Side (RTL Focus) */}
-          <div className="lg:col-span-1 text-right order-1">
-            <div className="flex items-center justify-start gap-3 mb-8 flex-row-reverse">
-              <Shield className="w-10 h-10 text-cyan-400 glow-text" />
-              <span className="text-2xl font-black text-white italic uppercase tracking-tighter">الدرع<span className="text-cyan-400">الرقمي</span></span>
+          {/* Brand Column */}
+          <div className="md:col-span-1 space-y-6">
+            <div className="flex items-center justify-end gap-3 cursor-pointer group" onClick={() => onNavigate('home')}>
+              <span className="text-2xl font-black text-white italic tracking-tighter group-hover:text-cyan-400 transition-colors">
+                دجلة<span className="text-cyan-400">سايبر</span>
+              </span>
+              <div className="p-2 bg-cyan-500/10 rounded-xl border border-cyan-500/20 group-hover:scale-110 transition-transform">
+                <Waves className="w-8 h-8 text-cyan-400" />
+              </div>
             </div>
-            <p className="text-slate-500 text-sm leading-relaxed mb-10 max-w-xs ml-auto mr-0">
-              المنصة الرائدة لاستخبارات الأمن السيبراني. نهدف لبناء مجتمع آمن وواعٍ بالتهديدات الرقمية الحديثة من خلال الرصد والتحليل المستمر.
+            <p className="text-slate-400 text-sm leading-relaxed font-medium">
+              المركز الاستخباري الأول للأمن الرقمي في بلاد الرافدين. نسعى لبناء فضاء عراقي آمن ومحمي من كافة التهديدات السيبرانية العالمية.
             </p>
-            <div className="flex justify-start gap-3 flex-wrap flex-row-reverse">
-              <a href="#" title="Facebook" className="p-2.5 bg-slate-900/50 border border-slate-800 rounded-lg text-slate-400 hover:text-blue-500 hover:border-blue-500/50 transition-all">
-                <Facebook className="w-5 h-5" />
-              </a>
-              <a href="#" title="Twitter" className="p-2.5 bg-slate-900/50 border border-slate-800 rounded-lg text-slate-400 hover:text-cyan-400 hover:border-cyan-400/50 transition-all">
-                <Twitter className="w-5 h-5" />
-              </a>
-              <a href="#" title="Instagram" className="p-2.5 bg-slate-900/50 border border-slate-800 rounded-lg text-slate-400 hover:text-pink-500 hover:border-pink-500/50 transition-all">
-                <Instagram className="w-5 h-5" />
-              </a>
-              <a href="#" title="Discord" className="p-2.5 bg-slate-900/50 border border-slate-800 rounded-lg text-slate-400 hover:text-indigo-400 hover:border-indigo-400/50 transition-all">
-                <MessageSquare className="w-5 h-5" />
-              </a>
-              <a href="#" title="Telegram" className="p-2.5 bg-slate-900/50 border border-slate-800 rounded-lg text-slate-400 hover:text-blue-400 hover:border-blue-400/50 transition-all">
-                <Send className="w-5 h-5" />
-              </a>
-              <a href="#" title="TikTok" className="p-2.5 bg-slate-900/50 border border-slate-800 rounded-lg text-slate-400 hover:text-white hover:border-white/50 transition-all">
-                <Video className="w-5 h-5" />
-              </a>
-              <a href="#" title="Github" className="p-2.5 bg-slate-900/50 border border-slate-800 rounded-lg text-slate-400 hover:text-white hover:border-white/50 transition-all">
-                <Github className="w-5 h-5" />
-              </a>
+            <div className="flex justify-end gap-3">
+               <div className="flex items-center gap-2 px-3 py-1 bg-slate-900 border border-slate-800 rounded-full text-[10px] font-black text-cyan-500 uppercase tracking-widest">
+                  <ShieldCheck className="w-3 h-3" />
+                  Verified Intelligence
+               </div>
             </div>
           </div>
-
-          <div className="text-right order-2">
-            <h4 className="text-white font-black mb-8 text-sm uppercase tracking-[0.2em] text-cyan-500/80">المحتوى</h4>
-            <ul className="space-y-4 text-slate-500 text-sm font-bold">
-              <li><a href="#news" className="hover:text-cyan-400 transition-colors">أحدث التقارير</a></li>
-              <li><a href="#community" className="hover:text-cyan-400 transition-colors">مجتمع الخبراء</a></li>
-              <li><a href="#threats" className="hover:text-cyan-400 transition-colors">خريطة التهديدات</a></li>
-              <li><a href="#" className="hover:text-cyan-400 transition-colors">أرشيف الاستخبارات</a></li>
+          
+          {/* Main Pillars Column */}
+          <div>
+            <h4 className="text-white font-black mb-8 text-sm flex items-center justify-end gap-3">
+              <span className="w-8 h-[1px] bg-cyan-500/30"></span>
+              المحاور الرئيسية
+              <LayoutGrid className="w-4 h-4 text-cyan-400" />
+            </h4>
+            <ul className="space-y-4">
+              {[
+                { label: 'أحدث الاستخبارات', anchor: 'news' },
+                { label: 'تحذيرات التهديدات', anchor: 'threats' },
+                { label: 'منصة الخبراء', view: 'experts' as AppView },
+                { label: 'قصص العمليات', anchor: 'stories' }
+              ].map((item, i) => (
+                <li key={i}>
+                  <button 
+                    onClick={() => {
+                      if (item.view) onNavigate(item.view);
+                      else {
+                        onNavigate('home');
+                        if (item.anchor) setTimeout(() => document.getElementById(item.anchor!)?.scrollIntoView({behavior:'smooth'}), 100);
+                      }
+                    }} 
+                    className="text-slate-500 hover:text-cyan-400 text-xs font-bold transition-all flex items-center justify-end gap-2 group w-full"
+                  >
+                    <span className="group-hover:translate-x-[-4px] transition-transform">{item.label}</span>
+                    <div className="w-1.5 h-1.5 rounded-full bg-slate-800 group-hover:bg-cyan-500 transition-colors"></div>
+                  </button>
+                </li>
+              ))}
             </ul>
           </div>
 
-          <div className="text-right order-3">
-            <h4 className="text-white font-black mb-8 text-sm uppercase tracking-[0.2em] text-cyan-500/80">الدعم الفني</h4>
-            <ul className="space-y-4 text-slate-500 text-sm font-bold">
-              <li><a href="#" className="hover:text-cyan-400 transition-colors">مركز المساعدة</a></li>
-              <li><a href="#" className="hover:text-cyan-400 transition-colors">سياسة الخصوصية</a></li>
-              <li><a href="#" className="hover:text-cyan-400 transition-colors">شروط الاستخدام</a></li>
-              <li><a href="#" className="hover:text-cyan-400 transition-colors">اتصل بنا</a></li>
+          {/* About Column */}
+          <div>
+            <h4 className="text-white font-black mb-8 text-sm flex items-center justify-end gap-3">
+              <span className="w-8 h-[1px] bg-cyan-500/30"></span>
+              عن دجلة سايبر
+              <ShieldCheck className="w-4 h-4 text-cyan-400" />
+            </h4>
+            <ul className="space-y-4">
+              {[
+                { label: 'من نحن', view: 'about' as AppView },
+                { label: 'تواصل معنا', view: 'contact' as AppView },
+                { label: 'سياسة الخصوصية', view: 'privacy' as AppView },
+                { label: 'شروط الاستخدام', view: 'privacy' as AppView }
+              ].map((item, i) => (
+                <li key={i}>
+                  <button 
+                    onClick={() => onNavigate(item.view)} 
+                    className="text-slate-500 hover:text-cyan-400 text-xs font-bold transition-all flex items-center justify-end gap-2 group w-full"
+                  >
+                    <span className="group-hover:translate-x-[-4px] transition-transform">{item.label}</span>
+                    <div className="w-1.5 h-1.5 rounded-full bg-slate-800 group-hover:bg-cyan-500 transition-colors"></div>
+                  </button>
+                </li>
+              ))}
             </ul>
           </div>
 
-          <div className="text-right order-4">
-            <h4 className="text-white font-black mb-8 text-sm uppercase tracking-[0.2em] text-cyan-500/80">النشرة الاستخباراتية</h4>
-            <p className="text-slate-500 text-xs mb-8 italic">اشترك للحصول على تنبيهات الثغرات والتهديدات العاجلة.</p>
-            <div className="flex gap-2 flex-row-reverse">
-              <input 
-                type="email" 
-                placeholder="البريد الإلكتروني"
-                className="flex-1 bg-slate-900 border border-slate-800 rounded px-4 py-3 text-xs text-white focus:outline-none focus:border-cyan-500 transition-all text-right"
-              />
-              <button className="bg-cyan-600 hover:bg-cyan-500 text-white p-3 rounded transition-all shadow-lg shadow-cyan-900/20">
-                <Mail className="w-5 h-5" />
-              </button>
+          {/* Contact Column */}
+          <div>
+            <h4 className="text-white font-black mb-8 text-sm flex items-center justify-end gap-3">
+              <span className="w-8 h-[1px] bg-cyan-500/30"></span>
+              اتصال سريع
+              <Send className="w-4 h-4 text-cyan-400" />
+            </h4>
+            <div className="space-y-6">
+              <div className="flex justify-end gap-3">
+                {[
+                  { icon: Twitter, href: "#" },
+                  { icon: Linkedin, href: "#" },
+                  { icon: Github, href: "#" },
+                  { icon: Send, href: "#" }
+                ].map((social, i) => (
+                  <a 
+                    key={i}
+                    href={social.href} 
+                    className="p-3 bg-slate-900 border border-slate-800 rounded-xl text-slate-400 hover:text-cyan-400 hover:border-cyan-500/50 transition-all hover:-translate-y-1"
+                  >
+                    <social.icon className="w-5 h-5" />
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
         </div>
         
-        {/* Right-Aligned Copyright & Credits */}
-        <div className="flex flex-col md:flex-row-reverse items-center justify-between gap-8 border-t border-slate-900 pt-12">
-          <div className="flex flex-col items-end gap-2 text-right">
-            <div className="flex items-center gap-3 mb-1 flex-row-reverse">
-              <span className="text-xl font-black text-cyan-400 tracking-widest uppercase mono">Abbas Habib</span>
-              <div className="flex items-center gap-2">
-                 <p className="text-slate-500 text-[10px] font-bold uppercase tracking-widest">Developed by</p>
-                 <Code2 className="w-4 h-4 text-cyan-500" />
-              </div>
-            </div>
-            <div className="text-slate-600 text-[10px] font-black uppercase tracking-[0.2em] flex items-center gap-2 flex-row-reverse">
-              <span className="text-cyan-800/50">Digital Shield</span>
-              <span>•</span>
-              <span>© 2024 جميع الحقوق محفوظة</span>
-            </div>
+        {/* Bottom Bar - Unified Formatting */}
+        <div className="border-t border-slate-900 pt-10 flex flex-col md:flex-row-reverse justify-between items-center gap-6">
+          
+          {/* Rights & Republic Info */}
+          <div className="flex items-center gap-4 flex-row-reverse">
+             <div className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] flex items-center gap-4 flex-row-reverse">
+                <span className="text-slate-400">جميع الحقوق محفوظة © 2024</span>
+                <span className="w-1 h-1 bg-slate-800 rounded-full"></span>
+                <span className="text-slate-400">جمهورية العراق الرقمية</span>
+             </div>
           </div>
-
-          <div className="flex items-center gap-6 text-[10px] font-black uppercase tracking-widest text-slate-700">
-            <div className="flex items-center gap-2">
-               <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-               <span>Server Status: Operational</span>
-            </div>
-            <span>Global Region Node</span>
+          
+          {/* Developer Credit - Matching Style with Rights Info */}
+          <div className="flex items-center gap-4">
+             <div className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] flex items-center gap-2">
+                <span>Developed by</span>
+                <span className="text-cyan-400 font-black italic tracking-tighter text-xs">Abbas Habib</span>
+                <Code2 className="w-3.5 h-3.5 text-slate-700" />
+             </div>
           </div>
         </div>
       </div>

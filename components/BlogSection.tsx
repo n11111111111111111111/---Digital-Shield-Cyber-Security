@@ -1,167 +1,88 @@
 
 import React, { useState, useMemo } from 'react';
-import { ARTICLES } from '../constants';
-import { Calendar, User, ArrowLeft, Tag, Layers, Bot, Search, X } from 'lucide-react';
+import { Calendar, User, ArrowLeft, Search, PlusCircle, Filter, Tag, Newspaper, ShieldAlert, BarChart3 } from 'lucide-react';
+import { UserRole, Article, CategoryType } from '../types';
 
-const BlogSection: React.FC = () => {
-  const [activeCategory, setActiveCategory] = useState<string>('الكل');
-  const [searchTerm, setSearchTerm] = useState<string>('');
+interface BlogSectionProps {
+  userRole: UserRole;
+  articles: Article[];
+}
 
-  const categories = ['الكل', 'أخبار', 'تعليم', 'تحليل التهديدات', 'الثغرات', 'تقنية'];
+const FeedCard: React.FC<{ article: Article }> = ({ article }) => (
+  <article className="group bg-slate-900/30 border border-slate-800/60 rounded-xl overflow-hidden hover:border-cyan-500/40 transition-all duration-300 flex flex-col h-full">
+    <div className="relative h-40 overflow-hidden">
+      <img src={article.image} alt={article.title} className="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700" />
+      <div className="absolute top-3 right-3 bg-slate-950/90 border border-cyan-500/20 px-2 py-0.5 text-[8px] text-cyan-400 font-black uppercase rounded">
+        {article.subCategory || article.category}
+      </div>
+    </div>
+    <div className="p-5 text-right flex-1 flex flex-col">
+      <h3 className="text-md font-bold text-white mb-2 group-hover:text-cyan-400 transition-colors line-clamp-2 leading-tight">{article.title}</h3>
+      <p className="text-slate-400 text-xs mb-4 line-clamp-2 leading-relaxed">{article.excerpt}</p>
+      <div className="mt-auto flex items-center justify-between pt-4 border-t border-slate-800/40">
+         <span className="text-[9px] text-slate-500 font-bold">{article.date}</span>
+         <button className="text-cyan-500 hover:text-white transition-colors"><ArrowLeft className="w-4 h-4" /></button>
+      </div>
+    </div>
+  </article>
+);
 
-  // خريطة لتحويل أسماء الفئات من العربية إلى الإنجليزية لتطابق البيانات
-  const categoryMap: Record<string, string> = {
-    'أخبار': 'News',
-    'تعليم': 'Education',
-    'تحليل التهديدات': 'Threat Analysis',
-    'الثغرات': 'Vulnerabilities',
-    'تقنية': 'Tech'
-  };
-
-  const filteredArticles = useMemo(() => {
-    return ARTICLES.filter(article => {
-      // فلترة الفئة
-      const matchesCategory = activeCategory === 'الكل' || article.category === categoryMap[activeCategory];
-      
-      // فلترة البحث
-      const matchesSearch = 
-        article.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
-        article.excerpt.toLowerCase().includes(searchTerm.toLowerCase());
-
-      return matchesCategory && matchesSearch;
-    });
-  }, [activeCategory, searchTerm]);
+const BlogSection: React.FC<BlogSectionProps> = ({ userRole, articles }) => {
+  // تصنيف المقالات حسب المحاور الأساسية بشكل ديناميكي
+  const newsArticles = useMemo(() => articles.filter(a => a.category === 'Cyber News' || a.category === 'Cyber Iraq').slice(0, 3), [articles]);
+  const attackArticles = useMemo(() => articles.filter(a => a.category === 'Threats & Alerts' || a.category === 'Famous Hacks').slice(0, 3), [articles]);
+  const analysisArticles = useMemo(() => articles.filter(a => a.category === 'Reports & Trends' || a.category === 'Opinion & Analysis').slice(0, 3), [articles]);
 
   return (
-    <section id="news" className="py-24 bg-slate-950">
+    <section id="news" className="py-20 bg-slate-950 border-t border-slate-900/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Header and Controls */}
-        <div className="flex flex-col gap-10 mb-16">
-          <div className="text-right">
-            <h2 className="text-4xl font-black text-white mb-4">آخر <span className="text-cyan-400 italic">التقارير والتحليلات</span></h2>
-            <p className="text-slate-400">تابع أحدث التطورات الأمنية من خبراء عالميين.</p>
-          </div>
-
-          <div className="flex flex-col lg:flex-row gap-6 items-center justify-between">
-            {/* Search Bar */}
-            <div className="relative w-full lg:w-96 order-2 lg:order-1">
-              <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
-                <Search className="h-5 w-5 text-slate-500" />
-              </div>
-              <input
-                type="text"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="ابحث عن مقال..."
-                className="w-full bg-slate-900/50 border border-slate-800 text-white text-sm rounded-sm py-3 pr-12 pl-10 focus:outline-none focus:border-cyan-500/50 transition-all placeholder:text-slate-600"
-              />
-              {searchTerm && (
-                <button 
-                  onClick={() => setSearchTerm('')}
-                  className="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-500 hover:text-white transition-colors"
-                >
-                  <X className="h-4 w-4" />
-                </button>
-              )}
-            </div>
-
-            {/* Category Filter */}
-            <div className="flex gap-2 bg-slate-900 p-1 rounded border border-slate-800 overflow-x-auto max-w-full no-scrollbar order-1 lg:order-2">
-              {categories.map((cat) => (
-                <button 
-                  key={cat} 
-                  onClick={() => setActiveCategory(cat)}
-                  className={`px-6 py-2 rounded-sm text-sm font-bold whitespace-nowrap transition-all duration-300 ${
-                    activeCategory === cat 
-                      ? 'bg-cyan-600 text-white shadow-lg shadow-cyan-500/20' 
-                      : 'text-slate-400 hover:text-white hover:bg-slate-800'
-                  }`}
-                >
-                  {cat}
-                </button>
-              ))}
-            </div>
-          </div>
+        {/* Section Header */}
+        <div className="text-right mb-16">
+          <h2 className="text-3xl font-black text-white italic">موجز <span className="text-cyan-400">الاستخبارات الرقمية</span></h2>
+          <p className="text-slate-500 text-sm mt-2">تقارير مفصلة تغطي كافة جوانب الصراع السيبراني.</p>
         </div>
 
-        {/* Results Grid */}
-        {filteredArticles.length > 0 ? (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredArticles.map((article) => (
-              <article 
-                key={article.id} 
-                className="group bg-slate-900/50 border border-slate-800 rounded-sm overflow-hidden hover:border-cyan-500/50 transition-all duration-300 transform hover:-translate-y-1 animate-fade-in"
-              >
-                <div className="relative h-56 overflow-hidden">
-                  <img 
-                    src={article.image} 
-                    alt={article.title} 
-                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-500"
-                  />
-                  <div className="absolute top-4 right-4">
-                    <span className="px-3 py-1 bg-slate-950/80 backdrop-blur-md border border-cyan-500/30 text-[10px] text-cyan-400 font-black uppercase tracking-widest">
-                      {article.category}
-                    </span>
-                  </div>
-                </div>
-                <div className="p-6">
-                  <div className="flex items-center gap-3 text-[10px] text-slate-500 mb-4 mono uppercase">
-                    <Calendar className="w-3 h-3" />
-                    {article.date}
-                    <span className="opacity-20">|</span>
-                    <User className="w-3 h-3" />
-                    {article.author}
-                  </div>
-                  <h3 className="text-xl font-bold text-white mb-4 leading-tight group-hover:text-cyan-400 transition-colors line-clamp-2">
-                    {article.title}
-                  </h3>
-                  <p className="text-slate-400 text-sm mb-6 line-clamp-2 leading-relaxed">
-                    {article.excerpt}
-                  </p>
-                  <div className="flex justify-between items-center pt-4 border-t border-slate-800/50">
-                    <a href="#" className="inline-flex items-center gap-2 text-cyan-400 font-bold text-sm group/link">
-                      اقرأ المزيد
-                      <ArrowLeft className="w-4 h-4 group-hover/link:-translate-x-1 transition-transform" />
-                    </a>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
-        ) : (
-          <div className="py-20 text-center border border-dashed border-slate-800 rounded-lg">
-            <div className="inline-flex p-4 rounded-full bg-slate-900 mb-4">
-              <Search className="w-8 h-8 text-slate-700" />
+        <div className="grid lg:grid-cols-3 gap-12">
+          
+          {/* Column 1: Latest News */}
+          <div className="space-y-8">
+            <div className="flex items-center justify-end gap-3 mb-6 border-b border-slate-800 pb-4">
+              <span className="text-sm font-black text-white">آخر الأخبار وسايبر العراق</span>
+              <Newspaper className="w-5 h-5 text-cyan-400" />
             </div>
-            <h3 className="text-xl font-bold text-white mb-2">لم يتم العثور على نتائج</h3>
-            <p className="text-slate-500 text-sm">حاول البحث بكلمات أخرى أو تغيير الفئة المختارة.</p>
-            <button 
-              onClick={() => {setSearchTerm(''); setActiveCategory('الكل');}}
-              className="mt-6 text-cyan-500 text-sm font-bold hover:underline"
-            >
-              إعادة ضبط البحث
-            </button>
+            <div className="grid gap-6">
+              {newsArticles.map(article => <FeedCard key={article.id} article={article} />)}
+              {newsArticles.length === 0 && <p className="text-center text-slate-700 py-10">لا يوجد محتوى حالياً</p>}
+            </div>
           </div>
-        )}
+
+          {/* Column 2: Top Attacks */}
+          <div className="space-y-8">
+            <div className="flex items-center justify-end gap-3 mb-6 border-b border-slate-800 pb-4">
+              <span className="text-sm font-black text-white">أبرز الهجمات</span>
+              <ShieldAlert className="w-5 h-5 text-red-500" />
+            </div>
+            <div className="grid gap-6">
+              {attackArticles.map(article => <FeedCard key={article.id} article={article} />)}
+              {attackArticles.length === 0 && <p className="text-center text-slate-700 py-10">لا يوجد محتوى حالياً</p>}
+            </div>
+          </div>
+
+          {/* Column 3: Main Analysis */}
+          <div className="space-y-8">
+            <div className="flex items-center justify-end gap-3 mb-6 border-b border-slate-800 pb-4">
+              <span className="text-sm font-black text-white">أهم التحليلات والتعليم</span>
+              <BarChart3 className="w-5 h-5 text-blue-400" />
+            </div>
+            <div className="grid gap-6">
+              {analysisArticles.map(article => <FeedCard key={article.id} article={article} />)}
+              {analysisArticles.length === 0 && <p className="text-center text-slate-700 py-10">لا يوجد محتوى حالياً</p>}
+            </div>
+          </div>
+
+        </div>
       </div>
-      
-      <style>{`
-        @keyframes fade-in {
-          from { opacity: 0; transform: translateY(10px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fade-in {
-          animation: fade-in 0.4s ease-out forwards;
-        }
-        .no-scrollbar::-webkit-scrollbar {
-          display: none;
-        }
-        .no-scrollbar {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-      `}</style>
     </section>
   );
 };

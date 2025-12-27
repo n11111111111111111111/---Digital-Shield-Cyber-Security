@@ -1,138 +1,118 @@
 
 import React, { useState } from 'react';
-import { Shield, Menu, X, Bell, Search, LogOut, User, AlertCircle, Cpu, Zap } from 'lucide-react';
-import { NOTIFICATIONS } from '../constants';
+import { Waves, Bell, LayoutGrid, Zap, BarChart3, ShieldAlert, Newspaper, Users, Home, Info, Mail, PenSquare } from 'lucide-react';
+import { AppView } from '../App';
 
 interface NavbarProps {
-  onOpenLogin: () => void;
-  isAuthenticated: boolean;
-  onLogout: () => void;
+  onNavigate: (view: AppView) => void;
+  currentView: AppView;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ onOpenLogin, isAuthenticated, onLogout }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [showNotifications, setShowNotifications] = useState(false);
+const Navbar: React.FC<NavbarProps> = ({ onNavigate, currentView }) => {
+  const [showDepartments, setShowDepartments] = useState(false);
+
+  const departments: { title: string; icon: any; view: AppView; anchor?: string }[] = [
+    { title: 'أخبار السايبر', icon: Newspaper, view: 'home', anchor: 'news' },
+    { title: 'تهديدات وتحذيرات', icon: ShieldAlert, view: 'home', anchor: 'threats' },
+    { title: 'قصص دجلة', icon: Zap, view: 'home', anchor: 'stories' },
+    { title: 'منصة الخبراء', icon: Users, view: 'experts' },
+    { title: 'تحليلات وتقارير', icon: BarChart3, view: 'home', anchor: 'news' },
+    { title: 'من نحن', icon: Info, view: 'about' },
+    { title: 'تواصل معنا', icon: Mail, view: 'contact' },
+  ];
+
+  const handleDeptClick = (dept: typeof departments[0]) => {
+    onNavigate(dept.view);
+    setShowDepartments(false);
+    if (dept.anchor && dept.view === 'home') {
+      setTimeout(() => {
+        const element = document.getElementById(dept.anchor!);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    }
+  };
 
   return (
-    <nav className="sticky top-0 z-50 bg-slate-950/80 backdrop-blur-md border-b border-cyan-500/20 transition-colors duration-300">
+    <nav className="sticky top-0 z-50 bg-slate-950/80 backdrop-blur-xl border-b border-cyan-500/10 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          <div className="flex items-center gap-2">
-            <Shield className="w-10 h-10 text-cyan-400 glow-text" />
-            <span className="text-2xl font-black tracking-tighter text-white uppercase italic">الدرع<span className="text-cyan-400">الرقمي</span></span>
-          </div>
-
-          <div className="hidden md:block">
-            <div className="flex items-baseline space-x-8 space-x-reverse">
-              <a href="#" className="text-cyan-400 px-3 py-2 text-sm font-bold uppercase tracking-widest border-b-2 border-cyan-400">الرئيسية</a>
-              <a href="#news" className="text-slate-300 hover:text-cyan-400 transition-colors px-3 py-2 text-sm font-bold">الأخبار</a>
-              <a href="#community" className="text-slate-300 hover:text-cyan-400 transition-colors px-3 py-2 text-sm font-bold">مجتمع الخبراء</a>
-              <a href="#threats" className="text-slate-300 hover:text-cyan-400 transition-colors px-3 py-2 text-sm font-bold">خريطة التهديدات</a>
+          
+          {/* Logo */}
+          <div className="flex items-center gap-3 cursor-pointer group" onClick={() => onNavigate('home')}>
+            <div className="relative">
+              <div className="absolute inset-0 bg-cyan-400/20 blur-xl rounded-full group-hover:bg-cyan-400/40 transition-all"></div>
+              <Waves className="w-10 h-10 text-cyan-400 relative z-10" />
             </div>
+            <span className="text-2xl font-black tracking-tighter text-white italic">دجلة<span className="text-cyan-400">سايبر</span></span>
           </div>
 
-          <div className="hidden md:flex items-center gap-2 lg:gap-4">
-            <button className="p-2 text-slate-400 hover:text-cyan-400 transition-colors">
-              <Search className="w-5 h-5" />
+          {/* Nav Links */}
+          <div className="hidden md:flex items-center gap-6 lg:gap-8">
+            <button 
+              onClick={() => onNavigate('home')} 
+              className={`text-sm font-black transition-all flex items-center gap-2 px-3 py-1.5 rounded-lg ${currentView === 'home' ? 'text-cyan-400 bg-cyan-500/5' : 'text-slate-300 hover:text-cyan-400'}`}
+            >
+              <Home className="w-4 h-4" />
+              الرئيسية
             </button>
             
+            <button 
+              onClick={() => onNavigate('experts')} 
+              className={`flex items-center gap-2 text-sm font-black transition-all px-3 py-1.5 rounded-lg ${currentView === 'experts' ? 'text-cyan-400 bg-cyan-500/5' : 'text-slate-300 hover:text-cyan-400'}`}
+            >
+              <Users className="w-4 h-4" />
+              الخبراء
+            </button>
+
+            {/* All Sections Mega Icon */}
             <div className="relative">
               <button 
-                onClick={() => setShowNotifications(!showNotifications)}
-                className="p-2 text-slate-400 hover:text-cyan-400 transition-colors relative group"
+                onClick={() => setShowDepartments(!showDepartments)}
+                className={`flex items-center gap-2 px-5 py-2.5 rounded-xl transition-all border ${showDepartments ? 'bg-cyan-600 border-cyan-500 text-white shadow-2xl' : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-cyan-400 hover:border-cyan-500/30'}`}
               >
-                <Bell className={`w-5 h-5 ${showNotifications ? 'text-cyan-400' : ''}`} />
-                <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full animate-ping"></span>
-                <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full shadow-[0_0_5px_red]"></span>
+                <LayoutGrid className="w-4 h-4" />
+                <span className="text-xs font-black uppercase tracking-widest">تصفح الأقسام</span>
               </button>
-              
-              {showNotifications && (
-                <div className="absolute left-0 mt-4 w-96 bg-slate-900/95 border border-cyan-500/30 shadow-[0_20px_50px_rgba(0,0,0,0.7)] rounded-xl overflow-hidden animate-fade-in z-[60] backdrop-blur-2xl text-right">
-                  <div className="p-5 bg-slate-800/40 border-b border-slate-700/50 flex justify-between items-center">
-                    <div className="flex items-center gap-2">
-                      <Zap className="w-4 h-4 text-cyan-400 animate-pulse" />
-                      <span className="text-[11px] font-black uppercase text-cyan-400 tracking-[0.2em]">Live Intelligence Feed</span>
+
+              {showDepartments && (
+                <>
+                  <div className="fixed inset-0 z-[-1]" onClick={() => setShowDepartments(false)}></div>
+                  <div className="absolute left-0 mt-4 w-72 bg-slate-900/95 backdrop-blur-2xl border border-slate-800 shadow-2xl rounded-2xl overflow-hidden animate-fade-in p-2 text-right">
+                    <div className="p-3 mb-2 border-b border-slate-800 text-[10px] font-black text-slate-500 uppercase tracking-[0.3em]">دليل الاستخبارات</div>
+                    <div className="grid grid-cols-1 gap-1">
+                      {departments.map((dept, i) => (
+                        <button 
+                          key={i} 
+                          onClick={() => handleDeptClick(dept)}
+                          className="w-full flex items-center justify-end gap-4 p-3.5 rounded-xl hover:bg-cyan-500/10 transition-all text-xs font-bold text-slate-300 group"
+                        >
+                          <span className="group-hover:text-white transition-colors">{dept.title}</span>
+                          <div className="p-1.5 bg-slate-950 rounded-lg border border-slate-800 group-hover:border-cyan-500/30 transition-all">
+                             <dept.icon className="w-4 h-4 text-slate-500 group-hover:text-cyan-400" />
+                          </div>
+                        </button>
+                      ))}
                     </div>
-                    <button onClick={() => setShowNotifications(false)} className="text-slate-400 hover:text-white transition-colors">
-                      <X className="w-4 h-4" />
-                    </button>
                   </div>
-                  <div className="max-h-[400px] overflow-y-auto custom-scrollbar">
-                    {NOTIFICATIONS.length > 0 ? NOTIFICATIONS.map(notif => (
-                      <div key={notif.id} className={`p-5 border-b border-slate-800/50 hover:bg-cyan-500/[0.05] transition-all cursor-pointer relative group/item ${notif.unread ? 'bg-cyan-500/[0.03]' : ''}`}>
-                        <div className="flex gap-4">
-                          <div className={`mt-1 w-10 h-10 rounded-lg shrink-0 flex items-center justify-center border ${
-                            notif.type === 'alert' ? 'bg-red-500/10 border-red-500/20 text-red-500' : 
-                            notif.type === 'security' ? 'bg-cyan-500/10 border-cyan-500/20 text-cyan-500' : 
-                            'bg-yellow-500/10 border-yellow-500/20 text-yellow-500'
-                          }`}>
-                            {notif.type === 'alert' ? <AlertCircle className="w-5 h-5" /> : <Cpu className="w-5 h-5" />}
-                          </div>
-                          <div className="text-right flex-1">
-                            <p className="text-[12px] text-slate-200 leading-relaxed font-bold group-hover/item:text-white transition-colors">{notif.title}</p>
-                            <div className="flex items-center justify-end gap-2 mt-2">
-                              <span className="text-[9px] text-slate-500 font-bold uppercase tracking-widest mono">{notif.time}</span>
-                              {notif.unread && <span className="w-1.5 h-1.5 bg-cyan-500 rounded-full shadow-[0_0_5px_cyan]"></span>}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    )) : (
-                      <div className="p-10 text-center">
-                        <p className="text-slate-500 text-xs">لا يوجد تنبيهات حالياً</p>
-                      </div>
-                    )}
-                  </div>
-                  <button className="w-full p-4 bg-slate-950/80 text-[10px] font-black text-slate-400 hover:text-cyan-400 uppercase tracking-widest border-t border-slate-800 transition-colors">
-                    مشاهدة السجل الأمني الكامل
-                  </button>
-                </div>
+                </>
               )}
             </div>
-
-            {isAuthenticated ? (
-              <button 
-                onClick={onLogout}
-                className="bg-slate-800 hover:bg-red-900/30 text-white px-6 py-2 rounded-sm font-bold transition-all border border-slate-700 flex items-center gap-2 group"
-              >
-                خروج
-                <LogOut className="w-4 h-4 text-slate-400 group-hover:text-red-500" />
-              </button>
-            ) : (
-              <button 
-                onClick={onOpenLogin}
-                className="bg-cyan-600 hover:bg-cyan-500 text-white px-6 py-2 rounded-sm font-bold transition-all shadow-lg shadow-cyan-600/20 flex items-center gap-2"
-              >
-                <User className="w-4 h-4" />
-                تسجيل الدخول
-              </button>
-            )}
           </div>
 
-          <div className="md:hidden flex items-center gap-2">
-            <button onClick={() => setIsOpen(!isOpen)} className="text-slate-400">
-              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          {/* Quick Actions */}
+          <div className="flex items-center gap-4">
+            <button 
+              onClick={() => onNavigate('contact')}
+              className="bg-slate-900 text-slate-300 hover:text-white px-5 py-2.5 rounded-xl font-bold border border-slate-800 hover:border-cyan-500/30 transition-all text-xs"
+            >
+              اتصل بنا
             </button>
           </div>
+
         </div>
       </div>
-
-      {isOpen && (
-        <div className="md:hidden bg-slate-900 border-b border-cyan-500/20 px-2 pt-2 pb-3 space-y-1 sm:px-3 animate-fade-in">
-          <a href="#" className="block text-cyan-400 px-3 py-2 rounded-md text-base font-bold text-right">الرئيسية</a>
-          <a href="#news" className="block text-slate-300 hover:text-cyan-400 px-3 py-2 rounded-md text-base font-bold text-right">الأخبار</a>
-          <a href="#community" className="block text-slate-300 hover:text-cyan-400 px-3 py-2 rounded-md text-base font-bold text-right">مجتمع الخبراء</a>
-          <a href="#threats" className="block text-slate-300 hover:text-cyan-400 px-3 py-2 rounded-md text-base font-bold text-right">خريطة التهديدات</a>
-          {!isAuthenticated && (
-            <button 
-              onClick={onOpenLogin}
-              className="w-full text-right bg-cyan-600 text-white px-3 py-2 rounded-md text-base font-bold mt-4"
-            >
-              تسجيل الدخول
-            </button>
-          )}
-        </div>
-      )}
     </nav>
   );
 };

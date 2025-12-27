@@ -1,9 +1,13 @@
 
 import React from 'react';
-import { STORIES } from '../constants';
 import { BookOpen, Clock, ChevronLeft, Sparkles } from 'lucide-react';
+import { Story } from '../types';
 
-const StoriesSection: React.FC = () => {
+interface StoriesSectionProps {
+  stories: Story[];
+}
+
+const StoriesSection: React.FC<StoriesSectionProps> = ({ stories }) => {
   return (
     <section id="stories" className="py-24 bg-slate-950/50 border-t border-slate-900/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -14,7 +18,7 @@ const StoriesSection: React.FC = () => {
               Digital Chronicles
             </div>
             <h2 className="text-4xl font-black text-white">قصص <span className="text-transparent bg-clip-text bg-gradient-to-l from-cyan-400 to-blue-500">من الخطوط الأمامية</span></h2>
-            <p className="text-slate-500 mt-4 max-w-xl">تعلم من تجارب حقيقية وحوادث غيرت مجرى تاريخ الأمن الرقمي.</p>
+            <p className="text-slate-500 mt-4 max-w-xl">تعلم من تجارب حقيقية وحوادث غيرت مجرى تاريخ الأمن الرقمي الوطني.</p>
           </div>
           <button className="flex items-center gap-2 text-slate-400 hover:text-cyan-400 font-bold transition-colors">
             تصفح الأرشيف الكامل <ChevronLeft className="w-4 h-4" />
@@ -22,7 +26,7 @@ const StoriesSection: React.FC = () => {
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
-          {STORIES.map((story) => (
+          {stories.map((story) => (
             <div 
               key={story.id} 
               className="group relative bg-slate-900/40 border border-slate-800 p-8 hover:border-cyan-500/40 transition-all duration-500 overflow-hidden backdrop-blur-md"
@@ -62,6 +66,11 @@ const StoriesSection: React.FC = () => {
               <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-slate-800 group-hover:border-cyan-500/50 transition-colors"></div>
             </div>
           ))}
+          {stories.length === 0 && (
+             <div className="col-span-full py-20 text-center border-2 border-dashed border-slate-900 rounded-3xl">
+               <p className="text-slate-600 font-bold">لا توجد قصص منشورة حالياً في هذا القطاع.</p>
+             </div>
+          )}
         </div>
       </div>
     </section>

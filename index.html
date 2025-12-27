@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الدرع الرقمي - استخبارات الأمن السيبراني</title>
+    <title>دجلة سايبر - Tigris Cyber | الأمن الرقمي العراقي</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,6 +17,7 @@
             colors: {
               cyber: {
                 cyan: '#06b6d4',
+                green: '#10b981',
                 red: '#ef4444'
               }
             }
@@ -36,30 +37,12 @@
                 linear-gradient(90deg, rgba(6, 182, 212, 0.05) 1px, transparent 1px);
             background-size: 40px 40px;
         }
-        .dark .cyber-grid {
-            background-image: 
-                linear-gradient(rgba(6, 182, 212, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(6, 182, 212, 0.05) 1px, transparent 1px);
-        }
-        .glow-cyan {
-            box-shadow: 0 0 15px rgba(6, 182, 212, 0.5);
-        }
-        .glow-text {
-            text-shadow: 0 0 10px rgba(6, 182, 212, 0.8);
-        }
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #020617;
-        }
-        .light ::-webkit-scrollbar-track {
-            background: #f8fafc;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #0891b2;
-            border-radius: 4px;
-        }
+        .glow-cyan { box-shadow: 0 0 15px rgba(6, 182, 212, 0.4); }
+        .glow-green { box-shadow: 0 0 15px rgba(16, 185, 129, 0.4); }
+        .glow-text { text-shadow: 0 0 10px rgba(6, 182, 212, 0.6); }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #020617; }
+        ::-webkit-scrollbar-thumb { background: #0891b2; border-radius: 10px; }
     </style>
 <script type="importmap">
 {
@@ -74,7 +57,7 @@
 }
 </script>
 </head>
-<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-50">
+<body class="bg-slate-950 text-slate-50">
     <div id="root"></div>
 </body>
 </html>
