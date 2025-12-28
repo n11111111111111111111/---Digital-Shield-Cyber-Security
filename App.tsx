@@ -6,6 +6,7 @@ import ThreatMap from './components/ThreatMap';
 import OperationsHub from './components/OperationsHub';
 import StoriesSection from './components/StoriesSection';
 import CommunitySection from './components/CommunitySection';
+import LearningHub from './components/LearningHub';
 import BlogSection from './components/BlogSection';
 import InfoSection from './components/InfoSection';
 import AIChat from './components/AIChat';
@@ -14,18 +15,16 @@ import InteractiveBackground from './components/InteractiveBackground';
 import { UserRole, Article, Story } from './types';
 import { INITIAL_ARTICLES, INITIAL_STORIES } from './constants';
 
-export type AppView = 'home' | 'experts' | 'stories' | 'about' | 'contact' | 'privacy';
+export type AppView = 'home' | 'experts' | 'learning' | 'stories' | 'about' | 'contact' | 'privacy';
 
 const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<AppView>('home');
   
-  // المحتوى ثابت للعرض فقط (يتم جلبه من الثوابت الجاهزة للربط مستقبلاً)
   const articles = INITIAL_ARTICLES;
   const stories = INITIAL_STORIES;
 
   useEffect(() => {
     document.documentElement.classList.add('dark');
-    // التمرير لأعلى الصفحة عند تغيير القسم
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [currentView]);
 
@@ -33,6 +32,8 @@ const App: React.FC = () => {
     switch (currentView) {
       case 'experts':
         return <CommunitySection userRole="guest" />;
+      case 'learning':
+        return <LearningHub />;
       case 'about':
       case 'contact':
       case 'privacy':
