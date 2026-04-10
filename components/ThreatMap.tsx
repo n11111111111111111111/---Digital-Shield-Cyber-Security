@@ -40,7 +40,7 @@ const CITIES: City[] = [
 ];
 
 const ATTACK_CONFIGS = [
-  { type: 'هجوم DDoS مكثف', color: '#22d3ee' },
+  { type: 'هجوم DDoS مكثف', color: '#A6C5D7' },
   { type: 'حقن برمجيات فدية', color: '#a855f7' },
   { type: 'ثغرة يوم صفر (Zero-Day)', color: '#ef4444' },
   { type: 'محاولة اختراق SQL', color: '#eab308' },
@@ -110,8 +110,8 @@ const ThreatMap: React.FC = () => {
     if (gRef.current) {
       d3.select(gRef.current).selectAll('path')
         .transition().duration(300)
-        .attr('fill', (d: any) => d.properties.isoCode === selectedCountry?.iso ? '#0e3a4d' : '#05070a')
-        .attr('stroke', (d: any) => d.properties.isoCode === selectedCountry?.iso ? '#22d3ee' : '#22d3ee10')
+        .attr('fill', (d: any) => d.properties.isoCode === selectedCountry?.iso ? '#0F52BA33' : '#000926')
+        .attr('stroke', (d: any) => d.properties.isoCode === selectedCountry?.iso ? '#0F52BA' : '#0F52BA10')
         .attr('stroke-width', (d: any) => d.properties.isoCode === selectedCountry?.iso ? 1.5 : 0.5);
     }
   }, [selectedCountry]);
@@ -135,8 +135,8 @@ const ThreatMap: React.FC = () => {
         .enter()
         .append('path')
         .attr('d', path as any)
-        .attr('fill', '#05070a')
-        .attr('stroke', '#22d3ee10')
+        .attr('fill', '#000926')
+        .attr('stroke', '#0F52BA10')
         .attr('stroke-width', 0.5)
         .attr('data-iso', (d: any) => d.properties.isoCode)
         .attr('class', 'country-path cursor-pointer transition-all duration-300')
@@ -200,7 +200,7 @@ const ThreatMap: React.FC = () => {
   }, [activeAlert]);
 
   return (
-    <div id="threats" className="py-12 bg-slate-950 relative overflow-hidden">
+    <div id="threats" className="py-12 bg-cyber-navy relative overflow-hidden">
       
       {/* ⚠️ إشعار التهديد الحرج (Floating Alert) */}
       <div className={`fixed top-32 left-1/2 -translate-x-1/2 z-[9999] transition-all duration-700 transform pointer-events-auto ${activeAlert ? 'translate-y-0 opacity-100 scale-100' : '-translate-y-64 opacity-0 scale-90 pointer-events-none'}`}>
@@ -235,19 +235,19 @@ const ThreatMap: React.FC = () => {
         <div className="flex flex-col lg:flex-row gap-5 h-[720px]">
           
           <div className="w-full lg:w-80 h-full flex flex-col gap-4">
-            <div className="bg-slate-900/50 border border-slate-800 p-4 rounded-lg">
+            <div className="bg-cyber-ice/5 border border-cyber-powder/20 p-4 rounded-lg">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-[10px] font-black text-cyan-400 uppercase tracking-widest">Real-Time Intel</span>
-                {isFetchingReal ? <RefreshCw className="w-3 h-3 text-cyan-500 animate-spin" /> : <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>}
+                <span className="text-[10px] font-black text-cyber-powder uppercase tracking-widest">Real-Time Intel</span>
+                {isFetchingReal ? <RefreshCw className="w-3 h-3 text-cyber-sapphire animate-spin" /> : <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>}
               </div>
               <p className="text-[11px] text-slate-400 leading-relaxed text-right">
                 يتم دمج بلاغات حقيقية من مصادر استخباراتية عالمية لضمان دقة الرصد والمصداقية.
               </p>
             </div>
 
-            <div className="flex-1 flex flex-col bg-slate-900/30 border border-slate-800/50 rounded-lg overflow-hidden backdrop-blur-sm">
-              <div className="bg-slate-900/50 p-3.5 border-b border-slate-800/50 flex items-center justify-between">
-                <h3 className="text-xs font-black text-cyan-500 flex items-center gap-2 uppercase tracking-widest">
+            <div className="flex-1 flex flex-col bg-cyber-ice/5 border border-cyber-powder/10 rounded-lg overflow-hidden backdrop-blur-sm">
+              <div className="bg-cyber-navy/50 p-3.5 border-b border-cyber-powder/10 flex items-center justify-between">
+                <h3 className="text-xs font-black text-cyber-sapphire flex items-center gap-2 uppercase tracking-widest">
                   <Terminal className="w-4 h-4" />
                   رصد الاستخبارات
                 </h3>
@@ -255,7 +255,7 @@ const ThreatMap: React.FC = () => {
               
               <div className="flex-1 overflow-y-auto p-3 space-y-2.5 custom-scrollbar">
                 {liveLog.map((log) => (
-                  <div key={log.id} className={`relative border-r-2 pr-3 py-2 bg-slate-900/40 rounded-sm animate-fade-in ${log.isReal ? 'border-red-500 bg-red-500/5' : 'border-slate-800'}`} style={{ borderRightColor: log.isReal ? '#ef4444' : log.color }}>
+                  <div key={log.id} className={`relative border-r-2 pr-3 py-2 bg-cyber-ice/5 rounded-sm animate-fade-in ${log.isReal ? 'border-red-500 bg-red-500/5' : 'border-cyber-powder/20'}`} style={{ borderRightColor: log.isReal ? '#ef4444' : log.color }}>
                     <div className="flex justify-between items-center mb-1 text-[9px]">
                       <span className="text-slate-500 mono">{log.timestamp}</span>
                       {log.isReal && <span className="flex items-center gap-1 text-red-500 font-black tracking-tighter">VERIFIED REAL</span>}
@@ -268,11 +268,11 @@ const ThreatMap: React.FC = () => {
             </div>
 
             {groundingSources.length > 0 && (
-              <div className="bg-slate-900/80 border border-cyan-500/20 p-3 rounded-lg animate-slide-up">
+              <div className="bg-cyber-navy/80 border border-cyber-sapphire/20 p-3 rounded-lg animate-slide-up">
                 <h4 className="text-[9px] font-black text-slate-500 uppercase mb-2 tracking-widest">مصادر التحقق:</h4>
                 <div className="space-y-1.5">
                   {groundingSources.slice(0, 3).map((source, idx) => (
-                    <a key={idx} href={source.web?.uri} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-[9px] text-cyan-500 hover:text-white transition-colors truncate">
+                    <a key={idx} href={source.web?.uri} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-[9px] text-cyber-sapphire hover:text-white transition-colors truncate">
                       <ExternalLink className="w-2.5 h-2.5 shrink-0" />
                       {source.web?.title || "رابط تقرير أمني"}
                     </a>
@@ -282,13 +282,13 @@ const ThreatMap: React.FC = () => {
             )}
           </div>
 
-          <div ref={mapRef} className="flex-1 relative bg-[#02050a] border border-cyan-500/10 rounded-lg overflow-hidden shadow-2xl">
-            <div className="absolute top-4 right-4 z-30 flex items-center gap-2.5 bg-slate-950/80 p-2 backdrop-blur-md border border-cyan-500/20 rounded">
+          <div ref={mapRef} className="flex-1 relative bg-cyber-navy border border-cyber-sapphire/10 rounded-lg overflow-hidden shadow-2xl">
+            <div className="absolute top-4 right-4 z-30 flex items-center gap-2.5 bg-cyber-navy/80 p-2 backdrop-blur-md border border-cyber-sapphire/20 rounded">
                <div className="text-right">
-                  <span className="block text-[6px] text-cyan-500/40 font-bold uppercase tracking-widest">Global Status</span>
+                  <span className="block text-[6px] text-cyber-sapphire/40 font-bold uppercase tracking-widest">Global Status</span>
                   <span className="block text-[10px] font-black text-white mono uppercase">Operational</span>
                </div>
-               <Activity className="w-4 h-4 text-cyan-500 animate-pulse" />
+               <Activity className="w-4 h-4 text-cyber-sapphire animate-pulse" />
             </div>
 
             <svg ref={svgRef} viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice" className="w-full h-full cursor-crosshair outline-none">
@@ -297,7 +297,7 @@ const ThreatMap: React.FC = () => {
             </svg>
 
             {selectedCountry && (
-              <div className="absolute top-4 left-4 z-30 bg-cyan-600/20 backdrop-blur-md border border-cyan-500/40 px-3 py-1.5 rounded flex items-center gap-2 animate-slide-in">
+              <div className="absolute top-4 left-4 z-30 bg-cyber-sapphire/20 backdrop-blur-md border border-cyber-sapphire/40 px-3 py-1.5 rounded flex items-center gap-2 animate-slide-in">
                 <span className="text-[10px] font-black text-white uppercase tracking-widest">Active Focus: {selectedCountry.iso}</span>
               </div>
             )}
@@ -313,8 +313,8 @@ const ThreatMap: React.FC = () => {
         .animate-slide-up { animation: slide-up 0.5s ease-out forwards; }
         .animate-radar-scan { animation: radar-scan 4s linear infinite; }
         .custom-scrollbar::-webkit-scrollbar { width: 3px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(34, 211, 238, 0.1); border-radius: 10px; }
-        .country-path:hover { fill: #0f172a; stroke: #22d3ee88; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(15, 82, 186, 0.1); border-radius: 10px; }
+        .country-path:hover { fill: #0F52BA22; stroke: #0F52BA88; }
         .mono { font-family: 'JetBrains Mono', monospace; }
       `}</style>
     </div>

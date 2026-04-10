@@ -37,20 +37,20 @@ const AIChat: React.FC = () => {
       {!isOpen ? (
         <button 
           onClick={() => setIsOpen(true)}
-          className="bg-cyan-600 hover:bg-cyan-500 text-white p-5 rounded-full shadow-2xl flex items-center justify-center transition-all transform hover:scale-110 group relative border border-cyan-400/30"
+          className="bg-cyber-sapphire hover:bg-cyber-sapphire/90 text-white p-5 rounded-full shadow-2xl flex items-center justify-center transition-all transform hover:scale-110 group relative border border-cyber-powder/30"
           title="اسأل حارس دجلة"
         >
-          <div className="absolute inset-0 rounded-full border border-cyan-400/50 animate-ping opacity-20"></div>
+          <div className="absolute inset-0 rounded-full border border-cyber-powder/50 animate-ping opacity-20"></div>
           <Bot className="w-8 h-8" />
         </button>
       ) : (
         <div className="relative animate-fade-in">
-          <div className="bg-slate-900 w-[90vw] sm:w-[380px] h-[500px] rounded-2xl border border-cyan-500/20 shadow-2xl flex flex-col overflow-hidden backdrop-blur-xl">
-            <div className="p-4 bg-slate-800/80 border-b border-cyan-500/10 flex justify-between items-center">
+          <div className="bg-cyber-navy w-[90vw] sm:w-[380px] h-[500px] rounded-2xl border border-cyber-sapphire/20 shadow-2xl flex flex-col overflow-hidden backdrop-blur-xl">
+            <div className="p-4 bg-cyber-ice/5 border-b border-cyber-sapphire/10 flex justify-between items-center">
               <button onClick={() => setIsOpen(false)} className="text-slate-400"><X className="w-5 h-5" /></button>
               <div className="text-right">
                 <span className="block font-black text-white text-[10px] uppercase">Tigris Guardian AI</span>
-                <span className="block text-[8px] text-cyan-400 font-bold">Online & Active</span>
+                <span className="block text-[8px] text-cyber-powder font-bold">Online & Active</span>
               </div>
             </div>
 
@@ -58,16 +58,16 @@ const AIChat: React.FC = () => {
               {messages.map((msg, i) => (
                 <div key={i} className={`flex ${msg.role === 'user' ? 'justify-start' : 'justify-end'}`}>
                   <div className={`max-w-[85%] p-3 rounded-xl text-[12px] leading-relaxed ${
-                    msg.role === 'user' ? 'bg-cyan-600 text-white rounded-br-none' : 'bg-slate-800 text-slate-200 rounded-bl-none'
+                    msg.role === 'user' ? 'bg-cyber-sapphire text-white rounded-br-none' : 'bg-cyber-ice/10 text-slate-200 rounded-bl-none'
                   }`}>
                     {msg.text}
                   </div>
                 </div>
               ))}
-              {isLoading && <div className="text-[10px] text-cyan-500 italic text-right">جاري التحليل...</div>}
+              {isLoading && <div className="text-[10px] text-cyber-sapphire italic text-right">جاري التحليل...</div>}
             </div>
 
-            <div className="p-4 bg-slate-950/50 border-t border-slate-800">
+            <div className="p-4 bg-cyber-navy/50 border-t border-cyber-powder/10">
               <div className="flex gap-2">
                 <input 
                   type="text" 
@@ -75,9 +75,9 @@ const AIChat: React.FC = () => {
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && handleSend()}
                   placeholder="اسأل حارس دجلة..."
-                  className="flex-1 bg-slate-900 border border-slate-800 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-cyan-500 text-right"
+                  className="flex-1 bg-cyber-navy border border-cyber-powder/20 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-cyber-sapphire text-right"
                 />
-                <button onClick={handleSend} className="bg-cyan-600 text-white p-2 rounded-lg"><Send className="w-5 h-5" /></button>
+                <button onClick={handleSend} className="bg-cyber-sapphire text-white p-2 rounded-lg"><Send className="w-5 h-5" /></button>
               </div>
             </div>
           </div>

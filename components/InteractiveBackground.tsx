@@ -42,7 +42,7 @@ const InteractiveBackground: React.FC = () => {
         this.baseX = this.x;
         this.baseY = this.y;
         this.density = (Math.random() * 30) + 1;
-        this.color = 'rgba(6, 182, 212, 0.4)';
+        this.color = 'rgba(15, 82, 186, 0.4)';
       }
 
       draw() {
@@ -102,7 +102,7 @@ const InteractiveBackground: React.FC = () => {
 
           if (distance < 120) {
             opacityValue = 1 - (distance / 120);
-            ctx.strokeStyle = `rgba(6, 182, 212, ${opacityValue * 0.15})`;
+            ctx.strokeStyle = `rgba(15, 82, 186, ${opacityValue * 0.15})`;
             ctx.lineWidth = 0.5;
             ctx.beginPath();
             ctx.moveTo(particles[a].x, particles[a].y);

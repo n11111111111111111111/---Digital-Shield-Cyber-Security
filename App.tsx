@@ -52,7 +52,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen selection:bg-cyan-500 selection:text-white bg-slate-950 transition-colors duration-300 overflow-x-hidden">
+    <div className="min-h-screen selection:bg-cyber-sapphire selection:text-white bg-cyber-navy transition-colors duration-300 overflow-x-hidden">
       <InteractiveBackground />
       
       <div className="relative z-10">
