@@ -64,12 +64,14 @@ const ThreatMap: React.FC = () => {
   const fetchRealWorldThreats = async () => {
     setIsFetchingReal(true);
     try {
-      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+      const apiKey = process.env.GEMINI_API_KEY || process.env.API_KEY;
+      if (!apiKey) return;
+      const ai = new GoogleGenAI({ apiKey });
       const response = await ai.models.generateContent({
         model: "gemini-3-flash-preview",
         contents: "List the most recent 3 real-world cyber attacks, data breaches, or major vulnerabilities reported in the last 24 hours. Format: Source Location, Target Location/Company, Attack Type, Severity, Brief Summary.",
         config: {
-          tools: [{googleSearch: {}}],
+          tools: [{ googleSearch: {} } as any],
         },
       });
 
@@ -232,9 +234,9 @@ const ThreatMap: React.FC = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="flex flex-col lg:flex-row gap-5 h-[720px]">
+        <div className="flex flex-col lg:flex-row gap-5 h-auto lg:h-[720px]">
           
-          <div className="w-full lg:w-80 h-full flex flex-col gap-4">
+          <div className="w-full lg:w-80 h-[400px] lg:h-full flex flex-col gap-4">
             <div className="bg-cyber-ice/5 border border-cyber-powder/20 p-4 rounded-lg">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-[10px] font-black text-cyber-powder uppercase tracking-widest">Real-Time Intel</span>
@@ -282,7 +284,7 @@ const ThreatMap: React.FC = () => {
             )}
           </div>
 
-          <div ref={mapRef} className="flex-1 relative bg-cyber-navy border border-cyber-sapphire/10 rounded-lg overflow-hidden shadow-2xl">
+          <div ref={mapRef} className="flex-1 relative bg-cyber-navy border border-cyber-sapphire/10 rounded-lg overflow-hidden shadow-2xl min-h-[400px]">
             <div className="absolute top-4 right-4 z-30 flex items-center gap-2.5 bg-cyber-navy/80 p-2 backdrop-blur-md border border-cyber-sapphire/20 rounded">
                <div className="text-right">
                   <span className="block text-[6px] text-cyber-sapphire/40 font-bold uppercase tracking-widest">Global Status</span>

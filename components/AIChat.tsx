@@ -57,14 +57,22 @@ const AIChat: React.FC = () => {
             <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar">
               {messages.map((msg, i) => (
                 <div key={i} className={`flex ${msg.role === 'user' ? 'justify-start' : 'justify-end'}`}>
-                  <div className={`max-w-[85%] p-3 rounded-xl text-[12px] leading-relaxed ${
-                    msg.role === 'user' ? 'bg-cyber-sapphire text-white rounded-br-none' : 'bg-cyber-ice/10 text-white rounded-bl-none'
+                  <div className={`max-w-[85%] p-3 rounded-xl text-[12px] leading-relaxed shadow-sm ${
+                    msg.role === 'user' ? 'bg-cyber-sapphire text-white rounded-br-none' : 'bg-cyber-ice/10 text-white rounded-bl-none border border-cyber-powder/10'
                   }`}>
                     {msg.text}
                   </div>
                 </div>
               ))}
-              {isLoading && <div className="text-[10px] text-cyber-sapphire italic text-right">جاري التحليل...</div>}
+              {isLoading && (
+                <div className="flex justify-end">
+                  <div className="bg-cyber-ice/10 p-3 rounded-xl rounded-bl-none border border-cyber-powder/10 flex gap-1">
+                    <div className="w-1.5 h-1.5 bg-cyber-sapphire rounded-full animate-bounce"></div>
+                    <div className="w-1.5 h-1.5 bg-cyber-sapphire rounded-full animate-bounce [animation-delay:0.2s]"></div>
+                    <div className="w-1.5 h-1.5 bg-cyber-sapphire rounded-full animate-bounce [animation-delay:0.4s]"></div>
+                  </div>
+                </div>
+              )}
             </div>
 
             <div className="p-4 bg-cyber-navy/50 border-t border-cyber-powder/10">
