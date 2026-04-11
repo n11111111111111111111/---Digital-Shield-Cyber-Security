@@ -83,7 +83,7 @@ const CommunitySection: React.FC<CommunitySectionProps> = ({ userRole }) => {
             Cyber Experts
           </div>
           <h2 className="text-3xl font-black text-white italic">منصة <span className="text-cyber-sapphire">الخبراء</span></h2>
-          <p className="text-slate-500 mt-1 max-w-lg ml-auto text-[11px] font-medium leading-relaxed">
+          <p className="text-slate-400 mt-1 max-w-lg ml-auto text-[11px] font-medium leading-relaxed">
             نخبة من المحللين والمبرمجين المعتمدين المتوفرين للاستشارة المباشرة.
           </p>
         </div>
@@ -108,7 +108,7 @@ const CommunitySection: React.FC<CommunitySectionProps> = ({ userRole }) => {
 
               <div className="text-right">
                 <h3 className="text-[13px] font-bold text-white mb-1.5 group-hover:text-cyber-sapphire transition-colors line-clamp-1">{service.title}</h3>
-                <p className="text-slate-400 text-[10px] leading-relaxed mb-3 h-8 line-clamp-2">{service.description}</p>
+                <p className="text-slate-300 text-[10px] leading-relaxed mb-3 h-8 line-clamp-2">{service.description}</p>
                 
                 <div className="flex flex-wrap justify-end gap-1 mb-4">
                   {service.skills.map((skill, i) => (

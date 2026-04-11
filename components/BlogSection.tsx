@@ -19,9 +19,9 @@ const FeedCard: React.FC<{ article: Article }> = ({ article }) => (
     </div>
     <div className="p-4 text-right flex-1 flex flex-col">
       <h3 className="text-sm font-bold text-white mb-1.5 group-hover:text-cyber-sapphire transition-colors line-clamp-2 leading-tight">{article.title}</h3>
-      <p className="text-slate-400 text-[10px] mb-3 line-clamp-2 leading-relaxed">{article.excerpt}</p>
+      <p className="text-slate-300 text-[10px] mb-3 line-clamp-2 leading-relaxed">{article.excerpt}</p>
       <div className="mt-auto flex items-center justify-between pt-3 border-t border-slate-800/40">
-         <span className="text-[8px] text-slate-500 font-bold">{article.date}</span>
+         <span className="text-[8px] text-slate-400 font-bold">{article.date}</span>
          <button className="text-cyber-sapphire hover:text-white transition-colors"><ArrowLeft className="w-3.5 h-3.5" /></button>
       </div>
     </div>
@@ -39,7 +39,7 @@ const BlogSection: React.FC<BlogSectionProps> = ({ userRole, articles }) => {
         
         <div className="text-right mb-12">
           <h2 className="text-2xl font-black text-white italic">موجز <span className="text-cyber-sapphire">الاستخبارات الرقمية</span></h2>
-          <p className="text-slate-500 text-xs mt-1">تقارير مفصلة تغطي كافة جوانب الصراع السيبراني.</p>
+          <p className="text-slate-400 text-xs mt-1">تقارير مفصلة تغطي كافة جوانب الصراع السيبراني.</p>
         </div>
 
         <div className="grid lg:grid-cols-3 gap-8">

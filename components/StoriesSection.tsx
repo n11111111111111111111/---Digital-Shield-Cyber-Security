@@ -18,7 +18,7 @@ const StoriesSection: React.FC<StoriesSectionProps> = ({ stories }) => {
               Digital Chronicles
             </div>
             <h2 className="text-4xl font-black text-white">قصص <span className="text-transparent bg-clip-text bg-gradient-to-l from-cyber-powder to-cyber-sapphire">من الخطوط الأمامية</span></h2>
-            <p className="text-slate-500 mt-4 max-w-xl">تعلم من تجارب حقيقية وحوادث غيرت مجرى تاريخ الأمن الرقمي الوطني.</p>
+            <p className="text-slate-400 mt-4 max-w-xl">تعلم من تجارب حقيقية وحوادث غيرت مجرى تاريخ الأمن الرقمي الوطني.</p>
           </div>
           <button className="flex items-center gap-2 text-slate-400 hover:text-cyber-sapphire font-bold transition-colors">
             تصفح الأرشيف الكامل <ChevronLeft className="w-4 h-4" />
@@ -46,12 +46,12 @@ const StoriesSection: React.FC<StoriesSectionProps> = ({ stories }) => {
                   {story.title}
                 </h3>
                 
-                <p className="text-slate-400 text-sm leading-relaxed mb-8 line-clamp-3">
+                <p className="text-slate-300 text-sm leading-relaxed mb-8 line-clamp-3">
                   {story.preview}
                 </p>
                 
                 <div className="flex items-center justify-between pt-6 border-t border-cyber-powder/10">
-                  <div className="flex items-center gap-2 text-slate-500 text-xs">
+                  <div className="flex items-center gap-2 text-slate-400 text-xs">
                     <Clock className="w-3.5 h-3.5" />
                     {story.readTime}
                   </div>

@@ -257,11 +257,11 @@ const ThreatMap: React.FC = () => {
                 {liveLog.map((log) => (
                   <div key={log.id} className={`relative border-r-2 pr-3 py-2 bg-cyber-ice/5 rounded-sm animate-fade-in ${log.isReal ? 'border-red-500 bg-red-500/5' : 'border-cyber-powder/20'}`} style={{ borderRightColor: log.isReal ? '#ef4444' : log.color }}>
                     <div className="flex justify-between items-center mb-1 text-[9px]">
-                      <span className="text-slate-500 mono">{log.timestamp}</span>
+                      <span className="text-slate-400 mono">{log.timestamp}</span>
                       {log.isReal && <span className="flex items-center gap-1 text-red-500 font-black tracking-tighter">VERIFIED REAL</span>}
                     </div>
                     <div className="text-[11px] text-white font-bold truncate leading-tight">{log.type}</div>
-                    <div className="text-[9px] text-slate-400 mt-1">{log.sourceName} ➔ {log.targetName}</div>
+                    <div className="text-[9px] text-slate-300 mt-1">{log.sourceName} ➔ {log.targetName}</div>
                   </div>
                 ))}
               </div>
@@ -269,7 +269,7 @@ const ThreatMap: React.FC = () => {
 
             {groundingSources.length > 0 && (
               <div className="bg-cyber-navy/80 border border-cyber-sapphire/20 p-3 rounded-lg animate-slide-up">
-                <h4 className="text-[9px] font-black text-slate-500 uppercase mb-2 tracking-widest">مصادر التحقق:</h4>
+                <h4 className="text-[9px] font-black text-slate-400 uppercase mb-2 tracking-widest">مصادر التحقق:</h4>
                 <div className="space-y-1.5">
                   {groundingSources.slice(0, 3).map((source, idx) => (
                     <a key={idx} href={source.web?.uri} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-[9px] text-cyber-sapphire hover:text-white transition-colors truncate">

@@ -22,7 +22,7 @@ const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
           دجلة<span className="text-transparent bg-clip-text bg-gradient-to-r from-cyber-powder to-cyber-sapphire">سايبر</span>
         </h1>
         
-        <p className="max-w-2xl mx-auto text-slate-400 text-base md:text-lg mb-12 leading-relaxed font-medium">
+        <p className="max-w-2xl mx-auto text-slate-300 text-base md:text-lg mb-12 leading-relaxed font-medium">
           استكشف آخر مستجدات الفضاء الرقمي، حلل التهديدات الكبرى، وواكب التحقيقات الاستخباراتية في قلب بغداد.
         </p>
 

@@ -58,7 +58,7 @@ const AIChat: React.FC = () => {
               {messages.map((msg, i) => (
                 <div key={i} className={`flex ${msg.role === 'user' ? 'justify-start' : 'justify-end'}`}>
                   <div className={`max-w-[85%] p-3 rounded-xl text-[12px] leading-relaxed ${
-                    msg.role === 'user' ? 'bg-cyber-sapphire text-white rounded-br-none' : 'bg-cyber-ice/10 text-slate-200 rounded-bl-none'
+                    msg.role === 'user' ? 'bg-cyber-sapphire text-white rounded-br-none' : 'bg-cyber-ice/10 text-white rounded-bl-none'
                   }`}>
                     {msg.text}
                   </div>

@@ -22,7 +22,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               </span>
               <Waves className="w-5 h-5 text-cyber-powder" />
             </div>
-            <p className="text-slate-400 text-[10px] leading-relaxed font-medium">
+            <p className="text-slate-300 text-[10px] leading-relaxed font-medium">
               المركز الاستخباري الأول للأمن الرقمي في العراق. نحمي الفضاء الرقمي الوطني بأدوات ذكية.
             </p>
           </div>
@@ -88,7 +88,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
         <div className="border-t border-cyber-powder/10 pt-8 flex flex-col md:flex-row-reverse justify-between items-center gap-6">
           
           {/* Copyright Information */}
-          <div className="flex items-center gap-3 text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em]">
+          <div className="flex items-center gap-3 text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">
             <span className="text-cyber-sapphire/80 font-black">العراق الرقمي</span>
             <div className="w-1 h-1 bg-slate-800 rounded-full"></div>
             <span>جميع الحقوق محفوظة © 2024</span>

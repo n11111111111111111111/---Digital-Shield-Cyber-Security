@@ -57,14 +57,21 @@ const InfoSection: React.FC<InfoSectionProps> = ({ type }) => {
               <div className="bg-cyber-navy border border-cyber-powder/20 p-6 rounded-2xl flex items-center justify-end gap-4 hover:border-cyber-sapphire/30 transition-all">
                 <div className="text-right">
                   <span className="block text-[10px] text-slate-500 font-bold uppercase">البريد الإلكتروني</span>
-                  <span className="text-white font-bold">intel@tigris-cyber.iq</span>
+                  <span className="text-white font-bold">info@tigris-cyber.iq</span>
                 </div>
                 <Mail className="w-6 h-6 text-cyber-powder" />
               </div>
               <div className="bg-cyber-navy border border-cyber-powder/20 p-6 rounded-2xl flex items-center justify-end gap-4 hover:border-cyber-sapphire/30 transition-all">
                 <div className="text-right">
+                  <span className="block text-[10px] text-slate-500 font-bold uppercase">واتساب</span>
+                  <span className="text-white font-bold">07736274737</span>
+                </div>
+                <Phone className="w-6 h-6 text-green-400" />
+              </div>
+              <div className="md:col-span-2 bg-cyber-navy border border-cyber-powder/20 p-6 rounded-2xl flex items-center justify-end gap-4 hover:border-cyber-sapphire/30 transition-all">
+                <div className="text-right">
                   <span className="block text-[10px] text-slate-500 font-bold uppercase">الموقع الجغرافي</span>
-                  <span className="text-white font-bold">بغداد، الكرادة</span>
+                  <span className="text-white font-bold">بغداد، الدورة، الجامعة التقنية الوسطى، الكلية الهندسية الكهربائية</span>
                 </div>
                 <MapPin className="w-6 h-6 text-red-400" />
               </div>

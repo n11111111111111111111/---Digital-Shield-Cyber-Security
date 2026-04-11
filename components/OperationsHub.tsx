@@ -44,7 +44,7 @@ const OperationsHub: React.FC = () => {
              Tigris Cyber Main Dashboard
           </div>
           <h2 className="text-4xl font-black text-white mb-4 italic">القائمة <span className="text-cyber-sapphire">الرئيسية</span></h2>
-          <p className="text-slate-500 text-base max-w-xl mx-auto leading-relaxed">المحاور الثلاثة الأساسية لاستخبارات دجلة سايبر الرقمية.</p>
+          <p className="text-slate-400 text-base max-w-xl mx-auto leading-relaxed">المحاور الثلاثة الأساسية لاستخبارات دجلة سايبر الرقمية.</p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-6">
@@ -65,7 +65,7 @@ const OperationsHub: React.FC = () => {
                 <h3 className="text-xl font-black text-white mb-3 group-hover:text-white transition-colors">{item.title}</h3>
               </div>
               
-              <p className="text-slate-400 text-xs leading-relaxed mb-8 font-medium">
+              <p className="text-slate-300 text-xs leading-relaxed mb-8 font-medium">
                 {item.desc}
               </p>
               
