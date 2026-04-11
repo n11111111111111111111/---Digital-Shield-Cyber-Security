@@ -40,9 +40,19 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, currentView }) => {
         <div className="flex items-center justify-between h-16">
           
           <div className="flex items-center gap-2 cursor-pointer group" onClick={() => onNavigate('home')}>
-            <div className="relative">
+            <div className="relative flex items-center">
               <div className="absolute inset-0 bg-cyber-sapphire/20 blur-lg rounded-full group-hover:bg-cyber-sapphire/40 transition-all"></div>
               <Waves className="w-7 h-7 text-cyber-powder relative z-10" />
+              {/* Mobile Sections Trigger */}
+              <button 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowDepartments(!showDepartments);
+                }}
+                className="md:hidden absolute -right-1 -top-1 z-20 bg-cyber-sapphire text-white p-1 rounded-full shadow-lg border border-cyber-powder/30"
+              >
+                <LayoutGrid className="w-3 h-3" />
+              </button>
             </div>
             <span className="text-xl font-black tracking-tighter text-white italic">دجلة<span className="text-cyber-sapphire">سايبر</span></span>
           </div>
@@ -63,7 +73,7 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, currentView }) => {
             </div>
 
             <div className="relative">
-              <button onClick={() => setShowDepartments(!showDepartments)} className={`flex items-center gap-2 px-3 md:px-4 py-2 rounded-lg transition-all border ${showDepartments ? 'bg-cyber-sapphire border-cyber-sapphire text-white shadow-xl' : 'bg-cyber-navy/50 border-cyber-powder/20 text-slate-400 hover:text-cyber-sapphire hover:border-cyber-sapphire/30'}`}>
+              <button onClick={() => setShowDepartments(!showDepartments)} className={`hidden md:flex items-center gap-2 px-3 md:px-4 py-2 rounded-lg transition-all border ${showDepartments ? 'bg-cyber-sapphire border-cyber-sapphire text-white shadow-xl' : 'bg-cyber-navy/50 border-cyber-powder/20 text-slate-400 hover:text-cyber-sapphire hover:border-cyber-sapphire/30'}`}>
                 <LayoutGrid className="w-3.5 h-3.5" />
                 <span className="text-[10px] font-black uppercase tracking-widest">الأقسام</span>
               </button>

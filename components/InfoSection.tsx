@@ -57,7 +57,8 @@ const InfoSection: React.FC<InfoSectionProps> = ({ type }) => {
               <div className="bg-cyber-navy border border-cyber-powder/20 p-6 rounded-2xl flex items-center justify-end gap-4 hover:border-cyber-sapphire/30 transition-all">
                 <div className="text-right">
                   <span className="block text-[10px] text-slate-500 font-bold uppercase">البريد الإلكتروني</span>
-                  <span className="text-white font-bold">info@tigris-cyber.iq</span>
+                  <span className="text-white font-bold block">info@tigris-cyber.iq</span>
+                  <span className="text-white font-bold block">pbeb4009@mtu.edu.iq</span>
                 </div>
                 <Mail className="w-6 h-6 text-cyber-powder" />
               </div>

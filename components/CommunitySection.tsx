@@ -13,57 +13,75 @@ const CommunitySection: React.FC<CommunitySectionProps> = ({ userRole }) => {
   const services: ExpertService[] = [
     {
       id: '1',
-      expertName: 'Matrix_Dev',
-      title: 'برمجة أدوات فحص مخصصة',
-      description: 'كتابة سكربتات Python لفحص الثغرات في الأنظمة السحابية بشكل تلقائي.',
+      expertName: 'عباس حبيب',
+      title: 'خبير أمن سيبراني',
+      description: 'متخصص في حماية البنى التحتية الحساسة وإدارة المخاطر الرقمية.',
       price: '',
-      skills: ['Python', 'Cloud'],
+      skills: ['Network Security', 'Risk Management'],
       rating: 5
     },
     {
       id: '2',
-      expertName: 'Cyber_Audit',
-      title: 'اختبار اختراق المواقع',
-      description: 'تنفيذ هجمات محاكاة لكشف ثغرات OWASP Top 10 وتقديم حلول فنية.',
+      expertName: 'عبدلله بركان',
+      title: 'محلل برمجيات خبيثة',
+      description: 'خبير في الهندسة العكسية وتحليل الفيروسات والبرمجيات الضارة.',
       price: '',
-      skills: ['Web', 'SQLi'],
-      rating: 4.8
-    },
-    {
-      id: '3',
-      expertName: 'Forensic_Pro',
-      title: 'تحقيق جنائي رقمي',
-      description: 'تحليل الأجهزة المخترقة وتتبع المهاجمين واستخراج الأدلة الرقمية.',
-      price: '',
-      skills: ['Forensics', 'Malware'],
+      skills: ['Reverse Engineering', 'Malware Analysis'],
       rating: 4.9
     },
     {
-      id: '4',
-      expertName: 'Cloud_Guardian',
-      title: 'هندسة أمن السحاب',
-      description: 'تصميم وتنفيذ جدران حماية لهياكل AWS و Azure لضمان استمرارية الأعمال.',
+      id: '3',
+      expertName: 'حسن غسان',
+      title: 'مختبر اختراق',
+      description: 'متخصص في اكتشاف الثغرات الأمنية في تطبيقات الويب والموبايل.',
       price: '',
-      skills: ['Azure', 'Network'],
+      skills: ['Penetration Testing', 'Web Security'],
+      rating: 4.8
+    },
+    {
+      id: '4',
+      expertName: 'امين حازم',
+      title: 'مهندس أمن سحابي',
+      description: 'تصميم وتنفيذ حلول أمنية متكاملة للبيئات السحابية الهجينة.',
+      price: '',
+      skills: ['Cloud Security', 'AWS/Azure'],
       rating: 4.7
     },
     {
       id: '5',
-      expertName: 'Bug_Bounty_IQ',
-      title: 'صائد الثغرات البرمجية',
-      description: 'مساعدة الشركات في بناء برامج الإفصاح عن الثغرات وإدارة البلاغات.',
+      expertName: 'مبين ارسلان',
+      title: 'خبير استجابة للحوادث',
+      description: 'متخصص في التعامل مع الاختراقات النشطة واستعادة الأنظمة المتضررة.',
       price: '',
-      skills: ['Bug Bounty', 'Triage'],
+      skills: ['Incident Response', 'Digital Forensics'],
       rating: 5
     },
     {
       id: '6',
-      expertName: 'Crypto_Analyst',
-      title: 'تحليل أمن البلوكشين',
-      description: 'تدقيق العقود الذكية وتحليل أمان المحافظ الرقمية وتتبع العملات.',
+      expertName: 'عبدلله طارق',
+      title: 'مطور أدوات أمنية',
+      description: 'برمجة أدوات مخصصة للأتمتة الأمنية وفحص الثغرات التلقائي.',
       price: '',
-      skills: ['Blockchain', 'Crypto'],
+      skills: ['Python', 'Automation'],
       rating: 4.6
+    },
+    {
+      id: '7',
+      expertName: 'محمد وسام',
+      title: 'مستشار أمن معلومات',
+      description: 'تقديم استشارات استراتيجية للشركات للامتثال للمعايير الأمنية العالمية.',
+      price: '',
+      skills: ['ISO 27001', 'Compliance'],
+      rating: 4.9
+    },
+    {
+      id: '8',
+      expertName: 'عبدلله بلال',
+      title: 'خبير تشفير',
+      description: 'متخصص في بروتوكولات التشفير وحماية البيانات الحساسة أثناء النقل والتخزين.',
+      price: '',
+      skills: ['Cryptography', 'Data Privacy'],
+      rating: 4.8
     }
   ];
 
