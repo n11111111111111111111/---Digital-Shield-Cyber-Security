@@ -205,28 +205,25 @@ const ThreatMap: React.FC = () => {
     <div id="threats" className="py-12 bg-cyber-navy relative overflow-hidden">
       
       {/* ⚠️ إشعار التهديد الحرج (Floating Alert) */}
-      <div className={`fixed top-20 md:top-32 left-1/2 -translate-x-1/2 z-[9999] transition-all duration-700 transform pointer-events-auto ${activeAlert ? 'translate-y-0 opacity-100 scale-100' : '-translate-y-64 opacity-0 scale-90 pointer-events-none'}`}>
+      <div className={`fixed top-4 md:top-24 left-1/2 -translate-x-1/2 z-[9990] transition-all duration-700 transform pointer-events-auto ${activeAlert ? 'translate-y-0 opacity-100 scale-100' : '-translate-y-64 opacity-0 scale-90 pointer-events-none'}`}>
         <div className="relative group">
-          <div className="absolute -inset-2 bg-red-600/20 blur-xl rounded-xl animate-pulse"></div>
-          <div className="relative bg-[#0d0202]/95 backdrop-blur-3xl border border-red-500/50 px-4 py-2.5 rounded-xl shadow-[0_0_40px_rgba(239,68,68,0.2)] flex items-center gap-4 min-w-[300px] max-w-[350px] overflow-hidden">
-            <div className="absolute inset-0 bg-[linear-gradient(rgba(239,68,68,0)_0%,rgba(239,68,68,0.1)_50%,rgba(239,68,68,0)_100%)] h-8 w-full -translate-y-full animate-radar-scan opacity-40"></div>
-            <div className="relative shrink-0">
-              <div className="absolute inset-0 bg-red-600/30 blur-lg rounded-full animate-ping"></div>
-              <div className="relative w-9 h-9 bg-red-950/60 border border-red-500/60 rounded-lg flex items-center justify-center">
-                <Skull className="w-5 h-5 text-red-500" />
+          <div className="absolute -inset-1 bg-red-600/20 blur-lg rounded-lg animate-pulse"></div>
+          <div className="relative bg-[#0d0202]/90 backdrop-blur-2xl border border-red-500/40 px-3 py-2 rounded-xl shadow-2xl flex items-center gap-3 min-w-[280px] max-w-[320px] overflow-hidden">
+            <div className="shrink-0">
+              <div className="w-8 h-8 bg-red-950/50 border border-red-500/50 rounded-lg flex items-center justify-center">
+                <Skull className="w-4 h-4 text-red-500" />
               </div>
             </div>
-            <div className="text-right flex-1 relative">
-              <div className="flex items-center justify-end gap-2 mb-0.5">
-                 <div className="flex items-center gap-1 px-1.5 py-0.5 bg-red-600/20 border border-red-500/30 rounded text-[7px] font-black uppercase tracking-[0.1em] text-red-400 animate-pulse">
-                   <Flame className="w-2.5 h-2.5" />
-                   {activeAlert?.isReal ? 'VERIFIED REAL' : 'CRITICAL'}
-                 </div>
+            <div className="text-right flex-1">
+              <div className="flex items-center justify-end gap-1.5 mb-0.5">
+                 <span className="text-[7px] font-black text-red-500 uppercase tracking-widest animate-pulse">
+                   {activeAlert?.isReal ? 'REAL-WORLD THREAT' : 'SIMULATED CRITICAL'}
+                 </span>
               </div>
-              <h4 className="text-sm font-black text-white leading-tight mb-1 tracking-tighter italic uppercase truncate">{activeAlert?.type}</h4>
-              <div className="flex items-center justify-end gap-3 text-[9px] font-bold text-slate-300">
-                <span className="flex items-center gap-1"><Crosshair className="w-2.5 h-2.5 text-red-600" /> {activeAlert?.targetName}</span>
-                <span className="bg-red-600/20 text-red-400 px-1.5 py-0.5 rounded border border-red-500/30 mono font-black">{activeAlert?.timestamp}</span>
+              <h4 className="text-[11px] font-black text-white leading-tight truncate">{activeAlert?.type}</h4>
+              <div className="flex items-center justify-end gap-2 text-[8px] font-bold text-slate-400 mt-0.5">
+                <span className="truncate">{activeAlert?.targetName}</span>
+                <span className="text-red-500/80">{activeAlert?.timestamp}</span>
               </div>
             </div>
           </div>
