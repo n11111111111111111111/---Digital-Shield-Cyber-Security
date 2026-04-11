@@ -205,7 +205,7 @@ const ThreatMap: React.FC = () => {
     <div id="threats" className="py-12 bg-cyber-navy relative overflow-hidden">
       
       {/* ⚠️ إشعار التهديد الحرج (Floating Alert) */}
-      <div className={`fixed top-4 md:top-24 left-1/2 -translate-x-1/2 z-[9990] transition-all duration-700 transform pointer-events-auto ${activeAlert ? 'translate-y-0 opacity-100 scale-100' : '-translate-y-64 opacity-0 scale-90 pointer-events-none'}`}>
+      <div className={`fixed top-20 md:top-24 left-1/2 -translate-x-1/2 z-[150] transition-all duration-700 transform pointer-events-auto ${activeAlert ? 'translate-y-0 opacity-100 scale-100' : '-translate-y-64 opacity-0 scale-90 pointer-events-none'}`}>
         <div className="relative group">
           <div className="absolute -inset-1 bg-red-600/20 blur-lg rounded-lg animate-pulse"></div>
           <div className="relative bg-[#0d0202]/90 backdrop-blur-2xl border border-red-500/40 px-3 py-2 rounded-xl shadow-2xl flex items-center gap-3 min-w-[280px] max-w-[320px] overflow-hidden">
