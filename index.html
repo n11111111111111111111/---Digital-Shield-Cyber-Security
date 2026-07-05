@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>دجلة سايبر - Tigris Cyber | الأمن الرقمي العراقي</title>
+    <title>عرب سايبر نيوز - Arab Cyber News | الاستخبارات الأمنية</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     
     <!-- Lucide Icons CDN -->
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -20,14 +20,14 @@
         theme: {
           extend: {
             colors: {
-              cyber: {
-                ice: '#D6E6F3',
-                powder: '#A6C5D7',
-                sapphire: '#0F52BA',
-                navy: '#000926',
-                cyan: '#06b6d4',
-                green: '#10b981',
-                red: '#ef4444'
+              brand: {
+                burgundy: '#6B1028',
+                hover: '#8A1D3D',
+                dark: '#1A1A1A',
+                muted: '#666666',
+                bg: '#FFFFFF',
+                bgSec: '#F8F9FA',
+                border: '#E5E7EB'
               }
             }
           }
@@ -36,24 +36,23 @@
     </script>
     <style>
         body {
-            font-family: 'Cairo', sans-serif;
-            background-color: #000926;
+            font-family: 'IBM Plex Sans Arabic', 'Cairo', sans-serif;
+            background-color: #FFFFFF;
+            color: #1A1A1A;
             overflow-x: hidden;
         }
         .mono { font-family: 'JetBrains Mono', monospace; }
         .cyber-grid {
             background-image: 
-                linear-gradient(rgba(15, 82, 186, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(15, 82, 186, 0.05) 1px, transparent 1px);
+                linear-gradient(rgba(107, 16, 40, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(107, 16, 40, 0.02) 1px, transparent 1px);
             background-size: 40px 40px;
         }
-        .glow-sapphire { box-shadow: 0 0 20px rgba(15, 82, 186, 0.35); }
-        .glow-text { text-shadow: 0 0 10px rgba(15, 82, 186, 0.6); }
         
         /* Custom scrollbar */
         ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #000926; }
-        ::-webkit-scrollbar-thumb { background: #0F52BA; border-radius: 10px; }
+        ::-webkit-scrollbar-track { background: #FFFFFF; }
+        ::-webkit-scrollbar-thumb { background: #6B1028; border-radius: 10px; }
 
         /* Custom Keyframe Animations */
         @keyframes fadeIn {
@@ -73,52 +72,57 @@
         .animate-slide-up { animation: slideUp 0.4s ease-out forwards; }
     </style>
 </head>
-<body class="bg-cyber-navy text-slate-100 min-h-screen selection:bg-cyber-sapphire selection:text-white relative">
+<body class="bg-white text-[#1A1A1A] min-h-screen selection:bg-[#6B1028]/20 selection:text-[#6B1028] relative">
 
-    <!-- Interactive Canvas Background -->
+    <!-- Interactive Canvas Background with Mesopotamian-inspired star cluster and river wave lines -->
     <canvas id="bg-canvas" class="fixed inset-0 w-full h-full pointer-events-none z-0 opacity-40"></canvas>
 
     <div class="relative z-10 min-h-screen flex flex-col justify-between">
         
         <!-- HEADER / NAVIGATION BAR -->
-        <nav class="sticky top-0 z-[1000] w-full bg-cyber-navy/80 backdrop-blur-xl border-b border-cyber-sapphire/20 transition-colors duration-300">
+        <nav class="fixed top-0 left-0 right-0 z-[1000] w-full bg-white border-b border-brand-border shadow-sm transition-colors duration-300">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex items-center justify-between h-16">
                     
-                    <!-- Right Logo / Menu Trigger for mobile -->
-                    <div class="flex items-center gap-2 cursor-pointer group" id="logo-btn">
-                        <div class="relative flex items-center">
-                            <div class="absolute inset-0 bg-cyber-sapphire/20 blur-lg rounded-full group-hover:bg-cyber-sapphire/40 transition-all"></div>
-                            <i data-lucide="waves" class="w-7 h-7 text-cyber-powder relative z-10 transition-transform"></i>
+                    <!-- Right Logo -->
+                    <div class="flex items-center gap-1.5 cursor-pointer group" id="logo-btn">
+                        <div class="flex flex-col text-right">
+                            <span class="text-base sm:text-lg font-bold leading-tight select-none">
+                                <span class="text-[#666666]">عرب</span>
+                                <span class="text-[#6B1028] font-black">سايبر</span>
+                                <span class="text-[#1A1A1A]">نيوز</span>
+                            </span>
+                            <span class="text-[8px] tracking-wider font-mono text-[#666666] leading-none uppercase -mt-0.5 font-eng">
+                                <span class="text-[#666666]">Arab</span> <span class="text-[#6B1028] font-semibold">Cyber</span> <span class="text-[#1A1A1A]">News</span>
+                            </span>
                         </div>
-                        <span class="text-xl font-black tracking-tighter text-white italic">دجلة<span class="text-cyber-sapphire">سايبر</span></span>
                     </div>
 
                     <!-- Navigation Links (Desktop) -->
                     <div class="flex items-center gap-4">
                         <div class="hidden md:flex items-center gap-4 lg:gap-6">
-                            <button id="nav-home" class="text-xs font-black transition-all flex items-center gap-2 px-3 py-1.5 rounded-lg text-cyber-sapphire bg-cyber-sapphire/10">
+                            <button id="nav-home" class="text-xs font-bold transition-all flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-white bg-[#6B1028]">
                                 <i data-lucide="home" class="w-3.5 h-3.5"></i> الرئيسية
                             </button>
                             
-                            <button id="nav-experts" class="flex items-center gap-2 text-xs font-black transition-all px-3 py-1.5 rounded-lg text-slate-300 hover:text-cyber-sapphire">
+                            <button id="nav-experts" class="flex items-center gap-1.5 text-xs font-bold transition-all px-3 py-1.5 rounded-lg text-[#1A1A1A] hover:text-[#6B1028] hover:bg-[#F8F9FA]">
                                 <i data-lucide="users" class="w-3.5 h-3.5"></i> الخبراء
                             </button>
                             
-                            <button id="nav-learning" class="flex items-center gap-2 text-xs font-black transition-all px-3 py-1.5 rounded-lg text-slate-300 hover:text-cyber-sapphire">
-                                <i data-lucide="graduation-cap" class="w-3.5 h-3.5"></i> مركز التعلم
+                            <button id="nav-learning" class="flex items-center gap-1.5 text-xs font-bold transition-all px-3 py-1.5 rounded-lg text-[#1A1A1A] hover:text-[#6B1028] hover:bg-[#F8F9FA]">
+                                <i data-lucide="graduation-cap" class="w-3.5 h-3.5"></i> مركز الأدوات والتعلم
                             </button>
                         </div>
 
                         <!-- Sections Menu Button (Desktop) -->
                         <div class="relative">
-                            <button id="sections-btn" class="hidden md:flex items-center gap-2 px-4 py-2 rounded-lg transition-all border bg-cyber-navy/50 border-cyber-powder/20 text-slate-400 hover:text-cyber-sapphire hover:border-cyber-sapphire/30">
+                            <button id="sections-btn" class="hidden md:flex items-center gap-1.5 px-3.5 py-2 rounded-lg transition-all border border-[#E5E7EB] bg-[#F8F9FA] text-[#1A1A1A] hover:text-[#6B1028] hover:border-[#6B1028]/30">
                                 <i data-lucide="layout-grid" class="w-3.5 h-3.5"></i>
-                                <span class="text-[10px] font-black uppercase tracking-widest">الأقسام</span>
+                                <span class="text-[10px] font-bold uppercase tracking-wider">الأقسام</span>
                             </button>
 
                             <!-- Dropdown Menu -->
-                            <div id="desktop-dropdown" class="hidden absolute left-0 mt-3 w-64 bg-cyber-navy/95 backdrop-blur-2xl border border-cyber-powder/20 shadow-2xl rounded-xl overflow-hidden p-1 text-right z-[110]">
+                            <div id="desktop-dropdown" class="hidden absolute left-0 mt-3 w-64 bg-white border border-[#E5E7EB] shadow-lg rounded-xl overflow-hidden p-1 text-right z-[110]">
                                 <div class="grid grid-cols-1 gap-0.5" id="dropdown-items">
                                     <!-- Populated dynamically via JS -->
                                 </div>
@@ -128,7 +132,7 @@
 
                     <!-- Left Contact Us Button -->
                     <div class="flex items-center gap-3">
-                        <button id="nav-contact" class="hidden sm:block bg-cyber-navy/50 text-slate-300 hover:text-white px-4 py-2 rounded-lg font-bold border border-cyber-powder/20 hover:border-cyber-sapphire/30 transition-all text-[11px]">
+                        <button id="nav-contact" class="hidden sm:block bg-[#F8F9FA] text-[#1A1A1A] hover:text-[#6B1028] px-4 py-2 rounded-lg font-bold border border-[#E5E7EB] hover:border-[#6B1028]/20 transition-all text-[11px]">
                             اتصل بنا
                         </button>
                     </div>
@@ -137,44 +141,44 @@
         </nav>
 
         <!-- MOBILE SIDEBAR DRAWER -->
-        <div id="mobile-sidebar" class="hidden fixed inset-0 z-[200] flex justify-end">
+        <div id="mobile-sidebar" class="hidden fixed inset-0 z-[9999] flex justify-end">
             <!-- Overlay -->
-            <div id="sidebar-overlay" class="absolute inset-0 bg-cyber-navy/90 backdrop-blur-lg"></div>
+            <div id="sidebar-overlay" class="absolute inset-0 bg-[#1A1A1A]/40 backdrop-blur-sm"></div>
             
             <!-- Sidebar Content -->
-            <div class="relative h-full w-[240px] bg-cyber-navy border-l border-cyber-sapphire/40 shadow-[-20px_0_100px_rgba(0,0,0,1)] animate-slide-in-right flex flex-col overflow-hidden">
+            <div class="relative h-full w-[240px] bg-white border-l border-[#E5E7EB] shadow-2xl animate-slide-in-right flex flex-col overflow-hidden">
                 <!-- Header -->
-                <div class="p-4 border-b border-cyber-powder/10 bg-cyber-ice/5 flex items-center justify-between">
-                    <button id="sidebar-close-btn" class="p-1 hover:bg-cyber-sapphire/20 rounded-lg transition-colors border border-cyber-powder/10">
-                        <i data-lucide="waves" class="w-5 h-5 text-cyber-sapphire"></i>
+                <div class="p-4 border-b border-[#E5E7EB] bg-[#F8F9FA] flex items-center justify-between">
+                    <button id="sidebar-close-btn" class="p-1 hover:bg-[#E5E7EB] rounded-lg transition-colors border border-[#E5E7EB]">
+                        <i data-lucide="x" class="w-4 h-4 text-[#1A1A1A]"></i>
                     </button>
                     <div class="text-right">
-                        <span class="text-lg font-black text-white italic tracking-tighter block leading-none">الأقسام</span>
-                        <span class="text-[7px] text-cyber-powder font-bold uppercase tracking-widest">Tigris Cyber</span>
+                        <span class="text-sm font-bold text-[#1A1A1A] block leading-none">عرب سايبر نيوز</span>
+                        <span class="text-[8px] text-[#6B1028] font-bold uppercase tracking-wider font-eng">Arab Cyber News</span>
                     </div>
                 </div>
                 
                 <!-- Menu Items -->
                 <div class="flex-1 overflow-y-auto p-2 space-y-1 custom-scrollbar min-h-0">
                     <div class="space-y-0.5">
-                        <button id="sidebar-home" class="w-full flex items-center justify-end gap-2.5 p-2.5 rounded-lg transition-all text-[13px] font-black bg-cyber-sapphire text-white shadow-lg">
+                        <button id="sidebar-home" class="w-full flex items-center justify-end gap-2 py-2 px-3 rounded-lg transition-all text-[11px] font-bold bg-[#6B1028] text-white shadow-sm">
                             <span>الرئيسية</span>
-                            <i data-lucide="home" class="w-4 h-4"></i>
+                            <i data-lucide="home" class="w-3.5 h-3.5"></i>
                         </button>
-                        <button id="sidebar-experts" class="w-full flex items-center justify-end gap-2.5 p-2.5 rounded-lg transition-all text-[13px] font-black text-slate-300 hover:bg-cyber-sapphire/10">
+                        <button id="sidebar-experts" class="w-full flex items-center justify-end gap-2 py-2 px-3 rounded-lg transition-all text-[11px] font-bold text-[#1A1A1A] hover:bg-[#F8F9FA] hover:text-[#6B1028]">
                             <span>الخبراء</span>
-                            <i data-lucide="users" class="w-4 h-4"></i>
+                            <i data-lucide="users" class="w-3.5 h-3.5"></i>
                         </button>
-                        <button id="sidebar-learning" class="w-full flex items-center justify-end gap-2.5 p-2.5 rounded-lg transition-all text-[13px] font-black text-slate-300 hover:bg-cyber-sapphire/10">
+                        <button id="sidebar-learning" class="w-full flex items-center justify-end gap-2 py-2 px-3 rounded-lg transition-all text-[11px] font-bold text-[#1A1A1A] hover:bg-[#F8F9FA] hover:text-[#6B1028]">
                             <span>مركز التعلم</span>
-                            <i data-lucide="graduation-cap" class="w-4 h-4"></i>
+                            <i data-lucide="graduation-cap" class="w-3.5 h-3.5"></i>
                         </button>
                     </div>
                     
                     <div class="flex items-center gap-2 my-3 px-2">
-                        <div class="h-[1px] flex-1 bg-cyber-powder/10"></div>
-                        <span class="text-[7px] font-black text-slate-600 uppercase tracking-widest">المزيد</span>
-                        <div class="h-[1px] flex-1 bg-cyber-powder/10"></div>
+                        <div class="h-[1px] flex-1 bg-[#E5E7EB]"></div>
+                        <span class="text-[8px] font-bold text-[#666666] uppercase tracking-wider">المزيد</span>
+                        <div class="h-[1px] flex-1 bg-[#E5E7EB]"></div>
                     </div>
                     
                     <!-- Sections Populated dynamically via JS -->
@@ -183,8 +187,8 @@
                 </div>
 
                 <!-- Footer Action -->
-                <div class="p-3 bg-cyber-ice/5 border-t border-cyber-powder/10">
-                    <button id="sidebar-contact" class="w-full bg-cyber-sapphire hover:bg-cyber-sapphire/90 text-white py-2.5 rounded-lg font-black text-[11px] shadow-lg transition-all active:scale-95 flex items-center justify-center gap-2">
+                <div class="p-3 bg-white border-t border-[#E5E7EB]">
+                    <button id="sidebar-contact" class="w-full bg-[#6B1028] hover:bg-[#8A1D3D] text-white py-2.5 rounded-lg font-bold text-[11px] shadow-sm transition-all active:scale-95 flex items-center justify-center gap-2">
                         <i data-lucide="mail" class="w-3.5 h-3.5"></i>
                         تواصل معنا
                     </button>
@@ -193,35 +197,62 @@
         </div>
 
         <!-- MAIN APP VIEWS CONTAINER -->
-        <main class="flex-1 min-h-[70vh]">
+        <main class="flex-1 min-h-[70vh] pt-16">
             
             <!-- VIEW: HOME -->
             <div id="view-home" class="view-content animate-fade-in">
                 
                 <!-- Hero Section -->
-                <div class="relative overflow-hidden pt-20 pb-24 cyber-grid">
-                    <div class="absolute inset-0 bg-gradient-to-b from-cyber-navy via-cyber-navy/90 to-cyber-navy"></div>
-                    <div class="relative max-w-5xl mx-auto px-4 text-center">
-                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyber-sapphire/10 border border-cyber-sapphire/20 text-cyber-powder text-[9px] font-black uppercase tracking-[0.2em] mb-8 animate-pulse">
-                            <i data-lucide="network" class="w-3.5 h-3.5"></i>
-                            Intelligence Network: Online
+                <div class="relative bg-[#6B1028] text-white overflow-hidden py-20 md:py-24 border-b border-[#E5E7EB]">
+                    <!-- Scattered words with very low opacity (Opacity 3-5%) distributed randomly -->
+                    <div class="absolute inset-0 pointer-events-none select-none overflow-hidden opacity-[0.04] flex flex-wrap gap-x-12 gap-y-8 items-center justify-center p-8 text-xs font-mono font-eng">
+                        <span>Zero-Day</span>
+                        <span>Malware</span>
+                        <span>Threat Intelligence</span>
+                        <span>APT</span>
+                        <span>SOC</span>
+                        <span>OSINT</span>
+                        <span>CVE</span>
+                        <span>Linux</span>
+                        <span>Cloud Security</span>
+                        <span>MITRE ATT&CK</span>
+                        <span>Forensics</span>
+                        <span>Exploit</span>
+                        <span>Firewall</span>
+                        <span>Hash</span>
+                        <span>Encryption</span>
+                        <span>Threat Hunting</span>
+                        <span>Zero-Day</span>
+                        <span>Malware</span>
+                        <span>APT</span>
+                        <span>SOC</span>
+                        <span>OSINT</span>
+                        <span>CVE</span>
+                        <span>Firewall</span>
+                        <span>Threat Hunting</span>
+                    </div>
+
+                    <div class="relative max-w-5xl mx-auto px-4 text-center z-10">
+                        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/15 border border-white/20 text-white text-[9px] font-bold uppercase tracking-wider mb-8">
+                            <i data-lucide="shield-check" class="w-3.5 h-3.5 text-white"></i>
+                            المنصة العربية المتخصصة بأخبار واستخبارات الأمن السيبراني
                         </div>
                         
-                        <h1 class="text-5xl md:text-7xl font-black text-white mb-6 leading-none tracking-tighter italic">
-                            دجلة<span class="text-transparent bg-clip-text bg-gradient-to-r from-cyber-powder to-cyber-sapphire">سايبر</span>
+                        <h1 class="text-4xl md:text-6xl font-black text-white mb-6 leading-tight tracking-tight">
+                            عرب <span class="text-white underline decoration-white/30">سايبر</span> نيوز
                         </h1>
                         
-                        <p class="max-w-2xl mx-auto text-slate-300 text-base md:text-lg mb-12 leading-relaxed font-medium">
-                            استكشف آخر مستجدات الفضاء الرقمي، حلل التهديدات الكبرى، وواكب التحقيقات الاستخباراتية في قلب بغداد.
+                        <p class="max-w-2xl mx-auto text-white/95 text-sm md:text-base mb-12 leading-relaxed font-medium">
+                            تغطية مستقلة وشاملة لمستجدات الأمن السيبراني العالمي، مع منصة متكاملة للخبراء وصندوق أدوات تفاعلية لتعزيز المناعة الرقمية للجميع.
                         </p>
 
                         <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                            <a href="#hub" class="min-w-[180px] bg-cyber-sapphire hover:bg-cyber-sapphire/90 text-white px-8 py-3.5 rounded-lg font-black text-base transition-all glow-sapphire flex items-center justify-center gap-2">
-                                <i data-lucide="layout-grid" class="w-5 h-5"></i>
-                                القائمة الرئيسية
+                            <a href="#hub" class="min-w-[180px] bg-white text-[#6B1028] hover:bg-[#F8F9FA] px-8 py-3.5 rounded-lg font-bold text-sm transition-all shadow-md flex items-center justify-center gap-2">
+                                <i data-lucide="layout-grid" class="w-4 h-4"></i>
+                                المحاور الأساسية
                             </a>
-                            <a href="#news" class="min-w-[180px] bg-cyber-navy/50 text-white border border-cyber-powder/20 hover:border-cyber-sapphire px-8 py-3.5 rounded-lg font-black text-base transition-all flex items-center justify-center gap-2 group">
-                                <i data-lucide="shield-alert" class="w-5 h-5 text-cyber-sapphire group-hover:scale-110 transition-transform"></i>
+                            <a href="#news" class="min-w-[180px] bg-transparent text-white border border-white/35 hover:bg-white/10 px-8 py-3.5 rounded-lg font-bold text-sm transition-all flex items-center justify-center gap-2 group">
+                                <i data-lucide="shield-alert" class="w-4 h-4 text-white group-hover:scale-110 transition-transform"></i>
                                 تحذيرات عاجلة
                             </a>
                         </div>
@@ -229,98 +260,91 @@
                 </div>
 
                 <!-- Operations Hub (القائمة الرئيسية) -->
-                <section id="hub" class="py-16 bg-cyber-navy relative overflow-hidden">
-                    <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(15,82,186,0.1),transparent_70%)]"></div>
+                <section id="hub" class="py-16 bg-[#F8F9FA] relative overflow-hidden border-b border-[#E5E7EB]">
                     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                         <div class="text-center mb-12">
-                            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-cyber-navy/50 border border-cyber-powder/20 text-cyber-powder text-[9px] font-black uppercase tracking-[0.3em] mb-4">
+                            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#6B1028]/5 border border-[#6B1028]/15 text-[#6B1028] text-[9px] font-bold uppercase tracking-wider mb-4">
                                 <i data-lucide="activity" class="w-3.5 h-3.5 animate-pulse"></i>
-                                Tigris Cyber Main Dashboard
+                                البوابة السيبرانية العامة
                             </div>
-                            <h2 class="text-4xl font-black text-white mb-4 italic">القائمة <span class="text-cyber-sapphire">الرئيسية</span></h2>
-                            <p class="text-slate-400 text-base max-w-xl mx-auto leading-relaxed">المحاور الثلاثة الأساسية لاستخبارات دجلة سايبر الرقمية.</p>
+                            <h2 class="text-3xl font-black text-[#1A1A1A] mb-3">المحاور <span class="text-[#6B1028]">الاستراتيجية</span></h2>
+                            <p class="text-[#666666] text-sm max-w-xl mx-auto leading-relaxed">الأركان والخدمات الرئيسية لمنصة عرب سايبر نيوز لتعزيز الثقافة والمناعة الرقمية.</p>
                         </div>
 
                         <div class="grid md:grid-cols-3 gap-6">
                             <!-- Card 1 -->
-                            <a href="#news" class="group relative p-6 bg-cyber-ice/5 border border-cyber-powder/20 rounded-2xl hover:bg-cyber-ice/10 hover:border-cyber-sapphire/40 transition-all duration-500 flex flex-col items-center text-center overflow-hidden shadow-xl shadow-cyber-sapphire/5">
-                                <div class="absolute -inset-2 opacity-0 group-hover:opacity-5 transition-opacity blur-3xl rounded-full bg-cyber-powder"></div>
-                                <div class="w-16 h-16 rounded-xl bg-cyber-navy border border-cyber-powder/20 flex items-center justify-center text-cyber-powder mb-6 group-hover:scale-110 transition-all shadow-inner">
-                                    <i data-lucide="newspaper" class="w-7 h-7"></i>
+                            <a href="#news" class="group relative p-6 bg-white border border-[#E5E7EB] rounded-xl hover:border-[#6B1028]/35 transition-all duration-300 flex flex-col items-center text-center shadow-sm">
+                                <div class="w-12 h-12 rounded-lg bg-[#F8F9FA] border border-[#E5E7EB] flex items-center justify-center text-[#6B1028] mb-6 group-hover:scale-105 transition-all">
+                                    <i data-lucide="newspaper" class="w-5 h-5"></i>
                                 </div>
-                                <span class="block text-[9px] font-black uppercase tracking-[0.3em] mb-1.5 text-cyber-powder">Live Feed</span>
-                                <h3 class="text-xl font-black text-white mb-3 group-hover:text-white transition-colors">آخر الأخبار</h3>
-                                <p class="text-slate-300 text-xs leading-relaxed mb-8 font-medium">تغطية فورية وشاملة للأحداث الرقمية الجارية على الساحة العالمية والوطنية.</p>
-                                <div class="mt-auto flex items-center gap-2 text-[10px] font-black uppercase text-slate-500 group-hover:text-cyber-sapphire transition-colors tracking-widest">
-                                    <i data-lucide="arrow-up-left" class="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform"></i>
-                                    استعراض البيانات
+                                <span class="block text-[9px] font-bold uppercase tracking-wider mb-1.5 text-[#6B1028]">الرصد الإخباري</span>
+                                <h3 class="text-lg font-black text-[#1A1A1A] mb-2">آخر الأخبار</h3>
+                                <p class="text-[#666666] text-xs leading-relaxed mb-6">متابعة دقيقة للأحداث الأمنية والتطورات التقنية على الصعيدين العربي والعالمي.</p>
+                                <div class="mt-auto flex items-center gap-1.5 text-[10px] font-bold text-[#666666] group-hover:text-[#6B1028] transition-colors">
+                                    <i data-lucide="arrow-up-left" class="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform"></i>
+                                    تصفح الأخبار
                                 </div>
-                                <div class="absolute top-0 left-0 w-16 h-16 border-t border-l border-cyber-powder/20 rounded-tl-2xl group-hover:border-cyber-sapphire/30 transition-all"></div>
                             </a>
                             <!-- Card 2 -->
-                            <a href="#news" class="group relative p-6 bg-cyber-ice/5 border border-cyber-powder/20 rounded-2xl hover:bg-cyber-ice/10 hover:border-cyber-sapphire/40 transition-all duration-500 flex flex-col items-center text-center overflow-hidden shadow-xl shadow-red-500/5">
-                                <div class="absolute -inset-2 opacity-0 group-hover:opacity-5 transition-opacity blur-3xl rounded-full bg-red-400"></div>
-                                <div class="w-16 h-16 rounded-xl bg-cyber-navy border border-cyber-powder/20 flex items-center justify-center text-red-400 mb-6 group-hover:scale-110 transition-all shadow-inner">
-                                    <i data-lucide="shield-alert" class="w-7 h-7"></i>
+                            <a href="#news" class="group relative p-6 bg-white border border-[#E5E7EB] rounded-xl hover:border-[#6B1028]/35 transition-all duration-300 flex flex-col items-center text-center shadow-sm">
+                                <div class="w-12 h-12 rounded-lg bg-[#F8F9FA] border border-[#E5E7EB] flex items-center justify-center text-[#EA580C] mb-6 group-hover:scale-105 transition-all">
+                                    <i data-lucide="shield-alert" class="w-5 h-5"></i>
                                 </div>
-                                <span class="block text-[9px] font-black uppercase tracking-[0.3em] mb-1.5 text-red-400">Threat Alerts</span>
-                                <h3 class="text-xl font-black text-white mb-3 group-hover:text-white transition-colors">أبرز الهجمات</h3>
-                                <p class="text-slate-300 text-xs leading-relaxed mb-8 font-medium">رصد وتحليل لأخطر الهجمات السيبرانية النشطة، برمجيات الفدية، وحملات التصيد.</p>
-                                <div class="mt-auto flex items-center gap-2 text-[10px] font-black uppercase text-slate-500 group-hover:text-cyber-sapphire transition-colors tracking-widest">
-                                    <i data-lucide="arrow-up-left" class="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform"></i>
-                                    استعراض البيانات
+                                <span class="block text-[9px] font-bold uppercase tracking-wider mb-1.5 text-[#EA580C]">تحليل التهديدات</span>
+                                <h3 class="text-lg font-black text-[#1A1A1A] mb-2">أبرز الهجمات</h3>
+                                <p class="text-[#666666] text-xs leading-relaxed mb-6">سجلات حية للهجمات النشطة، برمجيات الفدية وبروتوكولات الحد من انتشارها.</p>
+                                <div class="mt-auto flex items-center gap-1.5 text-[10px] font-bold text-[#666666] group-hover:text-[#6B1028] transition-colors">
+                                    <i data-lucide="arrow-up-left" class="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform"></i>
+                                    تحليل الحوادث
                                 </div>
-                                <div class="absolute top-0 left-0 w-16 h-16 border-t border-l border-cyber-powder/20 rounded-tl-2xl group-hover:border-cyber-sapphire/30 transition-all"></div>
                             </a>
                             <!-- Card 3 -->
-                            <a href="#news" class="group relative p-6 bg-cyber-ice/5 border border-cyber-powder/20 rounded-2xl hover:bg-cyber-ice/10 hover:border-cyber-sapphire/40 transition-all duration-500 flex flex-col items-center text-center overflow-hidden shadow-xl shadow-cyber-sapphire/5">
-                                <div class="absolute -inset-2 opacity-0 group-hover:opacity-5 transition-opacity blur-3xl rounded-full bg-cyber-sapphire"></div>
-                                <div class="w-16 h-16 rounded-xl bg-cyber-navy border border-cyber-powder/20 flex items-center justify-center text-cyber-sapphire mb-6 group-hover:scale-110 transition-all shadow-inner">
-                                    <i data-lucide="bar-chart-3" class="w-7 h-7"></i>
+                            <a href="#news" class="group relative p-6 bg-white border border-[#E5E7EB] rounded-xl hover:border-[#6B1028]/35 transition-all duration-300 flex flex-col items-center text-center shadow-sm">
+                                <div class="w-12 h-12 rounded-lg bg-[#F8F9FA] border border-[#E5E7EB] flex items-center justify-center text-[#6B1028] mb-6 group-hover:scale-105 transition-all">
+                                    <i data-lucide="bar-chart-3" class="w-5 h-5"></i>
                                 </div>
-                                <span class="block text-[9px] font-black uppercase tracking-[0.3em] mb-1.5 text-cyber-sapphire">Strategic Analysis</span>
-                                <h3 class="text-xl font-black text-white mb-3 group-hover:text-white transition-colors">أهم التحليلات</h3>
-                                <p class="text-slate-300 text-xs leading-relaxed mb-8 font-medium">قراءة معمقة في التقارير الأمنية، اتجاهات التهديدات المستقبلية، ودراسات الحالة.</p>
-                                <div class="mt-auto flex items-center gap-2 text-[10px] font-black uppercase text-slate-500 group-hover:text-cyber-sapphire transition-colors tracking-widest">
-                                    <i data-lucide="arrow-up-left" class="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform"></i>
-                                    استعراض البيانات
+                                <span class="block text-[9px] font-bold uppercase tracking-wider mb-1.5 text-[#6B1028]">الفهم والوقاية</span>
+                                <h3 class="text-lg font-black text-[#1A1A1A] mb-2">أهم التحليلات</h3>
+                                <p class="text-[#666666] text-xs leading-relaxed mb-6">تقارير ودراسات تحليلية عميقة تبسط سبل الحماية والوعي الوقائي للمستخدمين.</p>
+                                <div class="mt-auto flex items-center gap-1.5 text-[10px] font-bold text-[#666666] group-hover:text-[#6B1028] transition-colors">
+                                    <i data-lucide="arrow-up-left" class="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform"></i>
+                                    عرض التحليلات
                                 </div>
-                                <div class="absolute top-0 left-0 w-16 h-16 border-t border-l border-cyber-powder/20 rounded-tl-2xl group-hover:border-cyber-sapphire/30 transition-all"></div>
                             </a>
                         </div>
                     </div>
                 </section>
 
                 <!-- News & Intel Brief Section -->
-                <section id="news" class="py-12 bg-cyber-navy border-t border-cyber-powder/10">
+                <section id="news" class="py-12 bg-meso-navy border-t border-meso-gold/15">
                     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div class="text-right mb-12">
-                            <h2 class="text-2xl font-black text-white italic">موجز <span class="text-cyber-sapphire">الاستخبارات الرقمية</span></h2>
-                            <p class="text-slate-400 text-xs mt-1">تقارير مفصلة تغطي كافة جوانب الصراع السيبراني.</p>
+                        <div class="text-right mb-10">
+                            <h2 class="text-2xl font-black text-[#1A1A1A]">موجز <span class="text-[#6B1028]">الاستخبارات الرقمية</span></h2>
+                            <p class="text-[#666666] text-xs mt-1">تقارير وتحليلات استباقية تحاكي أحدث المستجدات الأمنية.</p>
                         </div>
 
                         <div class="grid lg:grid-cols-3 gap-8">
                             <!-- News Column -->
                             <div class="space-y-6">
-                                <div class="flex items-center justify-end gap-2 mb-4 border-b border-cyber-powder/10 pb-3">
-                                    <span class="text-xs font-black text-white">آخر الأخبار</span>
-                                    <i data-lucide="newspaper" class="w-4 h-4 text-cyber-powder"></i>
+                                <div class="flex items-center justify-end gap-2 mb-4 border-b border-[#E5E7EB] pb-3">
+                                    <span class="text-xs font-bold text-[#1A1A1A]">آخر الأخبار</span>
+                                    <i data-lucide="newspaper" class="w-4 h-4 text-[#6B1028]"></i>
                                 </div>
                                 <div class="grid gap-4" id="news-col"></div>
                             </div>
                             <!-- Attacks Column -->
                             <div class="space-y-6">
-                                <div class="flex items-center justify-end gap-2 mb-4 border-b border-cyber-powder/10 pb-3">
-                                    <span class="text-xs font-black text-white">أبرز الهجمات</span>
-                                    <i data-lucide="shield-alert" class="w-4 h-4 text-red-500"></i>
+                                <div class="flex items-center justify-end gap-2 mb-4 border-b border-[#E5E7EB] pb-3">
+                                    <span class="text-xs font-bold text-[#1A1A1A]">أبرز الهجمات</span>
+                                    <i data-lucide="shield-alert" class="w-4 h-4 text-[#EA580C]"></i>
                                 </div>
                                 <div class="grid gap-4" id="attacks-col"></div>
                             </div>
                             <!-- Analysis Column -->
                             <div class="space-y-6">
-                                <div class="flex items-center justify-end gap-2 mb-4 border-b border-cyber-powder/10 pb-3">
-                                    <span class="text-xs font-black text-white">تحليلات وتعليم</span>
-                                    <i data-lucide="bar-chart-3" class="w-4 h-4 text-cyber-sapphire"></i>
+                                <div class="flex items-center justify-end gap-2 mb-4 border-b border-[#E5E7EB] pb-3">
+                                    <span class="text-xs font-bold text-[#1A1A1A]">تحليلات وتعليم</span>
+                                    <i data-lucide="bar-chart-3" class="w-4 h-4 text-[#6B1028]"></i>
                                 </div>
                                 <div class="grid gap-4" id="analysis-col"></div>
                             </div>
@@ -329,20 +353,17 @@
                 </section>
 
                 <!-- Stories Section -->
-                <section id="stories" class="py-24 bg-cyber-navy/50 border-t border-cyber-powder/10">
+                <section id="stories" class="py-16 bg-[#F8F9FA] border-b border-[#E5E7EB]">
                     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+                        <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
                             <div class="text-right">
-                                <div class="inline-flex items-center gap-2 text-cyber-sapphire text-xs font-black uppercase tracking-[0.3em] mb-4">
+                                <div class="inline-flex items-center gap-1.5 text-[#6B1028] text-xs font-bold uppercase tracking-wider mb-3">
                                     <i data-lucide="sparkles" class="w-3 h-3"></i>
-                                    Digital Chronicles
+                                    أحداث سيبرانية تاريخية
                                 </div>
-                                <h2 class="text-4xl font-black text-white">قصص <span class="text-transparent bg-clip-text bg-gradient-to-l from-cyber-powder to-cyber-sapphire">من الخطوط الأمامية</span></h2>
-                                <p class="text-slate-400 mt-4 max-w-xl">تعلم من تجارب حقيقية وحوادث غيرت مجرى تاريخ الأمن الرقمي الوطني.</p>
+                                <h2 class="text-3xl font-black text-[#1A1A1A]">قصص <span class="text-[#6B1028]">من الخطوط الأمامية</span></h2>
+                                <p class="text-[#666666] text-xs mt-2 max-w-xl">تعلم من تجارب حقيقية وحوادث غيرت مجرى تاريخ الأمن الرقمي.</p>
                             </div>
-                            <button class="flex items-center gap-2 text-slate-400 hover:text-cyber-sapphire font-bold transition-colors">
-                                تصفح الأرشيف الكامل <i data-lucide="chevron-left" class="w-4 h-4"></i>
-                            </button>
                         </div>
 
                         <div class="grid md:grid-cols-3 gap-8" id="stories-grid"></div>
@@ -353,60 +374,60 @@
 
             <!-- VIEW: EXPERTS -->
             <div id="view-experts" class="view-content hidden animate-fade-in">
-                <section class="py-12 bg-cyber-navy relative overflow-hidden">
+                <section class="py-12 bg-white relative overflow-hidden">
                     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                        <div class="text-right mb-10">
-                            <div class="inline-flex items-center gap-2 text-cyber-sapphire text-[8px] font-black uppercase tracking-[0.3em] mb-3">
-                                <i data-lucide="code" class="w-3 h-3"></i>
-                                Cyber Experts
+                        <div class="text-right mb-10 border-b border-[#E5E7EB] pb-6">
+                            <div class="inline-flex items-center gap-1.5 text-[#6B1028] text-xs font-bold uppercase tracking-wider mb-2">
+                                <i data-lucide="users" class="w-3.5 h-3.5"></i>
+                                مستشارون ومعتمدون
                             </div>
-                            <h2 class="text-3xl font-black text-white italic">منصة <span class="text-cyber-sapphire">الخبراء</span></h2>
-                            <p class="text-slate-400 mt-1 max-w-lg ml-auto text-[11px] font-medium leading-relaxed">
-                                نخبة من المحللين والمبرمجين المعتمدين المتوفرين للاستشارة المباشرة.
+                            <h2 class="text-3xl font-black text-[#1A1A1A]">منصة <span class="text-[#6B1028]">الخبراء السيبرانيين</span></h2>
+                            <p class="text-[#666666] mt-1 max-w-lg ml-auto text-xs font-medium leading-relaxed">
+                                نخبة من المحللين والمبرمجين المعتمدين المتوفرين للاستشارة الفنية والتعاون المهني المباشر.
                             </p>
                         </div>
 
-                        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4" id="experts-grid"></div>
+                        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="experts-grid"></div>
                     </div>
                 </section>
             </div>
 
             <!-- VIEW: LEARNING -->
             <div id="view-learning" class="view-content hidden animate-fade-in">
-                <div class="py-16 bg-cyber-navy relative min-h-screen">
+                <div class="py-12 bg-white relative min-h-screen">
                     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div class="text-right mb-16">
-                            <div class="inline-flex items-center gap-2 text-cyber-sapphire text-[9px] font-black uppercase tracking-[0.4em] mb-3">
+                        <div class="text-right mb-12 border-b border-[#E5E7EB] pb-6">
+                            <div class="inline-flex items-center gap-1.5 text-[#6B1028] text-xs font-bold uppercase tracking-wider mb-2">
                                 <i data-lucide="terminal" class="w-3.5 h-3.5"></i>
-                                Cyber Toolbox & Resources
+                                أدوات ومواد دراسية مجانية
                             </div>
-                            <h2 class="text-4xl font-black text-white italic tracking-tighter">قائمة <span class="text-cyber-sapphire">الأدوات والكورسات</span></h2>
-                            <p class="text-slate-400 mt-2 max-w-xl ml-auto leading-relaxed text-sm font-medium">
-                                مركز الموارد المجانية والمعزولة لطلاب الأمن السيبراني. اختر أدواتك، ابدأ تعلمك.
+                            <h2 class="text-3xl font-black text-[#1A1A1A]">مركز <span class="text-[#6B1028]">الأدوات والتعليم</span></h2>
+                            <p class="text-[#666666] mt-2 max-w-xl ml-auto leading-relaxed text-xs font-medium">
+                                صندوق أدوات الفحص التفاعلية ومركز الموارد والمناهج المجانية لطلاب وهواة الأمن السيبراني.
                             </p>
                         </div>
 
                         <div class="grid lg:grid-cols-2 gap-12">
                             <!-- Tools Column -->
                             <div>
-                                <div class="flex items-center justify-end gap-3 mb-8 border-b border-cyber-powder/10 pb-4">
+                                <div class="flex items-center justify-end gap-3 mb-6 border-b border-[#E5E7EB] pb-4">
                                     <div class="text-right">
-                                        <h3 class="text-xl font-black text-white">صندوق الأدوات البرمجية</h3>
-                                        <p class="text-slate-500 text-[9px] uppercase font-bold tracking-widest">Practical Essentials</p>
+                                        <h3 class="text-lg font-black text-[#1A1A1A]">صندوق الأدوات التفاعلية</h3>
+                                        <p class="text-[#666666] text-[9px] uppercase font-bold tracking-wider">Interactive Utilities</p>
                                     </div>
-                                    <i data-lucide="wrench" class="w-6 h-6 text-green-500"></i>
+                                    <i data-lucide="wrench" class="w-5 h-5 text-[#6B1028]"></i>
                                 </div>
                                 <div class="space-y-4" id="tools-container"></div>
                             </div>
                             
                             <!-- Courses Column -->
                             <div>
-                                <div class="flex items-center justify-end gap-3 mb-8 border-b border-cyber-powder/10 pb-4">
+                                <div class="flex items-center justify-end gap-3 mb-6 border-b border-[#E5E7EB] pb-4">
                                     <div class="text-right">
-                                        <h3 class="text-xl font-black text-white">كورسات مجانية</h3>
-                                        <p class="text-slate-500 text-[9px] uppercase font-bold tracking-widest">Zero Cost Paths</p>
+                                        <h3 class="text-lg font-black text-[#1A1A1A]">كورسات ومناهج مجانية</h3>
+                                        <p class="text-[#666666] text-[9px] uppercase font-bold tracking-wider">Free Learning Paths</p>
                                     </div>
-                                    <i data-lucide="unlock" class="w-6 h-6 text-cyber-sapphire"></i>
+                                    <i data-lucide="unlock" class="w-5 h-5 text-[#16A34A]"></i>
                                 </div>
                                 <div class="grid gap-4" id="courses-container"></div>
                             </div>
@@ -417,59 +438,58 @@
 
             <!-- VIEW: INFO (ABOUT, CONTACT, PRIVACY) -->
             <div id="view-info" class="view-content hidden animate-fade-in">
-                <div class="py-32 bg-cyber-navy relative overflow-hidden flex flex-col items-center">
-                    <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(15,82,186,0.05),transparent_70%)]"></div>
+                <div class="py-20 bg-[#F8F9FA] relative overflow-hidden flex flex-col items-center border-b border-[#E5E7EB]">
                     <div class="max-w-4xl mx-auto px-4 relative z-10 text-center">
-                        <div class="w-20 h-20 mx-auto rounded-2xl bg-cyber-navy border border-cyber-powder/20 flex items-center justify-center mb-8 shadow-2xl" id="info-icon-wrapper">
-                            <i data-lucide="info" class="w-10 h-10 text-cyber-powder" id="info-main-icon"></i>
+                        <div class="w-16 h-16 mx-auto rounded-xl bg-white border border-[#E5E7EB] flex items-center justify-center mb-6 shadow-sm" id="info-icon-wrapper">
+                            <i data-lucide="info" class="w-8 h-8 text-[#6B1028]" id="info-main-icon"></i>
                         </div>
                         
-                        <h1 class="text-5xl font-black text-white mb-4 italic" id="info-title">من نحن</h1>
-                        <p class="text-sm font-bold uppercase tracking-widest mb-8 text-cyber-powder" id="info-subtitle">دجلة سايبر - العين الرقمية لبلاد الرافدين</p>
+                        <h1 class="text-3xl font-black text-[#1A1A1A] mb-3" id="info-title">من نحن</h1>
+                        <p class="text-xs font-bold uppercase tracking-wider mb-6 text-[#6B1028]" id="info-subtitle">عرب سايبر نيوز - الريادة والاستخبارات السيبرانية</p>
                         
-                        <div class="bg-cyber-ice/5 border border-cyber-powder/20 p-10 rounded-3xl backdrop-blur-xl text-right">
-                            <p class="text-slate-400 text-lg leading-relaxed mb-10 font-medium" id="info-text">
-                                دجلة سايبر هي منصة رائدة في مجال الأمن السيبراني مقرها بغداد، تهدف إلى رصد وتحليل التهديدات الرقمية في المنطقة وتقديم حلول استخباراتية متطورة. نحن نجمع بين التقنية والخبرة العراقية لحماية الفضاء الرقمي الوطني.
+                        <div class="bg-white border border-[#E5E7EB] p-8 rounded-2xl shadow-sm text-right">
+                            <p class="text-[#1A1A1A] text-base leading-relaxed mb-8 font-medium" id="info-text">
+                                منصة عربية مستقلة تقدم تغطية شاملة وحية لأبرز تطورات الأمن الرقمي والاستخبارات السيبرانية على الصعيد الإقليمي والعالمي، مع مساحة لدعم الخبراء والمهتمين بالتعلم.
                             </p>
 
                             <!-- About Us Extra Grid -->
-                            <div id="info-about-extra" class="grid md:grid-cols-3 gap-6 mt-10">
-                                <div class="p-4 border-r border-cyber-sapphire/20 text-right">
-                                    <h4 class="text-white font-bold mb-2">رؤيتنا</h4>
-                                    <p class="text-xs text-slate-500">سيادة رقمية عراقية كاملة.</p>
+                            <div id="info-about-extra" class="grid md:grid-cols-3 gap-6 mt-8">
+                                <div class="p-4 border-r border-[#E5E7EB] text-right">
+                                    <h4 class="text-[#1A1A1A] font-bold mb-1">رؤيتنا</h4>
+                                    <p class="text-xs text-[#666666]">سيادة ووعي رقمي عربي متكامل.</p>
                                 </div>
-                                <div class="p-4 border-r border-cyber-sapphire/20 text-right">
-                                    <h4 class="text-white font-bold mb-2">رسالتنا</h4>
-                                    <p class="text-xs text-slate-500">تحويل البيانات إلى أمن واستقرار.</p>
+                                <div class="p-4 border-r border-[#E5E7EB] text-right">
+                                    <h4 class="text-[#1A1A1A] font-bold mb-1">رسالتنا</h4>
+                                    <p class="text-xs text-[#666666]">تقديم الخبر الموثوق والأداة التفاعلية الفعالة.</p>
                                 </div>
                                 <div class="p-4 text-right">
-                                    <h4 class="text-white font-bold mb-2">قيمنا</h4>
-                                    <p class="text-xs text-slate-500">الشفافية، الدقة، والوطنية.</p>
+                                    <h4 class="text-[#1A1A1A] font-bold mb-1">قيمنا</h4>
+                                    <p class="text-xs text-[#666666]">المصداقية، الاستقلالية، والتميز الوقائي.</p>
                                 </div>
                             </div>
 
                             <!-- Contact Us Extra Grid -->
-                            <div id="info-contact-extra" class="hidden grid md:grid-cols-2 gap-6 mt-10">
-                                <div class="bg-cyber-navy border border-cyber-powder/20 p-6 rounded-2xl flex items-center justify-end gap-4 hover:border-cyber-sapphire/30 transition-all">
+                            <div id="info-contact-extra" class="hidden grid md:grid-cols-2 gap-6 mt-8">
+                                <div class="bg-[#F8F9FA] border border-[#E5E7EB] p-4 rounded-xl flex items-center justify-end gap-3 hover:border-[#6B1028]/20 transition-all">
                                     <div class="text-right">
-                                        <span class="block text-[10px] text-slate-500 font-bold uppercase">البريد الإلكتروني</span>
-                                        <span class="text-white font-bold block">pbeb4009@mtu.edu.iq</span>
+                                        <span class="block text-[10px] text-[#666666] font-bold uppercase">البريد الإلكتروني</span>
+                                        <span class="text-[#1A1A1A] font-bold block">pbeb4009@mtu.edu.iq</span>
                                     </div>
-                                    <i data-lucide="mail" class="w-6 h-6 text-cyber-powder"></i>
+                                    <i data-lucide="mail" class="w-5 h-5 text-[#6B1028]"></i>
                                 </div>
-                                <div class="bg-cyber-navy border border-cyber-powder/20 p-6 rounded-2xl flex items-center justify-end gap-4 hover:border-cyber-sapphire/30 transition-all">
+                                <div class="bg-[#F8F9FA] border border-[#E5E7EB] p-4 rounded-xl flex items-center justify-end gap-3 hover:border-[#6B1028]/20 transition-all">
                                     <div class="text-right">
-                                        <span class="block text-[10px] text-slate-500 font-bold uppercase">واتساب</span>
-                                        <span class="text-white font-bold">07736274737</span>
+                                        <span class="block text-[10px] text-[#666666] font-bold uppercase">واتساب</span>
+                                        <span class="text-[#1A1A1A] font-bold">07736274737</span>
                                     </div>
-                                    <i data-lucide="phone" class="w-6 h-6 text-green-400"></i>
+                                    <i data-lucide="phone" class="w-5 h-5 text-[#16A34A]"></i>
                                 </div>
-                                <div class="md:col-span-2 bg-cyber-navy border border-cyber-powder/20 p-6 rounded-2xl flex items-center justify-end gap-4 hover:border-cyber-sapphire/30 transition-all">
+                                <div class="md:col-span-2 bg-[#F8F9FA] border border-[#E5E7EB] p-4 rounded-xl flex items-center justify-end gap-3 hover:border-[#6B1028]/20 transition-all">
                                     <div class="text-right">
-                                        <span class="block text-[10px] text-slate-500 font-bold uppercase">الموقع الجغرافي</span>
-                                        <span class="text-white font-bold">بغداد، الدورة، الجامعة التقنية الوسطى، الكلية الهندسية الكهربائية</span>
+                                        <span class="block text-[10px] text-[#666666] font-bold uppercase">المقر الرئيسي</span>
+                                        <span class="text-[#1A1A1A] font-bold text-xs">الجامعة التقنية الوسطى، الكلية الهندسية الكهربائية</span>
                                     </div>
-                                    <i data-lucide="map-pin" class="w-6 h-6 text-red-400"></i>
+                                    <i data-lucide="map-pin" class="w-5 h-5 text-[#EA580C]"></i>
                                 </div>
                             </div>
                         </div>
@@ -482,47 +502,46 @@
         <!-- FLOATING CHATBOT WIDGET -->
         <div id="chat-widget" class="fixed bottom-6 left-6 z-[160]">
             <!-- Chat Trigger Bubble -->
-            <button id="chat-trigger" class="bg-cyber-sapphire hover:bg-cyber-sapphire/90 text-white w-16 h-16 rounded-full shadow-[0_0_40px_rgba(15,82,186,0.4)] flex items-center justify-center transition-all transform hover:scale-110 active:scale-95 group relative border border-cyber-powder/30" title="اسأل حارس دجلة">
-                <div class="absolute inset-0 rounded-full border border-cyber-powder/50 animate-ping opacity-20"></div>
-                <i data-lucide="bot" class="w-8 h-8"></i>
-                <div class="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-cyber-navy animate-pulse"></div>
+            <button id="chat-trigger" class="bg-[#6B1028] hover:bg-[#8A1D3D] text-white w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-all transform hover:scale-105 active:scale-95 group relative border border-white/10" title="اسأل المساعد الذكي">
+                <i data-lucide="bot" class="w-7 h-7"></i>
+                <div class="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 bg-[#16A34A] rounded-full border-2 border-white animate-pulse"></div>
             </button>
 
             <!-- Chat Window -->
             <div id="chat-window" class="hidden relative animate-fade-in">
-                <div class="bg-cyber-navy w-[92vw] sm:w-[400px] h-[550px] rounded-3xl border border-cyber-sapphire/30 shadow-[0_20px_60px_rgba(0,0,0,0.6)] flex flex-col overflow-hidden backdrop-blur-2xl">
+                <div class="bg-white w-[92vw] sm:w-[380px] h-[500px] rounded-2xl border border-[#E5E7EB] shadow-2xl flex flex-col overflow-hidden">
                     <!-- Chat Header -->
-                    <div class="p-5 bg-cyber-ice/5 border-b border-cyber-sapphire/20 flex justify-between items-center">
-                        <button id="chat-close" class="p-2 hover:bg-white/5 rounded-full transition-colors text-slate-400 hover:text-white">
-                            <i data-lucide="x" class="w-5 h-5"></i>
+                    <div class="p-4 bg-[#F8F9FA] border-b border-[#E5E7EB] flex justify-between items-center">
+                        <button id="chat-close" class="p-1.5 hover:bg-[#E5E7EB] rounded-full transition-colors text-[#666666] hover:text-[#1A1A1A]">
+                            <i data-lucide="x" class="w-4 h-4"></i>
                         </button>
-                        <div class="text-right flex items-center gap-3">
+                        <div class="text-right flex items-center gap-2.5">
                             <div class="text-right">
-                                <span class="block font-black text-white text-[11px] uppercase tracking-wider">Tigris Guardian AI</span>
-                                <span class="block text-[9px] text-cyber-powder font-bold">نشط الآن - حارس دجلة</span>
+                                <span class="block font-bold text-[#1A1A1A] text-xs">مستشار عرب سايبر الذكي</span>
+                                <span class="block text-[9px] text-[#6B1028] font-bold">نشط الآن - مدعوم بالذكاء الاصطناعي</span>
                             </div>
-                            <div class="w-10 h-10 bg-cyber-sapphire/20 rounded-xl border border-cyber-sapphire/30 flex items-center justify-center">
-                                <i data-lucide="bot" class="w-6 h-6 text-cyber-sapphire"></i>
+                            <div class="w-9 h-9 bg-[#6B1028]/10 rounded-lg flex items-center justify-center text-[#6B1028]">
+                                <i data-lucide="bot" class="w-5 h-5"></i>
                             </div>
                         </div>
                     </div>
 
                     <!-- Chat Message Area -->
-                    <div id="chat-messages" class="flex-1 overflow-y-auto p-5 space-y-5 custom-scrollbar bg-[radial-gradient(circle_at_50%_50%,rgba(15,82,186,0.03),transparent_70%)]">
+                    <div id="chat-messages" class="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar bg-[#F8F9FA]/50">
                         <!-- Initial Welcome Message -->
                         <div class="flex justify-end animate-slide-up">
-                            <div class="max-w-[88%] p-4 rounded-2xl text-[13px] leading-relaxed shadow-lg bg-cyber-ice/10 text-slate-100 rounded-bl-none border border-cyber-powder/10 backdrop-blur-md text-right">
-                                مرحباً بك في دجلة سايبر. أنا "حارس دجلة" مساعدك الذكي للأمن الرقمي. كيف يمكنني تأمين رحلتك التقنية اليوم؟
+                            <div class="max-w-[85%] p-3 rounded-xl text-xs leading-relaxed shadow-sm bg-white border border-[#E5E7EB] text-[#1A1A1A] rounded-bl-none text-right">
+                                مرحباً بك في عرب سايبر نيوز. أنا مساعدك الذكي للأمن الرقمي والاستخبارات الأمنية. كيف يمكنني تأمين رحلتك التقنية اليوم؟
                             </div>
                         </div>
                     </div>
 
                     <!-- Chat Input -->
-                    <div class="p-5 bg-cyber-ice/5 border-t border-cyber-powder/10">
-                        <div class="flex gap-2 bg-cyber-navy/80 p-1.5 rounded-2xl border border-cyber-powder/20 focus-within:border-cyber-sapphire/50 transition-all">
-                            <input id="chat-input" type="text" placeholder="تحدث مع حارس دجلة..." class="flex-1 bg-transparent px-4 py-2 text-sm text-white focus:outline-none text-right">
-                            <button id="chat-send" class="bg-cyber-sapphire text-white p-3 rounded-xl hover:bg-cyber-sapphire/90 transition-all active:scale-90">
-                                <i data-lucide="send" class="w-5 h-5"></i>
+                    <div class="p-4 bg-white border-t border-[#E5E7EB]">
+                        <div class="flex gap-2 bg-[#F8F9FA] p-1 rounded-xl border border-[#E5E7EB] focus-within:border-[#6B1028]/30 transition-all">
+                            <input id="chat-input" type="text" placeholder="اكتب سؤالك هنا..." class="flex-1 bg-transparent px-3 py-2 text-xs text-[#1A1A1A] focus:outline-none text-right">
+                            <button id="chat-send" class="bg-[#6B1028] hover:bg-[#8A1D3D] text-white p-2.5 rounded-lg transition-all active:scale-95 flex items-center justify-center">
+                                <i data-lucide="send" class="w-4 h-4"></i>
                             </button>
                         </div>
                     </div>
@@ -532,37 +551,37 @@
 
         <!-- EXPERT CONSULTATION POPUP MODAL -->
         <div id="consultation-modal" class="hidden fixed inset-0 z-[150] flex items-center justify-center p-4">
-            <div id="modal-overlay" class="absolute inset-0 bg-cyber-navy/90 backdrop-blur-md"></div>
-            <div class="relative w-full max-w-xs bg-cyber-navy border border-cyber-sapphire/30 rounded-xl p-6 shadow-2xl animate-slide-up">
-                <button id="modal-close" class="absolute top-3 left-3 text-slate-500 hover:text-white">
+            <div id="modal-overlay" class="absolute inset-0 bg-[#1A1A1A]/40 backdrop-blur-sm"></div>
+            <div class="relative w-full max-w-xs bg-white border border-[#E5E7EB] rounded-2xl p-6 shadow-2xl animate-slide-up">
+                <button id="modal-close" class="absolute top-3 left-3 text-[#666666] hover:text-[#1A1A1A]">
                     <i data-lucide="x" class="w-4 h-4"></i>
                 </button>
                 <div class="text-center mb-5">
-                    <div class="w-12 h-12 bg-cyber-navy rounded-lg border border-cyber-sapphire/20 flex items-center justify-center text-cyber-powder mx-auto mb-2">
-                        <i data-lucide="user-check" class="w-6 h-6"></i>
+                    <div class="w-10 h-10 bg-[#6B1028]/5 rounded-xl border border-[#6B1028]/10 flex items-center justify-center text-[#6B1028] mx-auto mb-2">
+                        <i data-lucide="user-check" class="w-5 h-5"></i>
                     </div>
-                    <h3 id="modal-expert-name" class="text-base font-black text-white italic">عباس حبيب</h3>
+                    <h3 id="modal-expert-name" class="text-sm font-bold text-[#1A1A1A]">الخبير</h3>
                 </div>
                 <div class="space-y-2">
-                    <button class="w-full flex items-center justify-between p-3 rounded-lg border border-cyber-powder/20 bg-cyber-navy/50 hover:border-cyber-sapphire/50 transition-all group">
-                        <i data-lucide="external-link" class="w-3 h-3 text-slate-700 group-hover:text-white"></i>
-                        <div class="flex items-center gap-3 text-right">
-                            <span class="text-[11px] font-bold text-slate-200">واتساب</span>
-                            <div class="p-1.5 rounded-md bg-green-500/10 text-green-500"><i data-lucide="message-circle" class="w-3.5 h-3.5"></i></div>
+                    <button class="w-full flex items-center justify-between p-2.5 rounded-lg border border-[#E5E7EB] bg-white hover:border-[#6B1028]/30 hover:bg-[#F8F9FA] transition-all group">
+                        <i data-lucide="external-link" class="w-3.5 h-3.5 text-[#666666] group-hover:text-[#6B1028]"></i>
+                        <div class="flex items-center gap-2.5 text-right">
+                            <span class="text-[11px] font-bold text-[#1A1A1A]">واتساب المباشر</span>
+                            <div class="p-1 rounded-md bg-[#16A34A]/10 text-[#16A34A]"><i data-lucide="message-circle" class="w-3.5 h-3.5"></i></div>
                         </div>
                     </button>
-                    <button class="w-full flex items-center justify-between p-3 rounded-lg border border-cyber-powder/20 bg-cyber-navy/50 hover:border-cyber-sapphire/50 transition-all group">
-                        <i data-lucide="external-link" class="w-3 h-3 text-slate-700 group-hover:text-white"></i>
-                        <div class="flex items-center gap-3 text-right">
-                            <span class="text-[11px] font-bold text-slate-200">البريد</span>
-                            <div class="p-1.5 rounded-md bg-cyber-powder/10 text-cyber-powder"><i data-lucide="mail" class="w-3.5 h-3.5"></i></div>
+                    <button class="w-full flex items-center justify-between p-2.5 rounded-lg border border-[#E5E7EB] bg-white hover:border-[#6B1028]/30 hover:bg-[#F8F9FA] transition-all group">
+                        <i data-lucide="external-link" class="w-3.5 h-3.5 text-[#666666] group-hover:text-[#6B1028]"></i>
+                        <div class="flex items-center gap-2.5 text-right">
+                            <span class="text-[11px] font-bold text-[#1A1A1A]">البريد الإلكتروني</span>
+                            <div class="p-1 rounded-md bg-[#6B1028]/10 text-[#6B1028]"><i data-lucide="mail" class="w-3.5 h-3.5"></i></div>
                         </div>
                     </button>
-                    <button class="w-full flex items-center justify-between p-3 rounded-lg border border-cyber-powder/20 bg-cyber-navy/50 hover:border-cyber-sapphire/50 transition-all group">
-                        <i data-lucide="external-link" class="w-3 h-3 text-slate-700 group-hover:text-white"></i>
-                        <div class="flex items-center gap-3 text-right">
-                            <span class="text-[11px] font-bold text-slate-200">LinkedIn</span>
-                            <div class="p-1.5 rounded-md bg-blue-500/10 text-blue-500"><i data-lucide="linkedin" class="w-3.5 h-3.5"></i></div>
+                    <button class="w-full flex items-center justify-between p-2.5 rounded-lg border border-[#E5E7EB] bg-white hover:border-[#6B1028]/30 hover:bg-[#F8F9FA] transition-all group">
+                        <i data-lucide="external-link" class="w-3.5 h-3.5 text-[#666666] group-hover:text-[#6B1028]"></i>
+                        <div class="flex items-center gap-2.5 text-right">
+                            <span class="text-[11px] font-bold text-[#1A1A1A]">LinkedIn</span>
+                            <div class="p-1 rounded-md bg-blue-50 text-blue-600"><i data-lucide="linkedin" class="w-3.5 h-3.5"></i></div>
                         </div>
                     </button>
                 </div>
@@ -570,26 +589,52 @@
         </div>
 
         <!-- FOOTER SECTION -->
-        <footer class="py-12 bg-cyber-navy/95 border-t border-cyber-powder/10 relative overflow-hidden">
-            <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_100%,rgba(15,82,186,0.03),transparent_70%)]"></div>
+        <footer class="py-12 bg-[#6B1028] text-white border-t border-white/10 relative overflow-hidden">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col md:flex-row justify-between items-center gap-8">
                 
                 <!-- Logo & Rights -->
                 <div class="text-center md:text-right">
-                    <div class="flex items-center justify-center md:justify-start gap-2 mb-3">
-                        <i data-lucide="waves" class="w-6 h-6 text-cyber-powder"></i>
-                        <span class="text-lg font-black text-white italic">دجلة<span class="text-cyber-sapphire">سايبر</span></span>
+                    <div class="flex items-center justify-center md:justify-start gap-2 mb-2">
+                        <span class="text-base sm:text-lg font-black text-white">عرب سايبر نيوز</span>
+                    </div>
+                    <p class="text-[9px] text-white/60 font-mono tracking-wider uppercase font-eng">© 2026 ARAB CYBER NEWS. ALL RIGHTS RESERVED.</p>
+                </div>
+
+                <!-- Fast Navigation Links -->
+                <div class="flex flex-wrap justify-center gap-6">
+                    <button id="footer-btn-home" class="text-xs font-bold text-white/80 hover:text-white transition-colors">الرئيسية</button>
+                    <button id="footer-btn-experts" class="text-xs font-bold text-white/80 hover:text-white transition-colors">الخبراء</button>
+                    <button id="footer-btn-learning" class="text-xs font-bold text-white/80 hover:text-white transition-colors">مركز الأدوات والتعلم</button>
+                    <button id="footer-btn-about" class="text-xs font-bold text-white/80 hover:text-white transition-colors">من نحن</button>
+                    <button id="footer-btn-privacy" class="text-xs font-bold text-white/80 hover:text-white transition-colors">سياسة الخصوصية</button>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- MAIN JAVASCRIPT LOGIC -->
+    <script type="module" src="/main.js"></script>
+
+</body>
+</html>"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col md:flex-row justify-between items-center gap-8">
+                
+                <!-- Logo & Rights -->
+                <div class="text-center md:text-right">
+                    <div class="flex items-center justify-center md:justify-start gap-2.5 mb-3">
+                        <i data-lucide="waves" class="w-6 h-6 text-meso-gold"></i>
+                        <span class="text-lg font-black text-white">دجلة<span class="text-meso-gold">سايبر</span></span>
                     </div>
                     <p class="text-[10px] text-slate-500 font-bold tracking-widest uppercase">© 2026 TIGRIS CYBER. ALL RIGHTS RESERVED.</p>
                 </div>
 
                 <!-- Fast Navigation Links -->
                 <div class="flex flex-wrap justify-center gap-6">
-                    <button id="footer-btn-home" class="text-xs font-black text-slate-400 hover:text-cyber-sapphire transition-colors">الرئيسية</button>
-                    <button id="footer-btn-experts" class="text-xs font-black text-slate-400 hover:text-cyber-sapphire transition-colors">الخبراء</button>
-                    <button id="footer-btn-learning" class="text-xs font-black text-slate-400 hover:text-cyber-sapphire transition-colors">مركز التعلم</button>
-                    <button id="footer-btn-about" class="text-xs font-black text-slate-400 hover:text-cyber-sapphire transition-colors">من نحن</button>
-                    <button id="footer-btn-privacy" class="text-xs font-black text-slate-400 hover:text-cyber-sapphire transition-colors">سياسة الخصوصية</button>
+                    <button id="footer-btn-home" class="text-xs font-black text-slate-400 hover:text-meso-gold transition-colors">الرئيسية</button>
+                    <button id="footer-btn-experts" class="text-xs font-black text-slate-400 hover:text-meso-gold transition-colors">الخبراء</button>
+                    <button id="footer-btn-learning" class="text-xs font-black text-slate-400 hover:text-meso-gold transition-colors">مركز التعلم</button>
+                    <button id="footer-btn-about" class="text-xs font-black text-slate-400 hover:text-meso-gold transition-colors">من نحن</button>
+                    <button id="footer-btn-privacy" class="text-xs font-black text-slate-400 hover:text-meso-gold transition-colors">سياسة الخصوصية</button>
                 </div>
             </div>
         </footer>

@@ -1,8 +1,11 @@
 {
-  "name": "الدرع الرقمي - Digital Shield Cyber Security",
-  "description": "منصة شاملة للأمن السيبراني، تضم أخباراً، مدونات، دورات تعليمية، وخرائط تهديدات تفاعلية بأسلوب رقمي حديث.",
+  "name": "عرب سايبر نيوز - Arab Cyber News",
+  "description": "منصة عربية عالمية متخصصة بأخبار الأمن السيبراني، منصة الخبراء، وصندوق الأدوات الأمنية.",
   "requestFramePermissions": [
     "camera",
     "microphone"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
   ]
 }

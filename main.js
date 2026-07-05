@@ -103,10 +103,10 @@ const EXPERTS = [
 ];
 
 const CYBER_TOOLS = [
-  { name: 'Burp Suite', category: 'Web App Security', desc: 'الأداة رقم 1 لاختبار اختراق تطبيقات الويب واعتراض وتحليل حركة مرور البيانات.', icon: 'terminal', color: 'text-cyber-powder', useCase: 'فحص ثغرات المواقع' },
+  { name: 'Burp Suite', category: 'Web App Security', desc: 'الأداة رقم 1 لاختبار اختراق تطبيقات الويب واعتراض وتحليل حركة مرور البيانات.', icon: 'terminal', color: 'text-meso-gold', useCase: 'فحص ثغرات المواقع' },
   { name: 'Nmap', category: 'Network Scanning', desc: 'أداة مفتوحة المصدر لاكتشاف الأجهزة والخدمات النشطة داخل أي شبكة برمجية.', icon: 'layers', color: 'text-green-500', useCase: 'استطلاع الشبكات' },
-  { name: 'Metasploit', category: 'Exploitation', desc: 'إطار عمل ضخم يحتوي على مئات الثغرات الجاهزة لاختبار قوة دفاع الأنظمة.', icon: 'shield-check', color: 'text-red-500', useCase: 'تطوير الاستغلالات' },
-  { name: 'Wireshark', category: 'Packet Analysis', desc: 'محلل بروتوكولات الشبكة لمراقبة كل "بايت" يخرج أو يدخل إلى جهازك بدقة متناهية.', icon: 'cpu', color: 'text-cyber-sapphire', useCase: 'تحليل حركة المرور' },
+  { name: 'Metasploit', category: 'Exploitation', desc: 'إطار عمل ضخم يحتوي على مئات الثغرات الجاهزة لاختبار قوة دفاع الأنظمة.', icon: 'shield-check', color: 'text-meso-terracotta', useCase: 'تطوير الاستغلالات' },
+  { name: 'Wireshark', category: 'Packet Analysis', desc: 'محلل بروتوكولات الشبكة لمراقبة كل "بايت" يخرج أو يدخل إلى جهازك بدقة متناهية.', icon: 'cpu', color: 'text-meso-lapis', useCase: 'تحليل حركة المرور' },
   { name: 'Ghidra', category: 'Reverse Engineering', desc: 'أداة متطورة لتحليل وفك شفرات البرامج والملفات الخبيثة.', icon: 'bug', color: 'text-purple-500', useCase: 'الهندسة العكسية' },
   { name: 'John the Ripper', category: 'Password Cracking', desc: 'أداة سريعة لاختبار قوة كلمات المرور وفك التشفير بالقاموس.', icon: 'file-code', color: 'text-orange-500', useCase: 'اختراق كلمات المرور' }
 ];
@@ -134,27 +134,27 @@ const INFO_VIEWS = {
     title: 'من نحن',
     subtitle: 'دجلة سايبر - العين الرقمية لبلاد الرافدين',
     icon: 'info',
-    color: 'text-cyber-powder',
+    color: 'text-meso-gold',
     text: 'دجلة سايبر هي منصة رائدة في مجال الأمن السيبراني مقرها بغداد، تهدف إلى رصد وتحليل التهديدات الرقمية في المنطقة وتقديم حلول استخباراتية متطورة. نحن نجمع بين التقنية والخبرة العراقية لحماية الفضاء الرقمي الوطني.'
   },
   contact: {
     title: 'تواصل معنا',
     subtitle: 'نحن هنا للإجابة على تساؤلاتكم الأمنية',
     icon: 'send',
-    color: 'text-green-400',
+    color: 'text-green-500',
     text: 'يمكنكم التواصل مع فريق الدعم الفني أو الاستشارات عبر القنوات الرسمية الموضحة أدناه.'
   },
   privacy: {
     title: 'سياسة الخصوصية',
     subtitle: 'حماية بياناتك هي أولويتنا القصوى',
     icon: 'shield-check',
-    color: 'text-cyber-sapphire',
+    color: 'text-meso-lapis',
     text: 'نحن نلتزم بأقصى معايير التشفير والسرية في التعامل مع بيانات المستخدمين. دجلة سايبر لا تقوم بمشاركة معلوماتك الشخصية مع أي جهة خارجية دون موافقة صريحة.'
   }
 };
 
 // --- 2. THE CHATBOT MODEL SYSTEM PROMPT & API LOGIC ---
-const CHATBOT_SYSTEM_INSTRUCTION = "أنت 'حارس دجلة'، مستشار أمن سيبراني محترف وخبير، وشخصية ودودة وتفاعلية. مهمتك هي تقديم نصائح تقنية دقيقة ومفهومة باللغة العربية. يجب أن يكون أسلوبك ذكياً، تفاعلياً، وقادراً على إجراء محادثة طبيعية. لا تكتفِ بالإجابات الجافة، بل شجع المستخدم على طرح المزيد من الأسئلة وكن مبادراً في تقديم الحلول. ركز على حماية المستخدمين من التهديدات الرقمية وتوعيتهم بأفضل الممارسات الأمنية بأسلوب مشوق.";
+const CHATBOT_SYSTEM_INSTRUCTION = "أنت 'مستشار عرب سايبر الذكي'، مستشار أمن سيبراني محترف وخبير، وشخصية ودودة وتفاعلية. مهمتك هي تقديم نصائح تقنية دقيقة ومفهومة باللغة العربية. يجب أن يكون أسلوبك ذكياً، تفاعلياً، وقادراً على إجراء محادثة طبيعية. لا تكتفِ بالإجابات الجافة، بل شجع المستخدم على طرح المزيد من الأسئلة وكن مبادراً في تقديم الحلول. ركز على حماية المستخدمين من التهديدات الرقمية وتوعيتهم بأفضل الممارسات الأمنية بأسلوب مشوق.";
 
 async function getCyberAdvice(userInput) {
   // Try retrieving from Vite's compiled environment variables
@@ -184,7 +184,7 @@ async function getCyberAdvice(userInput) {
     return data.candidates?.[0]?.content?.parts?.[0]?.text || "عذراً، لم أتمكن من استخلاص رد أمني مناسب.";
   } catch (err) {
     console.error("Gemini API Error:", err);
-    return "حدث خطأ أثناء محاولة الاتصال بخبير الذكاء الاصطناعي 'حارس دجلة'. يرجى المحاولة لاحقاً.";
+    return "حدث خطأ أثناء محاولة الاتصال بخبير الذكاء الاصطناعي 'مستشار عرب سايبر الذكي'. يرجى المحاولة لاحقاً.";
   }
 }
 
@@ -202,19 +202,19 @@ function renderNews() {
   const analysisData = INITIAL_ARTICLES.filter(a => a.category === 'Reports & Trends' || a.category === 'Opinion & Analysis').slice(0, 3);
 
   const makeCard = (art) => `
-    <article class="group bg-cyber-ice/5 border border-cyber-powder/20 rounded-xl overflow-hidden hover:border-cyber-sapphire/40 transition-all duration-300 flex flex-col h-full animate-slide-up">
+    <article class="group bg-white border border-[#E5E7EB] rounded-xl overflow-hidden hover:border-[#6B1028]/20 hover:shadow-md transition-all duration-300 flex flex-col h-full animate-slide-up shadow-sm">
       <div class="relative h-32 overflow-hidden">
-        <img src="${art.image}" alt="${art.title}" class="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700" />
-        <div class="absolute top-2 right-2 bg-cyber-navy/90 border border-cyber-sapphire/20 px-2 py-0.5 text-[7px] text-cyber-powder font-black uppercase rounded">
+        <img src="${art.image}" alt="${art.title}" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700" />
+        <div class="absolute top-2 right-2 bg-[#6B1028]/10 border border-[#6B1028]/20 px-2 py-0.5 text-[8px] text-[#6B1028] font-bold rounded">
           ${art.subCategory || art.category}
         </div>
       </div>
       <div class="p-4 text-right flex-1 flex flex-col">
-        <h3 class="text-sm font-bold text-white mb-1.5 group-hover:text-cyber-sapphire transition-colors line-clamp-2 leading-tight">${art.title}</h3>
-        <p class="text-slate-300 text-[10px] mb-3 line-clamp-2 leading-relaxed">${art.excerpt}</p>
-        <div class="mt-auto flex items-center justify-between pt-3 border-t border-slate-800/40">
-           <span class="text-[8px] text-slate-400 font-bold">${art.date}</span>
-           <button class="text-cyber-sapphire hover:text-white transition-colors"><i data-lucide="arrow-left" class="w-3.5 h-3.5"></i></button>
+        <h3 class="text-xs sm:text-sm font-black text-[#1A1A1A] mb-1.5 group-hover:text-[#6B1028] transition-colors line-clamp-2 leading-tight">${art.title}</h3>
+        <p class="text-[#666666] text-[11px] mb-3 line-clamp-2 leading-relaxed font-medium">${art.excerpt}</p>
+        <div class="mt-auto flex items-center justify-between pt-3 border-t border-[#E5E7EB]">
+           <span class="text-[9px] text-[#666666] font-bold font-mono">${art.date}</span>
+           <button class="text-[#6B1028] hover:text-[#8A1D3D] transition-colors"><i data-lucide="arrow-left" class="w-3.5 h-3.5"></i></button>
         </div>
       </div>
     </article>
@@ -230,37 +230,34 @@ function renderStories() {
   if (!grid) return;
 
   grid.innerHTML = INITIAL_STORIES.map(story => `
-    <div class="group relative bg-cyber-ice/5 border border-cyber-powder/20 p-8 hover:border-cyber-sapphire/40 transition-all duration-500 overflow-hidden backdrop-blur-md animate-slide-up">
-      <div class="absolute -top-10 -right-10 w-32 h-32 bg-cyber-sapphire/5 rounded-full blur-3xl group-hover:bg-cyber-sapphire/10 transition-all"></div>
-      
+    <div class="group relative bg-white border border-[#E5E7EB] p-6 hover:border-[#6B1028]/20 hover:shadow-md transition-all duration-300 rounded-xl animate-slide-up shadow-sm">
       <div class="relative z-10">
-        <div class="flex justify-between items-start mb-6">
-          <span class="text-4xl">${story.icon}</span>
-          <span class="px-3 py-1 bg-cyber-navy border border-cyber-powder/20 text-[10px] text-cyber-powder font-black uppercase tracking-widest rounded-full">
+        <div class="flex justify-between items-start mb-4">
+          <span class="text-3xl">${story.icon}</span>
+          <span class="px-2.5 py-0.5 bg-[#6B1028]/5 border border-[#6B1028]/10 text-[9px] text-[#6B1028] font-bold rounded-full">
             ${story.category}
           </span>
         </div>
         
-        <h3 class="text-xl font-black text-white mb-3 group-hover:text-cyber-sapphire transition-colors">
+        <h3 class="text-base font-black text-[#1A1A1A] mb-2 group-hover:text-[#6B1028] transition-colors">
           ${story.title}
         </h3>
         
-        <p class="text-slate-300 text-sm leading-relaxed mb-8 line-clamp-3">
+        <p class="text-[#666666] text-xs leading-relaxed mb-6 line-clamp-3 font-medium">
           ${story.preview}
         </p>
         
-        <div class="flex items-center justify-between pt-6 border-t border-cyber-powder/10">
-          <div class="flex items-center gap-2 text-slate-400 text-xs">
-            <i data-lucide="clock" class="w-3.5 h-3.5"></i>
+        <div class="flex items-center justify-between pt-4 border-t border-[#E5E7EB]">
+          <div class="flex items-center gap-1.5 text-[#666666] text-[11px] font-mono">
+            <i data-lucide="clock" class="w-3.5 h-3.5 text-[#666666]"></i>
             ${story.readTime}
           </div>
-          <button class="inline-flex items-center gap-2 text-xs font-black text-white group/btn">
+          <button class="inline-flex items-center gap-1.5 text-xs font-bold text-[#1A1A1A] hover:text-[#6B1028] group/btn">
             ابدأ القراءة
-            <i data-lucide="book-open" class="w-4 h-4 text-cyber-sapphire group-hover/btn:scale-110 transition-transform"></i>
+            <i data-lucide="book-open" class="w-3.5 h-3.5 text-[#6B1028] group-hover/btn:translate-x-[-2px] transition-transform"></i>
           </button>
         </div>
       </div>
-      <div class="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-cyber-powder/20 group-hover:border-cyber-sapphire/50 transition-colors"></div>
     </div>
   `).join('');
 }
@@ -270,36 +267,34 @@ function renderExperts() {
   if (!grid) return;
 
   grid.innerHTML = EXPERTS.map(exp => `
-    <div class="group bg-cyber-ice/5 border border-cyber-powder/20 p-4 rounded-xl hover:border-cyber-sapphire/30 transition-all flex flex-col gap-3 relative overflow-hidden animate-slide-up">
-      <div class="absolute top-0 right-0 w-1 h-full bg-cyber-sapphire opacity-20 group-hover:opacity-100 transition-all"></div>
-      
+    <div class="group bg-white border border-[#E5E7EB] p-5 rounded-2xl hover:border-[#6B1028]/20 hover:shadow-md transition-all duration-300 flex flex-col gap-4 relative animate-slide-up shadow-sm text-right">
       <div class="flex justify-between items-start flex-row-reverse">
-        <div class="w-10 h-10 bg-cyber-navy rounded-lg border border-cyber-powder/20 flex items-center justify-center text-cyber-sapphire group-hover:border-cyber-sapphire/30 transition-colors">
+        <div class="w-10 h-10 bg-[#F8F9FA] rounded-xl border border-[#E5E7EB] flex items-center justify-center text-[#6B1028] group-hover:border-[#6B1028]/20 transition-colors">
           <i data-lucide="${exp.icon}" class="w-5 h-5"></i>
         </div>
         <div class="text-right">
-          <h4 class="text-white font-black text-sm">${exp.name}</h4>
-          <div class="flex items-center justify-end gap-1 text-yellow-500">
-            <i data-lucide="star" class="w-2.5 h-2.5 fill-current"></i>
-            <span class="text-[9px] text-slate-500">${exp.rating}</span>
+          <h4 class="text-[#1A1A1A] font-black text-sm">${exp.name}</h4>
+          <div class="flex items-center justify-end gap-1 text-[#EA580C]">
+            <i data-lucide="star" class="w-3 h-3 fill-current"></i>
+            <span class="text-[10px] text-[#666666] font-bold font-mono">${exp.rating}</span>
           </div>
         </div>
       </div>
 
-      <div class="text-right">
-        <h3 class="text-[13px] font-bold text-white mb-1.5 group-hover:text-cyber-sapphire transition-colors line-clamp-1">${exp.title}</h3>
-        <p class="text-slate-300 text-[10px] leading-relaxed mb-3 h-8 line-clamp-2">${exp.desc}</p>
+      <div class="text-right flex-1 flex flex-col">
+        <h3 class="text-xs sm:text-sm font-black text-[#6B1028] mb-1 group-hover:text-[#8A1D3D] transition-colors line-clamp-1">${exp.title}</h3>
+        <p class="text-[#666666] text-xs leading-relaxed mb-4 h-8 line-clamp-2 font-medium">${exp.desc}</p>
         
-        <div class="flex flex-wrap justify-end gap-1 mb-4">
-          ${exp.skills.map(sk => `<span class="text-[8px] font-bold text-cyber-powder bg-cyber-navy border border-cyber-powder/20 px-1.5 py-0.5 rounded">${sk}</span>`).join('')}
+        <div class="flex flex-wrap justify-end gap-1 mb-4 mt-auto">
+          ${exp.skills.map(sk => `<span class="text-[9px] font-bold text-[#6B1028] bg-[#6B1028]/5 border border-[#6B1028]/10 px-2 py-0.5 rounded-lg">${sk}</span>`).join('')}
         </div>
 
-        <div class="flex items-center justify-between border-t border-cyber-powder/10 pt-3">
-          <div class="flex items-center gap-1 text-slate-500 text-[8px] font-bold uppercase tracking-widest">
-            <i data-lucide="shield-check" class="w-3 h-3 text-cyber-sapphire"></i>
-            Verified
+        <div class="flex items-center justify-between border-t border-[#E5E7EB] pt-3">
+          <div class="flex items-center gap-1 text-[#6B1028] text-[9px] font-bold uppercase tracking-wider">
+            <i data-lucide="shield-check" class="w-3.5 h-3.5 text-[#16A34A]"></i>
+            مستشار معتمد
           </div>
-          <button class="consult-trigger-btn bg-cyber-navy hover:bg-cyber-sapphire text-white px-4 py-1.5 rounded-lg text-[10px] font-black transition-all border border-cyber-powder/20 flex items-center gap-2" data-name="${exp.name}">
+          <button class="consult-trigger-btn bg-white hover:bg-[#6B1028] text-[#6B1028] hover:text-white px-3 py-1.5 rounded-lg text-[10px] font-bold transition-all border border-[#6B1028]/20 hover:border-[#6B1028] flex items-center gap-1.5" data-name="${exp.name}">
             استشارة
             <i data-lucide="send" class="w-3 h-3"></i>
           </button>
@@ -323,21 +318,21 @@ function renderLearning() {
 
   if (toolsContainer) {
     toolsContainer.innerHTML = CYBER_TOOLS.map(tool => `
-      <div class="group bg-cyber-ice/5 border border-cyber-powder/20 p-5 rounded-xl hover:bg-cyber-ice/10 transition-all text-right relative overflow-hidden animate-slide-up">
-        <div class="absolute top-0 right-0 w-1 h-full bg-green-500/10 group-hover:bg-green-500 transition-all"></div>
+      <div class="group bg-white border border-[#E5E7EB] p-5 rounded-2xl hover:border-[#6B1028]/20 hover:shadow-md transition-all text-right relative overflow-hidden animate-slide-up shadow-sm">
+        <div class="absolute top-0 right-0 w-1 h-full bg-[#6B1028]/10 group-hover:bg-[#6B1028] transition-all"></div>
         <div class="flex items-center justify-end gap-4 mb-3">
           <div class="text-right">
-            <span class="text-[8px] font-black text-green-500 uppercase tracking-widest bg-green-500/5 px-2 py-0.5 rounded border border-green-500/10">${tool.category}</span>
-            <h4 class="text-base font-black text-white mt-1">${tool.name}</h4>
+            <span class="text-[9px] font-bold text-[#6B1028] uppercase tracking-wider bg-[#6B1028]/5 px-2 py-0.5 rounded border border-[#6B1028]/10">${tool.category}</span>
+            <h4 class="text-base font-black text-[#1A1A1A] mt-1">${tool.name}</h4>
           </div>
-          <div class="p-2.5 bg-cyber-navy rounded-lg border border-cyber-powder/20 ${tool.color}">
+          <div class="p-2.5 bg-[#F8F9FA] rounded-xl border border-[#E5E7EB] text-[#6B1028]">
             <i data-lucide="${tool.icon}" class="w-5 h-5"></i>
           </div>
         </div>
-        <p class="text-slate-300 text-[11px] leading-relaxed mb-3">${tool.desc}</p>
-        <div class="flex items-center justify-between pt-3 border-t border-cyber-powder/10">
-           <span class="text-[8px] text-slate-400 font-bold uppercase tracking-widest">${tool.useCase}</span>
-           <button class="text-[9px] font-black text-white hover:text-green-400 flex items-center gap-1.5 transition-colors">
+        <p class="text-[#666666] text-xs leading-relaxed mb-3 font-medium">${tool.desc}</p>
+        <div class="flex items-center justify-between pt-3 border-t border-[#E5E7EB]">
+           <span class="text-[9px] text-[#666666] font-bold uppercase tracking-wider">${tool.useCase}</span>
+           <button class="text-[10px] font-bold text-[#6B1028] hover:text-[#8A1D3D] flex items-center gap-1.5 transition-colors">
               <i data-lucide="arrow-left" class="w-3 h-3"></i> التثبيت
            </button>
         </div>
@@ -347,19 +342,19 @@ function renderLearning() {
 
   if (coursesContainer) {
     coursesContainer.innerHTML = FREE_COURSES.map(course => `
-      <div class="bg-cyber-ice/5 border border-cyber-sapphire/10 p-5 rounded-xl hover:border-cyber-sapphire/40 transition-all text-right group relative overflow-hidden flex flex-col justify-between animate-slide-up">
+      <div class="bg-white border border-[#E5E7EB] p-5 rounded-2xl hover:border-[#6B1028]/20 hover:shadow-md transition-all text-right group relative overflow-hidden flex flex-col justify-between animate-slide-up shadow-sm">
          <div class="flex justify-between items-start mb-3">
-           <i data-lucide="${course.icon}" class="w-7 h-7 text-cyber-sapphire/30 group-hover:text-cyber-sapphire transition-colors"></i>
+           <i data-lucide="${course.icon}" class="w-6 h-6 text-[#6B1028]/30 group-hover:text-[#6B1028] transition-colors"></i>
            <div class="text-right">
-             <span class="px-2 py-0.5 bg-cyber-sapphire/10 border border-cyber-sapphire/20 text-[8px] text-cyber-powder font-black uppercase rounded-full">
+             <span class="px-2.5 py-0.5 bg-[#16A34A]/10 border border-[#16A34A]/20 text-[9px] text-[#16A34A] font-bold rounded-full">
                ${course.type}
              </span>
            </div>
          </div>
-         <h4 class="text-base font-black text-white mb-2 group-hover:text-cyber-sapphire transition-colors">${course.title}</h4>
-         <p class="text-slate-300 text-[11px] leading-relaxed mb-4">${course.desc}</p>
-         <a href="${course.link}" target="_blank" class="w-full bg-cyber-navy hover:bg-cyber-sapphire text-white py-2.5 rounded-lg text-[10px] font-black border border-cyber-powder/20 transition-all flex items-center justify-center gap-2 group/btn">
-           <i data-lucide="external-link" class="w-3 h-3"></i> الانتقال للموقع
+         <h4 class="text-base font-black text-[#1A1A1A] mb-2 group-hover:text-[#6B1028] transition-colors">${course.title}</h4>
+         <p class="text-[#666666] text-xs leading-relaxed mb-4 font-medium">${course.desc}</p>
+         <a href="${course.link}" target="_blank" class="w-full bg-[#6B1028] hover:bg-[#8A1D3D] text-white py-2 rounded-lg text-[10px] font-bold transition-all flex items-center justify-center gap-1.5 group/btn">
+           <i data-lucide="external-link" class="w-3.5 h-3.5"></i> الانتقال للموقع
          </a>
       </div>
     `).join('');
@@ -373,20 +368,20 @@ function renderSectionsNavigation() {
 
   if (dropdownItems) {
     dropdownItems.innerHTML = SECTIONS.map(sec => `
-      <button class="section-nav-btn w-full flex items-center justify-end gap-3 p-2.5 rounded-lg hover:bg-cyber-sapphire/10 transition-all text-[11px] font-bold text-slate-300 group" 
+      <button class="section-nav-btn w-full flex items-center justify-end gap-3 p-2.5 rounded-lg hover:bg-[#F8F9FA] transition-all text-[11px] font-bold text-[#1A1A1A] group" 
         data-target-view="${sec.view || 'home'}" data-target-anchor="${sec.targetId || ''}">
         <span>${sec.title}</span>
-        <i data-lucide="${sec.icon}" class="w-3.5 h-3.5 text-slate-500 group-hover:text-cyber-sapphire"></i>
+        <i data-lucide="${sec.icon}" class="w-3.5 h-3.5 text-[#666666] group-hover:text-[#6B1028]"></i>
       </button>
     `).join('');
   }
 
   if (sidebarSectionsContainer) {
     sidebarSectionsContainer.innerHTML = SECTIONS.map(sec => `
-      <button class="section-nav-btn w-full flex items-center justify-end gap-2.5 p-2.5 rounded-lg hover:bg-cyber-sapphire/10 transition-all text-[13px] font-black text-slate-300 group"
+      <button class="section-nav-btn w-full flex items-center justify-end gap-2 py-2 px-3 rounded-lg hover:bg-[#F8F9FA] transition-all text-[11px] font-bold text-[#1A1A1A] group"
         data-target-view="${sec.view || 'home'}" data-target-anchor="${sec.targetId || ''}">
         <span>${sec.title}</span>
-        <i data-lucide="${sec.icon}" class="w-4 h-4 text-slate-500 group-hover:text-cyber-sapphire"></i>
+        <i data-lucide="${sec.icon}" class="w-3.5 h-3.5 text-[#666666] group-hover:text-[#6B1028]"></i>
       </button>
     `).join('');
   }
@@ -429,9 +424,9 @@ function navigateTo(viewId) {
   Object.entries(navBtns).forEach(([key, btn]) => {
     if (!btn) return;
     if (key === viewId) {
-      btn.className = "text-xs font-black transition-all flex items-center gap-2 px-3 py-1.5 rounded-lg text-cyber-sapphire bg-cyber-sapphire/10";
+      btn.className = "text-xs font-bold transition-all flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-white bg-[#6B1028]";
     } else {
-      btn.className = "flex items-center gap-2 text-xs font-black transition-all px-3 py-1.5 rounded-lg text-slate-300 hover:text-cyber-sapphire";
+      btn.className = "flex items-center gap-1.5 text-xs font-bold transition-all px-3 py-1.5 rounded-lg text-[#1A1A1A] hover:text-[#6B1028] hover:bg-[#F8F9FA]";
     }
   });
 
@@ -447,7 +442,7 @@ function navigateTo(viewId) {
     mainIcon.setAttribute('data-lucide', activeInfo.icon);
 
     const iconWrapper = document.getElementById('info-icon-wrapper');
-    iconWrapper.className = `w-20 h-20 mx-auto rounded-2xl bg-cyber-navy border border-cyber-powder/20 flex items-center justify-center ${activeInfo.color} mb-8 shadow-2xl`;
+    iconWrapper.className = `w-16 h-16 mx-auto rounded-xl bg-white border border-[#E5E7EB] flex items-center justify-center ${activeInfo.color} mb-6 shadow-sm`;
 
     // Toggle extra details
     const extraAbout = document.getElementById('info-about-extra');
@@ -531,7 +526,7 @@ async function handleSendMessage() {
   const userBubble = document.createElement('div');
   userBubble.className = "flex justify-start animate-slide-up";
   userBubble.innerHTML = `
-    <div class="max-w-[88%] p-4 rounded-2xl text-[13px] leading-relaxed shadow-lg bg-cyber-sapphire text-white rounded-br-none border border-white/10 text-right">
+    <div class="max-w-[85%] p-3.5 rounded-xl text-xs leading-relaxed shadow-sm bg-[#6B1028] text-white rounded-br-none border border-[#6B1028]/10 text-right">
       ${text}
     </div>
   `;
@@ -543,11 +538,11 @@ async function handleSendMessage() {
   thinkingBubble.id = "chat-thinking";
   thinkingBubble.className = "flex justify-end animate-pulse";
   thinkingBubble.innerHTML = `
-    <div class="bg-cyber-ice/10 p-4 rounded-2xl rounded-bl-none border border-cyber-powder/10 flex gap-1.5 items-center">
-      <span class="text-[10px] text-slate-500 font-bold ml-2">جاري التفكير</span>
-      <div class="w-1.5 h-1.5 bg-cyber-sapphire rounded-full animate-bounce"></div>
-      <div class="w-1.5 h-1.5 bg-cyber-sapphire rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
-      <div class="w-1.5 h-1.5 bg-cyber-sapphire rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
+    <div class="bg-white p-3.5 rounded-xl rounded-bl-none border border-[#E5E7EB] shadow-sm flex gap-1.5 items-center">
+      <span class="text-[10px] text-[#666666] font-bold ml-2">جاري التفكير</span>
+      <div class="w-1.5 h-1.5 bg-[#6B1028] rounded-full animate-bounce"></div>
+      <div class="w-1.5 h-1.5 bg-[#6B1028] rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+      <div class="w-1.5 h-1.5 bg-[#6B1028] rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
     </div>
   `;
   chatMessages.appendChild(thinkingBubble);
@@ -564,7 +559,7 @@ async function handleSendMessage() {
   const aiBubble = document.createElement('div');
   aiBubble.className = "flex justify-end animate-slide-up";
   aiBubble.innerHTML = `
-    <div class="max-w-[88%] p-4 rounded-2xl text-[13px] leading-relaxed shadow-lg bg-cyber-ice/10 text-slate-100 rounded-bl-none border border-cyber-powder/10 backdrop-blur-md text-right">
+    <div class="max-w-[85%] p-3.5 rounded-xl text-xs leading-relaxed shadow-sm bg-white border border-[#E5E7EB] text-[#1A1A1A] rounded-bl-none text-right">
       ${reply}
     </div>
   `;
@@ -595,8 +590,8 @@ if (canvas) {
     constructor() {
       this.x = Math.random() * canvas.width;
       this.y = Math.random() * canvas.height;
-      this.vx = (Math.random() - 0.5) * 0.3;
-      this.vy = (Math.random() - 0.5) * 0.3;
+      this.vx = (Math.random() - 0.5) * 0.25;
+      this.vy = (Math.random() - 0.5) * 0.25;
       this.size = Math.random() * 1.5 + 0.5;
     }
     update() {
@@ -606,14 +601,14 @@ if (canvas) {
       if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
     }
     draw() {
-      ctx.fillStyle = 'rgba(166, 197, 215, 0.3)';
+      ctx.fillStyle = 'rgba(107, 16, 40, 0.15)';
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
       ctx.fill();
     }
   }
 
-  for (let i = 0; i < 40; i++) {
+  for (let i = 0; i < 35; i++) {
     particles.push(new Particle());
   }
 
@@ -625,7 +620,7 @@ if (canvas) {
     });
     
     // Draw lines between close particles
-    ctx.strokeStyle = 'rgba(15, 82, 186, 0.05)';
+    ctx.strokeStyle = 'rgba(107, 16, 40, 0.04)';
     ctx.lineWidth = 0.5;
     for (let i = 0; i < particles.length; i++) {
       for (let j = i + 1; j < particles.length; j++) {
