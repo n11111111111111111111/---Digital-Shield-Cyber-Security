@@ -190,39 +190,295 @@ async function getCyberAdvice(userInput) {
 
 // --- 3. RENDERING ENGINE FUNCTIONS ---
 
-function renderNews() {
-  const newsCol = document.getElementById('news-col');
-  const attacksCol = document.getElementById('attacks-col');
-  const analysisCol = document.getElementById('analysis-col');
+// System States for Filtering
+let activeCategory = 'الكل';
+let searchQuery = '';
 
-  if (!newsCol || !attacksCol || !analysisCol) return;
+const CVE_DATA = [
+  { id: 'CVE-2024-3094', score: '10.0', severity: 'CRITICAL', desc: 'زر خلفي خبيث تم زرعه في حزمة XZ Utils يؤدي إلى اختراق المصادقة على خوادم SSH عن بعد.' },
+  { id: 'CVE-2024-21626', score: '8.6', severity: 'HIGH', desc: 'ثغرة هروب من حاوية RunC تسمح للمهاجمين بالوصول لملفات المضيف من داخل بيئة العمل الافتراضية.' },
+  { id: 'CVE-2023-38831', score: '7.8', severity: 'HIGH', desc: 'ثغرة تنفيذ برمجيات خبيثة عن بعد في برنامج WinRAR عند فتح ملفات ZIP منسقة بشكل مريب.' },
+  { id: 'CVE-2024-23222', score: '8.8', severity: 'HIGH', desc: 'ثغرة تجاوز حماية الذاكرة في محرك WebKit الخاص بمتصفح Safari تُستغل حالياً في حملات الاختراق النشطة.' }
+];
 
-  const newsData = INITIAL_ARTICLES.filter(a => a.category === 'Cyber News' || a.category === 'Cyber Iraq').slice(0, 3);
-  const attackData = INITIAL_ARTICLES.filter(a => a.category === 'Threats & Alerts' || a.category === 'Famous Hacks').slice(0, 3);
-  const analysisData = INITIAL_ARTICLES.filter(a => a.category === 'Reports & Trends' || a.category === 'Opinion & Analysis').slice(0, 3);
+const NEWS_CATEGORIES = [
+  'الكل',
+  'أخبار عامة',
+  'أخبار الثغرات والتهديدات',
+  'استخبارات محلية',
+  'التقارير والتحليلات'
+];
 
-  const makeCard = (art) => `
-    <article class="group bg-white border border-[#E5E7EB] rounded-xl overflow-hidden hover:border-[#6B1028]/20 hover:shadow-md transition-all duration-300 flex flex-col h-full animate-slide-up shadow-sm">
-      <div class="relative h-32 overflow-hidden">
-        <img src="${art.image}" alt="${art.title}" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700" />
-        <div class="absolute top-2 right-2 bg-[#6B1028]/10 border border-[#6B1028]/20 px-2 py-0.5 text-[8px] text-[#6B1028] font-bold rounded">
-          ${art.subCategory || art.category}
+function renderHomeNews() {
+  const featuredContainer = document.getElementById('featured-news-container');
+  const latestGrid = document.getElementById('latest-news-grid');
+  const trendingList = document.getElementById('trending-news-list');
+  const countEl = document.getElementById('search-results-count');
+
+  if (!featuredContainer || !latestGrid || !trendingList) return;
+
+  // Apply search query and category filters
+  let filtered = [...INITIAL_ARTICLES];
+
+  // 1. Category Filter
+  if (activeCategory !== 'الكل') {
+    filtered = filtered.filter(art => {
+      if (activeCategory === 'أخبار الثغرات والتهديدات') {
+        return art.category === 'Threats & Alerts' || art.category === 'Famous Hacks';
+      } else if (activeCategory === 'استخبارات محلية') {
+        return art.category === 'Cyber Iraq';
+      } else if (activeCategory === 'التقارير والتحليلات') {
+        return art.category === 'Reports & Trends' || art.category === 'Opinion & Analysis';
+      } else if (activeCategory === 'أخبار عامة') {
+        return art.category === 'Cyber News';
+      }
+      return true;
+    });
+  }
+
+  // 2. Search Filter
+  if (searchQuery) {
+    const q = searchQuery.toLowerCase();
+    filtered = filtered.filter(art => 
+      art.title.toLowerCase().includes(q) || 
+      art.excerpt.toLowerCase().includes(q) ||
+      (art.subCategory && art.subCategory.toLowerCase().includes(q))
+    );
+    
+    // Show search results count
+    if (countEl) {
+      countEl.classList.remove('hidden');
+      countEl.innerText = `نتائج البحث: ${filtered.length}`;
+    }
+  } else {
+    if (countEl) countEl.classList.add('hidden');
+  }
+
+  if (filtered.length === 0) {
+    featuredContainer.innerHTML = `
+      <div class="col-span-full p-8 text-center bg-gray-50 dark:bg-slate-900/40 rounded-2xl border border-gray-200 dark:border-slate-800 w-full">
+        <i data-lucide="shield-alert" class="w-12 h-12 text-[#6B1028] dark:text-red-500 mx-auto mb-3"></i>
+        <h4 class="text-sm font-bold text-[#1A1A1A] dark:text-gray-300">لم يتم العثور على أي أخبار مطابقة</h4>
+        <p class="text-xs text-[#666666] dark:text-gray-400 mt-1">يرجى تعديل مصطلحات البحث أو اختيار تصنيف آخر.</p>
+      </div>
+    `;
+    latestGrid.innerHTML = '';
+    lucide.createIcons();
+    return;
+  }
+
+  const featured = filtered[0];
+  const latest = filtered.slice(1);
+
+  // Render Featured Card
+  featuredContainer.innerHTML = `
+    <article class="group bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 rounded-3xl overflow-hidden hover:border-[#6B1028]/40 dark:hover:border-red-500/40 hover:shadow-lg transition-all duration-300 flex flex-col md:flex-row shadow-sm">
+      <div class="relative md:w-1/2 h-56 md:h-auto overflow-hidden">
+        <img src="${featured.image}" alt="${featured.title}" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-750" referrerPolicy="no-referrer" />
+        <div class="absolute top-4 right-4 bg-[#6B1028] text-white text-[10px] font-bold px-3 py-1 rounded-full shadow-md">
+          تحليل متميز
         </div>
       </div>
-      <div class="p-4 text-right flex-1 flex flex-col">
-        <h3 class="text-xs sm:text-sm font-black text-[#1A1A1A] mb-1.5 group-hover:text-[#6B1028] transition-colors line-clamp-2 leading-tight">${art.title}</h3>
-        <p class="text-[#666666] text-[11px] mb-3 line-clamp-2 leading-relaxed font-medium">${art.excerpt}</p>
-        <div class="mt-auto flex items-center justify-between pt-3 border-t border-[#E5E7EB]">
-           <span class="text-[9px] text-[#666666] font-bold font-mono">${art.date}</span>
-           <button class="text-[#6B1028] hover:text-[#8A1D3D] transition-colors"><i data-lucide="arrow-left" class="w-3.5 h-3.5"></i></button>
+      <div class="p-6 md:p-8 md:w-1/2 flex flex-col justify-between text-right">
+        <div class="space-y-3">
+          <div class="flex items-center justify-end gap-2 text-[10px] text-[#6B1028] dark:text-red-400 font-bold uppercase tracking-wider">
+            <span>${featured.author}</span>
+            <span>•</span>
+            <span>${featured.subCategory || featured.category}</span>
+          </div>
+          
+          <h2 class="text-xl sm:text-2xl font-black text-[#1A1A1A] dark:text-white group-hover:text-[#6B1028] dark:group-hover:text-red-400 transition-colors leading-snug">
+            ${featured.title}
+          </h2>
+          
+          <p class="text-[#666666] dark:text-gray-400 text-xs sm:text-sm leading-relaxed font-medium">
+            ${featured.excerpt}
+          </p>
+        </div>
+        
+        <div class="flex items-center justify-between pt-6 mt-6 border-t border-gray-100 dark:border-slate-800">
+          <span class="text-xs text-[#666666] dark:text-gray-500 font-bold font-mono">${featured.date}</span>
+          <button class="flex items-center gap-1.5 text-xs font-black text-[#6B1028] dark:text-red-400 hover:underline">
+            قراءة التحليل بالكامل
+            <i data-lucide="arrow-left" class="w-4 h-4"></i>
+          </button>
         </div>
       </div>
     </article>
   `;
 
-  newsCol.innerHTML = newsData.map(makeCard).join('');
-  attacksCol.innerHTML = attackData.map(makeCard).join('');
-  analysisCol.innerHTML = analysisData.map(makeCard).join('');
+  // Render Latest Grid
+  latestGrid.innerHTML = latest.map(art => `
+    <article class="group bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 rounded-2xl overflow-hidden hover:border-[#6B1028]/35 dark:hover:border-red-500/35 hover:shadow-md transition-all duration-300 flex flex-col shadow-sm text-right">
+      <div class="relative h-44 overflow-hidden">
+        <img src="${art.image}" alt="${art.title}" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-750" referrerPolicy="no-referrer" />
+        <div class="absolute top-3 right-3 bg-white/95 dark:bg-slate-950/95 border border-gray-200 dark:border-slate-800 px-2.5 py-0.5 text-[9px] text-[#6B1028] dark:text-red-400 font-bold rounded-lg shadow-sm">
+          ${art.subCategory || art.category}
+        </div>
+      </div>
+      <div class="p-5 flex-1 flex flex-col justify-between">
+        <div class="space-y-2">
+          <span class="text-[9px] text-[#666666] dark:text-gray-400 font-bold">${art.author}</span>
+          <h4 class="text-sm sm:text-base font-black text-[#1A1A1A] dark:text-white group-hover:text-[#6B1028] dark:group-hover:text-red-400 transition-colors line-clamp-2 leading-tight">${art.title}</h4>
+          <p class="text-[#666666] dark:text-gray-400 text-xs line-clamp-2 leading-relaxed font-medium">${art.excerpt}</p>
+        </div>
+        
+        <div class="mt-5 pt-3.5 border-t border-gray-100 dark:border-slate-800/60 flex items-center justify-between">
+          <span class="text-[10px] text-[#666666] dark:text-gray-500 font-bold font-mono">${art.date}</span>
+          <button class="text-[#6B1028] dark:text-red-400 hover:text-[#8A1D3D] dark:hover:text-red-300 transition-colors">
+            <i data-lucide="arrow-left" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+    </article>
+  `).join('');
+
+  // Render Trending News
+  const trendingData = INITIAL_ARTICLES.slice(0, 4);
+  trendingList.innerHTML = trendingData.map((art, idx) => `
+    <div class="flex items-start gap-3.5 group cursor-pointer hover:bg-gray-50 dark:hover:bg-slate-800/20 p-2 rounded-xl transition-all">
+      <span class="text-lg font-black font-mono text-[#6B1028]/25 dark:text-red-500/20 group-hover:text-[#6B1028] dark:group-hover:text-red-500 transition-colors pt-0.5">
+        0${idx + 1}
+      </span>
+      <div class="flex-1 text-right">
+        <span class="text-[9px] font-bold text-[#6B1028] dark:text-red-400 uppercase tracking-wider">${art.subCategory || art.category}</span>
+        <h4 class="text-xs font-bold text-[#1A1A1A] dark:text-white group-hover:text-[#6B1028] dark:group-hover:text-red-400 transition-colors line-clamp-2 leading-snug mt-0.5">
+          ${art.title}
+        </h4>
+      </div>
+    </div>
+  `).join('');
+
+  lucide.createIcons();
+}
+
+function renderCVEs() {
+  const container = document.getElementById('cves-container');
+  if (!container) return;
+
+  container.innerHTML = CVE_DATA.map(cve => {
+    let badgeClass = 'bg-red-500/10 text-red-600 dark:text-red-400';
+    if (parseFloat(cve.score) < 8.0) {
+      badgeClass = 'bg-orange-500/10 text-orange-600 dark:text-orange-400';
+    }
+
+    return `
+      <div class="p-3 bg-gray-50 dark:bg-slate-800/40 rounded-xl border border-gray-100 dark:border-slate-800/60 hover:border-gray-200 dark:hover:border-slate-700 transition-all text-right">
+        <div class="flex items-center justify-between gap-2">
+          <span class="text-[10px] font-bold font-mono text-[#1A1A1A] dark:text-white">${cve.id}</span>
+          <span class="text-[9px] font-bold font-mono px-2 py-0.5 rounded-md ${badgeClass}">
+            ${cve.severity} (${cve.score})
+          </span>
+        </div>
+        <p class="text-[11px] text-[#666666] dark:text-gray-400 leading-relaxed font-medium mt-1.5">${cve.desc}</p>
+      </div>
+    `;
+  }).join('');
+}
+
+function renderCategoryChips() {
+  const container = document.getElementById('news-categories-chips');
+  if (!container) return;
+
+  container.innerHTML = NEWS_CATEGORIES.map(cat => {
+    const isActive = activeCategory === cat;
+    const activeClass = isActive 
+      ? 'bg-[#6B1028] text-white border-[#6B1028] shadow-sm' 
+      : 'bg-gray-100 dark:bg-slate-800/80 text-[#666666] dark:text-gray-300 border-transparent hover:bg-[#6B1028]/10 hover:text-[#6B1028] dark:hover:text-red-400';
+
+    return `
+      <button class="cat-chip px-3 py-1.5 rounded-lg border text-[10px] sm:text-xs font-bold transition-all ${activeClass}" data-category="${cat}">
+        ${cat}
+      </button>
+    `;
+  }).join('');
+
+  // Attach click events
+  document.querySelectorAll('.cat-chip').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      activeCategory = e.currentTarget.getAttribute('data-category');
+      renderCategoryChips();
+      renderHomeNews();
+    });
+  });
+}
+
+function renderHomePreviews() {
+  const expertsGrid = document.getElementById('experts-preview-grid');
+  const toolsGrid = document.getElementById('tools-preview-grid');
+
+  if (expertsGrid) {
+    const topExperts = EXPERTS.slice(0, 4);
+    expertsGrid.innerHTML = topExperts.map(exp => `
+      <div class="group bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 p-5 rounded-2xl hover:border-[#6B1028]/30 dark:hover:border-red-500/30 hover:shadow-md transition-all duration-300 flex flex-col justify-between text-right shadow-sm">
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-[9px] font-bold text-[#16A34A] bg-[#16A34A]/10 px-2 py-0.5 rounded-full">نشط</span>
+            <div class="w-8 h-8 rounded-lg bg-gray-50 dark:bg-slate-800 border border-gray-100 dark:border-slate-800 flex items-center justify-center text-[#6B1028] dark:text-red-400">
+              <i data-lucide="${exp.icon}" class="w-4 h-4"></i>
+            </div>
+          </div>
+          
+          <div>
+            <h4 class="text-sm font-black text-[#1A1A1A] dark:text-white group-hover:text-[#6B1028] dark:group-hover:text-red-400 transition-colors">${exp.name}</h4>
+            <span class="text-[10px] font-bold text-[#6B1028] dark:text-red-400 block mt-0.5">${exp.title}</span>
+          </div>
+          
+          <p class="text-[#666666] dark:text-gray-400 text-xs leading-relaxed h-8 line-clamp-2 font-medium">
+            ${exp.desc}
+          </p>
+        </div>
+        
+        <div class="pt-4 mt-4 border-t border-gray-100 dark:border-slate-800/80 flex items-center justify-between">
+          <div class="flex items-center gap-0.5 text-orange-500">
+            <i data-lucide="star" class="w-3 h-3 fill-current"></i>
+            <span class="text-[10px] font-bold font-mono text-[#666666] dark:text-gray-400">${exp.rating}</span>
+          </div>
+          <button class="consult-trigger-btn text-[10px] font-bold bg-[#6B1028]/5 dark:bg-red-500/10 text-[#6B1028] dark:text-red-400 hover:bg-[#6B1028] dark:hover:bg-red-500 hover:text-white dark:hover:text-white px-3 py-1.5 rounded-lg border border-[#6B1028]/15 dark:border-red-500/15 transition-all" data-name="${exp.name}">
+            طلب استشارة
+          </button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  if (toolsGrid) {
+    const topTools = CYBER_TOOLS.slice(0, 3);
+    toolsGrid.innerHTML = topTools.map(tool => `
+      <div class="group bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 p-5 rounded-2xl hover:border-[#6B1028]/30 dark:hover:border-red-500/30 hover:shadow-md transition-all duration-300 flex flex-col justify-between text-right relative overflow-hidden shadow-sm animate-slide-up">
+        <div class="absolute top-0 right-0 w-1 h-full bg-[#6B1028]/10 group-hover:bg-[#6B1028] dark:group-hover:bg-red-500 transition-all"></div>
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-[9px] font-bold text-[#6B1028] dark:text-red-400 uppercase tracking-wider bg-[#6B1028]/5 dark:bg-red-500/5 px-2 py-0.5 rounded border border-[#6B1028]/10 dark:border-red-500/10 font-mono">${tool.category}</span>
+            <div class="p-2 bg-gray-50 dark:bg-slate-800 rounded-lg border border-gray-100 dark:border-slate-800 text-[#6B1028] dark:text-red-400">
+              <i data-lucide="${tool.icon}" class="w-4 h-4"></i>
+            </div>
+          </div>
+          
+          <h4 class="text-sm sm:text-base font-black text-[#1A1A1A] dark:text-white mt-1">${tool.name}</h4>
+          <p class="text-[#666666] dark:text-gray-400 text-xs leading-relaxed line-clamp-2 font-medium">${tool.desc}</p>
+        </div>
+        
+        <div class="mt-4 pt-3 border-t border-gray-100 dark:border-slate-800/80 flex items-center justify-between">
+          <span class="text-[9px] text-[#666666] dark:text-gray-400 font-bold uppercase tracking-wider">${tool.useCase}</span>
+          <button class="text-[10px] font-bold text-[#6B1028] dark:text-red-400 hover:underline flex items-center gap-1 transition-colors">
+            تشغيل الأداة
+            <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // Attach consultation click listeners
+  document.querySelectorAll('.consult-trigger-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const name = e.currentTarget.getAttribute('data-name');
+      openConsultation(name);
+    });
+  });
+
+  lucide.createIcons();
 }
 
 function renderStories() {
@@ -642,9 +898,41 @@ if (canvas) {
 
 // --- 8. SYSTEM INITIALIZATION EVENT LISTENERS ---
 
+function initializeTheme() {
+  const currentTheme = localStorage.getItem('theme');
+  const isDark = currentTheme === 'dark' || (!currentTheme && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  
+  if (isDark) {
+    document.documentElement.classList.add('dark');
+  } else {
+    document.documentElement.classList.remove('dark');
+  }
+  
+  updateThemeIcons(isDark);
+}
+
+function updateThemeIcons(isDark) {
+  const icon = document.getElementById('theme-icon');
+  if (!icon) return;
+
+  if (isDark) {
+    icon.setAttribute('data-lucide', 'sun');
+  } else {
+    icon.setAttribute('data-lucide', 'moon');
+  }
+  
+  lucide.createIcons();
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+  // Initialize theme
+  initializeTheme();
+
   // Render layout and lists
-  renderNews();
+  renderCategoryChips();
+  renderHomeNews();
+  renderCVEs();
+  renderHomePreviews();
   renderStories();
   renderExperts();
   renderLearning();
@@ -653,11 +941,68 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initialize all Lucide Icons
   lucide.createIcons();
 
+  // Search Synchronization across desktop & mobile inputs
+  const desktopSearch = document.getElementById('global-search-input');
+  const mobileSearch = document.getElementById('mobile-search-input');
+
+  const handleSearch = (e) => {
+    searchQuery = e.target.value;
+    
+    // Sync values
+    if (desktopSearch && e.target !== desktopSearch) desktopSearch.value = searchQuery;
+    if (mobileSearch && e.target !== mobileSearch) mobileSearch.value = searchQuery;
+
+    // If we are not currently on the home view, navigate to home instantly to show search results
+    const homeView = document.getElementById('view-home');
+    if (homeView && homeView.classList.contains('hidden')) {
+      navigateTo('home');
+    }
+
+    renderHomeNews();
+  };
+
+  if (desktopSearch) desktopSearch.addEventListener('input', handleSearch);
+  if (mobileSearch) mobileSearch.addEventListener('input', handleSearch);
+
   // Desktop Navbar Button Click Handlers
   document.getElementById('nav-home').addEventListener('click', () => navigateTo('home'));
   document.getElementById('nav-experts').addEventListener('click', () => navigateTo('experts'));
   document.getElementById('nav-learning').addEventListener('click', () => navigateTo('learning'));
-  document.getElementById('nav-contact').addEventListener('click', () => navigateTo('contact'));
+
+  // Home Page View All Buttons Click Handlers
+  const viewExpertsBtn = document.getElementById('home-view-experts-btn');
+  const viewToolsBtn = document.getElementById('home-view-tools-btn');
+
+  if (viewExpertsBtn) {
+    viewExpertsBtn.addEventListener('click', () => navigateTo('experts'));
+  }
+  if (viewToolsBtn) {
+    viewToolsBtn.addEventListener('click', () => navigateTo('learning'));
+  }
+
+  // Dark Mode Toggle Button Event Listener
+  const themeToggleBtn = document.getElementById('theme-toggle');
+  if (themeToggleBtn) {
+    themeToggleBtn.addEventListener('click', () => {
+      const isDark = document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      updateThemeIcons(isDark);
+    });
+  }
+
+  // User Dropdown Toggler
+  const userMenuBtn = document.getElementById('user-menu-btn');
+  const userDropdown = document.getElementById('user-dropdown');
+  if (userMenuBtn && userDropdown) {
+    userMenuBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      userDropdown.classList.toggle('hidden');
+    });
+
+    document.addEventListener('click', () => {
+      userDropdown.classList.add('hidden');
+    });
+  }
 
   // Mobile Sidebar Action Listeners
   const logoBtn = document.getElementById('logo-btn');
