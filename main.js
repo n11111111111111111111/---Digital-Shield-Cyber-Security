@@ -121,11 +121,12 @@ const FREE_COURSES = [
 ];
 
 const SECTIONS = [
-  { title: 'أخبار السايبر', icon: 'newspaper', targetId: 'news' },
-  { title: 'تهديدات وتحذيرات', icon: 'shield-alert', targetId: 'news' },
-  { title: 'قصص دجلة', icon: 'zap', targetId: 'stories' },
+  { title: 'أخبار عامة', icon: 'newspaper', targetCategory: 'أخبار عامة' },
+  { title: 'أخبار الثغرات والتهديدات', icon: 'shield-alert', targetCategory: 'أخبار الثغرات والتهديدات' },
+  { title: 'استخبارات محلية', icon: 'activity', targetCategory: 'استخبارات محلية' },
+  { title: 'التقارير والتحليلات', icon: 'bar-chart-2', targetCategory: 'التقارير والتحليلات' },
   { title: 'منصة الخبراء', icon: 'users', view: 'experts' },
-  { title: 'مركز التعلم', icon: 'graduation-cap', view: 'learning' },
+  { title: 'مركز الأدوات والتعلم', icon: 'graduation-cap', view: 'learning' },
   { title: 'من نحن', icon: 'info', view: 'about' }
 ];
 
@@ -272,7 +273,7 @@ function renderHomeNews() {
 
   // Render Featured Card
   featuredContainer.innerHTML = `
-    <article class="group bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 rounded-3xl overflow-hidden hover:border-[#6B1028]/40 dark:hover:border-red-500/40 hover:shadow-lg transition-all duration-300 flex flex-col md:flex-row shadow-sm">
+    <article class="group bg-white dark:bg-slate-900 border border-gray-300 dark:border-slate-800 rounded-3xl overflow-hidden hover:border-[#6B1028]/40 dark:hover:border-red-500/40 hover:shadow-lg transition-all duration-300 flex flex-col md:flex-row shadow-sm">
       <div class="relative md:w-1/2 h-56 md:h-auto overflow-hidden">
         <img src="${featured.image}" alt="${featured.title}" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-750" referrerPolicy="no-referrer" />
         <div class="absolute top-4 right-4 bg-[#6B1028] text-white text-[10px] font-bold px-3 py-1 rounded-full shadow-md">
@@ -309,7 +310,7 @@ function renderHomeNews() {
 
   // Render Latest Grid
   latestGrid.innerHTML = latest.map(art => `
-    <article class="group bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 rounded-2xl overflow-hidden hover:border-[#6B1028]/35 dark:hover:border-red-500/35 hover:shadow-md transition-all duration-300 flex flex-col shadow-sm text-right">
+    <article class="group bg-white dark:bg-slate-900 border border-gray-300 dark:border-slate-800 rounded-2xl overflow-hidden hover:border-[#6B1028]/35 dark:hover:border-red-500/35 hover:shadow-md transition-all duration-300 flex flex-col shadow-sm text-right">
       <div class="relative h-44 overflow-hidden">
         <img src="${art.image}" alt="${art.title}" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-750" referrerPolicy="no-referrer" />
         <div class="absolute top-3 right-3 bg-white/95 dark:bg-slate-950/95 border border-gray-200 dark:border-slate-800 px-2.5 py-0.5 text-[9px] text-[#6B1028] dark:text-red-400 font-bold rounded-lg shadow-sm">
@@ -363,7 +364,7 @@ function renderCVEs() {
     }
 
     return `
-      <div class="p-3 bg-gray-50 dark:bg-slate-800/40 rounded-xl border border-gray-100 dark:border-slate-800/60 hover:border-gray-200 dark:hover:border-slate-700 transition-all text-right">
+      <div class="p-3 bg-gray-50 dark:bg-slate-800/40 rounded-xl border border-gray-300 dark:border-slate-800/60 hover:border-gray-400 dark:hover:border-slate-700 transition-all text-right">
         <div class="flex items-center justify-between gap-2">
           <span class="text-[10px] font-bold font-mono text-[#1A1A1A] dark:text-white">${cve.id}</span>
           <span class="text-[9px] font-bold font-mono px-2 py-0.5 rounded-md ${badgeClass}">
@@ -410,7 +411,7 @@ function renderHomePreviews() {
   if (expertsGrid) {
     const topExperts = EXPERTS.slice(0, 4);
     expertsGrid.innerHTML = topExperts.map(exp => `
-      <div class="group bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 p-5 rounded-2xl hover:border-[#6B1028]/30 dark:hover:border-red-500/30 hover:shadow-md transition-all duration-300 flex flex-col justify-between text-right shadow-sm">
+      <div class="group bg-white dark:bg-slate-900 border border-gray-300 dark:border-slate-800 p-5 rounded-2xl hover:border-[#6B1028]/30 dark:hover:border-red-500/30 hover:shadow-md transition-all duration-300 flex flex-col justify-between text-right shadow-sm">
         <div class="space-y-3">
           <div class="flex items-center justify-between">
             <span class="text-[9px] font-bold text-[#16A34A] bg-[#16A34A]/10 px-2 py-0.5 rounded-full">نشط</span>
@@ -445,7 +446,7 @@ function renderHomePreviews() {
   if (toolsGrid) {
     const topTools = CYBER_TOOLS.slice(0, 3);
     toolsGrid.innerHTML = topTools.map(tool => `
-      <div class="group bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 p-5 rounded-2xl hover:border-[#6B1028]/30 dark:hover:border-red-500/30 hover:shadow-md transition-all duration-300 flex flex-col justify-between text-right relative overflow-hidden shadow-sm animate-slide-up">
+      <div class="group bg-white dark:bg-slate-900 border border-gray-300 dark:border-slate-800 p-5 rounded-2xl hover:border-[#6B1028]/30 dark:hover:border-red-500/30 hover:shadow-md transition-all duration-300 flex flex-col justify-between text-right relative overflow-hidden shadow-sm animate-slide-up">
         <div class="absolute top-0 right-0 w-1 h-full bg-[#6B1028]/10 group-hover:bg-[#6B1028] dark:group-hover:bg-red-500 transition-all"></div>
         <div class="space-y-3">
           <div class="flex items-center justify-between">
@@ -624,20 +625,20 @@ function renderSectionsNavigation() {
 
   if (dropdownItems) {
     dropdownItems.innerHTML = SECTIONS.map(sec => `
-      <button class="section-nav-btn w-full flex items-center justify-end gap-3 p-2.5 rounded-lg hover:bg-[#F8F9FA] transition-all text-[11px] font-bold text-[#1A1A1A] group" 
-        data-target-view="${sec.view || 'home'}" data-target-anchor="${sec.targetId || ''}">
+      <button class="section-nav-btn w-full flex items-center justify-end gap-3 p-2.5 rounded-lg hover:bg-[#F8F9FA] dark:hover:bg-slate-800 transition-all text-[11px] font-bold text-[#1A1A1A] dark:text-gray-200 group" 
+        data-target-view="${sec.view || 'home'}" data-target-anchor="${sec.targetId || ''}" data-target-category="${sec.targetCategory || ''}">
         <span>${sec.title}</span>
-        <i data-lucide="${sec.icon}" class="w-3.5 h-3.5 text-[#666666] group-hover:text-[#6B1028]"></i>
+        <i data-lucide="${sec.icon}" class="w-3.5 h-3.5 text-[#666666] dark:text-gray-400 group-hover:text-[#6B1028] dark:group-hover:text-red-400"></i>
       </button>
     `).join('');
   }
 
   if (sidebarSectionsContainer) {
     sidebarSectionsContainer.innerHTML = SECTIONS.map(sec => `
-      <button class="section-nav-btn w-full flex items-center justify-end gap-2 py-2 px-3 rounded-lg hover:bg-[#F8F9FA] transition-all text-[11px] font-bold text-[#1A1A1A] group"
-        data-target-view="${sec.view || 'home'}" data-target-anchor="${sec.targetId || ''}">
+      <button class="section-nav-btn w-full flex items-center justify-end gap-2 py-2 px-3 rounded-lg hover:bg-[#F8F9FA] dark:hover:bg-slate-800 transition-all text-[11px] font-bold text-[#1A1A1A] dark:text-gray-200 group"
+        data-target-view="${sec.view || 'home'}" data-target-anchor="${sec.targetId || ''}" data-target-category="${sec.targetCategory || ''}">
         <span>${sec.title}</span>
-        <i data-lucide="${sec.icon}" class="w-3.5 h-3.5 text-[#666666] group-hover:text-[#6B1028]"></i>
+        <i data-lucide="${sec.icon}" class="w-3.5 h-3.5 text-[#666666] dark:text-gray-400 group-hover:text-[#6B1028] dark:group-hover:text-red-400"></i>
       </button>
     `).join('');
   }
@@ -647,12 +648,24 @@ function renderSectionsNavigation() {
     btn.addEventListener('click', (e) => {
       const view = e.currentTarget.getAttribute('data-target-view');
       const anchor = e.currentTarget.getAttribute('data-target-anchor');
+      const category = e.currentTarget.getAttribute('data-target-category');
+      
+      if (category) {
+        activeCategory = category;
+        renderCategoryChips();
+        renderHomeNews();
+      }
       
       navigateTo(view);
       closeMobileSidebar();
       if (desktopDropdown) desktopDropdown.classList.add('hidden');
 
-      if (anchor) {
+      if (category) {
+        setTimeout(() => {
+          const el = document.getElementById('news-categories-chips');
+          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 150);
+      } else if (anchor) {
         setTimeout(() => {
           const el = document.getElementById(anchor);
           if (el) el.scrollIntoView({ behavior: 'smooth' });
@@ -665,6 +678,9 @@ function renderSectionsNavigation() {
 // --- 4. NAVIGATION & VIEW ROUTING CONTROLLER ---
 
 function navigateTo(viewId) {
+  currentActiveView = viewId;
+  applyThemeAndVisibility();
+
   // Hide all views
   document.querySelectorAll('.view-content').forEach(el => {
     el.classList.add('hidden');
@@ -682,7 +698,7 @@ function navigateTo(viewId) {
     if (key === viewId) {
       btn.className = "text-xs font-bold transition-all flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-white bg-[#6B1028]";
     } else {
-      btn.className = "flex items-center gap-1.5 text-xs font-bold transition-all px-3 py-1.5 rounded-lg text-[#1A1A1A] hover:text-[#6B1028] hover:bg-[#F8F9FA]";
+      btn.className = "flex items-center gap-1.5 text-xs font-bold transition-all px-3 py-1.5 rounded-lg text-[#1A1A1A] dark:text-gray-200 hover:text-[#6B1028] dark:hover:text-red-400 hover:bg-[#F8F9FA] dark:hover:bg-slate-800";
     }
   });
 
@@ -757,76 +773,82 @@ const chatSend = document.getElementById('chat-send');
 
 let isChatOpen = false;
 
-chatTrigger.addEventListener('click', () => {
-  isChatOpen = !isChatOpen;
-  if (isChatOpen) {
-    chatTrigger.classList.add('hidden');
-    chatWindow.classList.remove('hidden');
-    chatInput.focus();
+if (chatTrigger) {
+  chatTrigger.addEventListener('click', () => {
+    isChatOpen = !isChatOpen;
+    if (isChatOpen) {
+      chatTrigger.classList.add('hidden');
+      chatWindow.classList.remove('hidden');
+      chatInput.focus();
+    }
+  });
+
+  if (chatClose) {
+    chatClose.addEventListener('click', () => {
+      isChatOpen = false;
+      chatWindow.classList.add('hidden');
+      chatTrigger.classList.remove('hidden');
+    });
   }
-});
 
-chatClose.addEventListener('click', () => {
-  isChatOpen = false;
-  chatWindow.classList.add('hidden');
-  chatTrigger.classList.remove('hidden');
-});
+  async function handleSendMessage() {
+    const text = chatInput.value.trim();
+    if (!text) return;
 
-async function handleSendMessage() {
-  const text = chatInput.value.trim();
-  if (!text) return;
+    chatInput.value = '';
 
-  chatInput.value = '';
+    // Append User message
+    const userBubble = document.createElement('div');
+    userBubble.className = "flex justify-start animate-slide-up";
+    userBubble.innerHTML = `
+      <div class="max-w-[85%] p-3.5 rounded-xl text-xs leading-relaxed shadow-sm bg-[#6B1028] text-white rounded-br-none border border-[#6B1028]/10 text-right">
+        ${text}
+      </div>
+    `;
+    chatMessages.appendChild(userBubble);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
 
-  // Append User message
-  const userBubble = document.createElement('div');
-  userBubble.className = "flex justify-start animate-slide-up";
-  userBubble.innerHTML = `
-    <div class="max-w-[85%] p-3.5 rounded-xl text-xs leading-relaxed shadow-sm bg-[#6B1028] text-white rounded-br-none border border-[#6B1028]/10 text-right">
-      ${text}
-    </div>
-  `;
-  chatMessages.appendChild(userBubble);
-  chatMessages.scrollTop = chatMessages.scrollHeight;
+    // Append Thinking Bubble
+    const thinkingBubble = document.createElement('div');
+    thinkingBubble.id = "chat-thinking";
+    thinkingBubble.className = "flex justify-end animate-pulse";
+    thinkingBubble.innerHTML = `
+      <div class="bg-white p-3.5 rounded-xl rounded-bl-none border border-[#E5E7EB] shadow-sm flex gap-1.5 items-center">
+        <span class="text-[10px] text-[#666666] font-bold ml-2">جاري التفكير</span>
+        <div class="w-1.5 h-1.5 bg-[#6B1028] rounded-full animate-bounce"></div>
+        <div class="w-1.5 h-1.5 bg-[#6B1028] rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+        <div class="w-1.5 h-1.5 bg-[#6B1028] rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
+      </div>
+    `;
+    chatMessages.appendChild(thinkingBubble);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
 
-  // Append Thinking Bubble
-  const thinkingBubble = document.createElement('div');
-  thinkingBubble.id = "chat-thinking";
-  thinkingBubble.className = "flex justify-end animate-pulse";
-  thinkingBubble.innerHTML = `
-    <div class="bg-white p-3.5 rounded-xl rounded-bl-none border border-[#E5E7EB] shadow-sm flex gap-1.5 items-center">
-      <span class="text-[10px] text-[#666666] font-bold ml-2">جاري التفكير</span>
-      <div class="w-1.5 h-1.5 bg-[#6B1028] rounded-full animate-bounce"></div>
-      <div class="w-1.5 h-1.5 bg-[#6B1028] rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
-      <div class="w-1.5 h-1.5 bg-[#6B1028] rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
-    </div>
-  `;
-  chatMessages.appendChild(thinkingBubble);
-  chatMessages.scrollTop = chatMessages.scrollHeight;
+    // Get Advice
+    const reply = await getCyberAdvice(text);
 
-  // Get Advice
-  const reply = await getCyberAdvice(text);
+    // Remove Thinking Bubble
+    const thinking = document.getElementById('chat-thinking');
+    if (thinking) thinking.remove();
 
-  // Remove Thinking Bubble
-  const thinking = document.getElementById('chat-thinking');
-  if (thinking) thinking.remove();
+    // Append AI message
+    const aiBubble = document.createElement('div');
+    aiBubble.className = "flex justify-end animate-slide-up";
+    aiBubble.innerHTML = `
+      <div class="max-w-[85%] p-3.5 rounded-xl text-xs leading-relaxed shadow-sm bg-white border border-[#E5E7EB] text-[#1A1A1A] rounded-bl-none text-right">
+        ${reply}
+      </div>
+    `;
+    chatMessages.appendChild(aiBubble);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
 
-  // Append AI message
-  const aiBubble = document.createElement('div');
-  aiBubble.className = "flex justify-end animate-slide-up";
-  aiBubble.innerHTML = `
-    <div class="max-w-[85%] p-3.5 rounded-xl text-xs leading-relaxed shadow-sm bg-white border border-[#E5E7EB] text-[#1A1A1A] rounded-bl-none text-right">
-      ${reply}
-    </div>
-  `;
-  chatMessages.appendChild(aiBubble);
-  chatMessages.scrollTop = chatMessages.scrollHeight;
+  if (chatSend) chatSend.addEventListener('click', handleSendMessage);
+  if (chatInput) {
+    chatInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') handleSendMessage();
+    });
+  }
 }
-
-chatSend.addEventListener('click', handleSendMessage);
-chatInput.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter') handleSendMessage();
-});
 
 // --- 7. PARTICLE BACKGROUND CANVAS ANIMATION ---
 const canvas = document.getElementById('bg-canvas');
@@ -898,17 +920,71 @@ if (canvas) {
 
 // --- 8. SYSTEM INITIALIZATION EVENT LISTENERS ---
 
-function initializeTheme() {
+let currentActiveView = 'home';
+
+function applyThemeAndVisibility() {
   const currentTheme = localStorage.getItem('theme');
-  const isDark = currentTheme === 'dark' || (!currentTheme && window.matchMedia('(prefers-color-scheme: dark)').matches);
-  
-  if (isDark) {
-    document.documentElement.classList.add('dark');
-  } else {
+  const isDarkEnabled = currentTheme === 'dark' || (!currentTheme && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  const navBar = document.querySelector('nav');
+  const expertsBtn = document.getElementById('nav-experts');
+  const learningBtn = document.getElementById('nav-learning');
+  const sidebarExperts = document.getElementById('sidebar-experts');
+  const sidebarLearning = document.getElementById('sidebar-learning');
+
+  // 1. Handle visibility of experts and tools in the top bar and sidebar when theme is Dark:
+  if (expertsBtn) {
+    if (isDarkEnabled) {
+      expertsBtn.classList.add('hidden');
+    } else {
+      expertsBtn.classList.remove('hidden');
+    }
+  }
+  if (learningBtn) {
+    if (isDarkEnabled) {
+      learningBtn.classList.add('hidden');
+    } else {
+      learningBtn.classList.remove('hidden');
+    }
+  }
+  if (sidebarExperts) {
+    if (isDarkEnabled) {
+      sidebarExperts.classList.add('hidden');
+    } else {
+      sidebarExperts.classList.remove('hidden');
+    }
+  }
+  if (sidebarLearning) {
+    if (isDarkEnabled) {
+      sidebarLearning.classList.add('hidden');
+    } else {
+      sidebarLearning.classList.remove('hidden');
+    }
+  }
+
+  // 2. Handle dark mode application depending on current active view:
+  if (currentActiveView === 'experts' || currentActiveView === 'learning') {
+    // Only the top bar remains in dark mode; the main page content remains in light theme
     document.documentElement.classList.remove('dark');
+    if (navBar) {
+      navBar.classList.add('dark');
+    }
+  } else {
+    // Normal theme behavior
+    if (navBar) {
+      navBar.classList.remove('dark');
+    }
+    if (isDarkEnabled) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
   }
   
-  updateThemeIcons(isDark);
+  updateThemeIcons(isDarkEnabled);
+}
+
+function initializeTheme() {
+  applyThemeAndVisibility();
 }
 
 function updateThemeIcons(isDark) {
@@ -984,9 +1060,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const themeToggleBtn = document.getElementById('theme-toggle');
   if (themeToggleBtn) {
     themeToggleBtn.addEventListener('click', () => {
-      const isDark = document.documentElement.classList.toggle('dark');
-      localStorage.setItem('theme', isDark ? 'dark' : 'light');
-      updateThemeIcons(isDark);
+      const currentTheme = localStorage.getItem('theme');
+      const isDark = currentTheme === 'dark' || (!currentTheme && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      const newTheme = isDark ? 'light' : 'dark';
+      localStorage.setItem('theme', newTheme);
+      applyThemeAndVisibility();
     });
   }
 
