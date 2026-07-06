@@ -36,15 +36,18 @@
     </script>
     <style>
         body {
-            font-family: 'IBM Plex Sans Arabic', 'Cairo', sans-serif;
+            font-family: 'Cairo', 'IBM Plex Sans Arabic', sans-serif;
             background-color: #FFFFFF;
-            color: #1A1A1A;
+            color: #111827; /* Rich black-adjacent shade for maximum light mode contrast */
             overflow-x: hidden;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
         .dark body {
-            background-color: #020617;
-            color: #F8FAFC;
+            background-color: #030712; /* Deepest black-slate background */
+            color: #F9FAFB; /* Pure white-adjacent shade for outstanding dark mode contrast */
         }
         .mono { font-family: 'JetBrains Mono', monospace; }
         .cyber-grid {
@@ -178,9 +181,15 @@
             <div class="relative h-full w-[260px] bg-white dark:bg-slate-900 border-l border-[#E5E7EB] dark:border-slate-800 shadow-2xl animate-slide-in-right flex flex-col overflow-hidden">
                 <!-- Header -->
                 <div class="p-4 border-b border-[#E5E7EB] dark:border-slate-800 bg-[#F8F9FA] dark:bg-slate-950 flex items-center justify-between">
-                    <button id="sidebar-close-btn" class="p-1.5 hover:bg-gray-100 dark:hover:bg-slate-800 rounded-lg transition-colors border border-gray-200 dark:border-slate-800">
-                        <i data-lucide="x" class="w-4 h-4 text-[#1A1A1A] dark:text-white"></i>
-                    </button>
+                    <div class="flex items-center gap-2">
+                        <button id="sidebar-close-btn" class="p-1.5 hover:bg-gray-100 dark:hover:bg-slate-800 rounded-lg transition-colors border border-gray-200 dark:border-slate-800" title="إغلاق">
+                            <i data-lucide="x" class="w-4 h-4 text-[#1A1A1A] dark:text-white"></i>
+                        </button>
+                        <!-- Mobile Theme Toggle -->
+                        <button id="mobile-theme-toggle" class="p-1.5 text-[#1A1A1A] hover:text-[#6B1028] dark:text-gray-300 dark:hover:text-red-400 hover:bg-[#F8F9FA] dark:hover:bg-slate-800 rounded-lg transition-colors border border-[#E5E7EB] dark:border-slate-700" title="تبديل المظهر">
+                            <i id="mobile-theme-icon" data-lucide="moon" class="w-4.5 h-4.5"></i>
+                        </button>
+                    </div>
                     <div class="text-right">
                         <span class="text-sm font-bold text-[#1A1A1A] dark:text-white block leading-none">عرب سايبر نيوز</span>
                         <span class="text-[8px] text-[#6B1028] dark:text-red-500 font-bold uppercase tracking-wider font-eng">Arab Cyber News</span>
@@ -436,15 +445,15 @@
 
             <!-- VIEW: EXPERTS -->
             <div id="view-experts" class="view-content hidden animate-fade-in">
-                <section class="py-12 bg-white relative overflow-hidden">
+                <section class="py-12 bg-white dark:bg-slate-950 relative overflow-hidden transition-colors duration-300">
                     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                        <div class="text-right mb-10 border-b border-[#E5E7EB] pb-6">
-                            <div class="inline-flex items-center gap-1.5 text-[#6B1028] text-xs font-bold uppercase tracking-wider mb-2">
+                        <div class="text-right mb-10 border-b border-[#E5E7EB] dark:border-slate-800 pb-6">
+                            <div class="inline-flex items-center gap-1.5 text-[#6B1028] dark:text-red-400 text-xs font-bold uppercase tracking-wider mb-2">
                                 <i data-lucide="users" class="w-3.5 h-3.5"></i>
                                 مستشارون ومعتمدون
                             </div>
-                            <h2 class="text-3xl font-black text-[#1A1A1A]">منصة <span class="text-[#6B1028]">الخبراء السيبرانيين</span></h2>
-                            <p class="text-[#666666] mt-1 max-w-lg ml-auto text-xs font-medium leading-relaxed">
+                            <h2 class="text-3xl font-black text-[#1A1A1A] dark:text-white">منصة <span class="text-[#6B1028] dark:text-red-500">الخبراء السيبرانيين</span></h2>
+                            <p class="text-[#666666] dark:text-gray-300 mt-1 max-w-lg ml-auto text-xs font-medium leading-relaxed">
                                 نخبة من المحللين والمبرمجين المعتمدين المتوفرين للاستشارة الفنية والتعاون المهني المباشر.
                             </p>
                         </div>
@@ -456,15 +465,15 @@
 
             <!-- VIEW: LEARNING -->
             <div id="view-learning" class="view-content hidden animate-fade-in">
-                <div class="py-12 bg-white relative min-h-screen">
+                <div class="py-12 bg-white dark:bg-slate-950 relative min-h-screen transition-colors duration-300">
                     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div class="text-right mb-12 border-b border-[#E5E7EB] pb-6">
-                            <div class="inline-flex items-center gap-1.5 text-[#6B1028] text-xs font-bold uppercase tracking-wider mb-2">
+                            <div class="inline-flex items-center gap-1.5 text-[#6B1028] dark:text-red-400 text-xs font-bold uppercase tracking-wider mb-2">
                                 <i data-lucide="terminal" class="w-3.5 h-3.5"></i>
                                 أدوات ومواد دراسية مجانية
                             </div>
-                            <h2 class="text-3xl font-black text-[#1A1A1A]">مركز <span class="text-[#6B1028]">الأدوات والتعليم</span></h2>
-                            <p class="text-[#666666] mt-2 max-w-xl ml-auto leading-relaxed text-xs font-medium">
+                            <h2 class="text-3xl font-black text-[#1A1A1A] dark:text-white">مركز <span class="text-[#6B1028] dark:text-red-500">الأدوات والتعليم</span></h2>
+                            <p class="text-[#666666] dark:text-gray-300 mt-2 max-w-xl ml-auto leading-relaxed text-xs font-medium">
                                 صندوق أدوات الفحص التفاعلية ومركز الموارد والمناهج المجانية لطلاب وهواة الأمن السيبراني.
                             </p>
                         </div>
@@ -472,24 +481,24 @@
                         <div class="grid lg:grid-cols-2 gap-12">
                             <!-- Tools Column -->
                             <div>
-                                <div class="flex items-center justify-end gap-3 mb-6 border-b border-[#E5E7EB] pb-4">
+                                <div class="flex items-center justify-end gap-3 mb-6 border-b border-[#E5E7EB] dark:border-slate-800 pb-4">
                                     <div class="text-right">
-                                        <h3 class="text-lg font-black text-[#1A1A1A]">صندوق الأدوات التفاعلية</h3>
-                                        <p class="text-[#666666] text-[9px] uppercase font-bold tracking-wider">Interactive Utilities</p>
+                                        <h3 class="text-lg font-black text-[#1A1A1A] dark:text-white">صندوق الأدوات التفاعلية</h3>
+                                        <p class="text-[#666666] dark:text-gray-400 text-[9px] uppercase font-bold tracking-wider">Interactive Utilities</p>
                                     </div>
-                                    <i data-lucide="wrench" class="w-5 h-5 text-[#6B1028]"></i>
+                                    <i data-lucide="wrench" class="w-5 h-5 text-[#6B1028] dark:text-red-400"></i>
                                 </div>
                                 <div class="space-y-4" id="tools-container"></div>
                             </div>
                             
                             <!-- Courses Column -->
                             <div>
-                                <div class="flex items-center justify-end gap-3 mb-6 border-b border-[#E5E7EB] pb-4">
+                                <div class="flex items-center justify-end gap-3 mb-6 border-b border-[#E5E7EB] dark:border-slate-800 pb-4">
                                     <div class="text-right">
-                                        <h3 class="text-lg font-black text-[#1A1A1A]">كورسات ومناهج مجانية</h3>
-                                        <p class="text-[#666666] text-[9px] uppercase font-bold tracking-wider">Free Learning Paths</p>
+                                        <h3 class="text-lg font-black text-[#1A1A1A] dark:text-white">كورسات ومناهج مجانية</h3>
+                                        <p class="text-[#666666] dark:text-gray-400 text-[9px] uppercase font-bold tracking-wider">Free Learning Paths</p>
                                     </div>
-                                    <i data-lucide="unlock" class="w-5 h-5 text-[#16A34A]"></i>
+                                    <i data-lucide="unlock" class="w-5 h-5 text-[#16A34A] dark:text-green-400"></i>
                                 </div>
                                 <div class="grid gap-4" id="courses-container"></div>
                             </div>
@@ -500,56 +509,56 @@
 
             <!-- VIEW: INFO (ABOUT, CONTACT, PRIVACY) -->
             <div id="view-info" class="view-content hidden animate-fade-in">
-                <div class="py-20 bg-[#F8F9FA] relative overflow-hidden flex flex-col items-center border-b border-[#E5E7EB]">
+                <div class="py-20 bg-[#F8F9FA] dark:bg-slate-950 relative overflow-hidden flex flex-col items-center border-b border-[#E5E7EB] dark:border-slate-800 transition-colors duration-300">
                     <div class="max-w-4xl mx-auto px-4 relative z-10 text-center">
-                        <div class="w-16 h-16 mx-auto rounded-xl bg-white border border-[#E5E7EB] flex items-center justify-center mb-6 shadow-sm" id="info-icon-wrapper">
-                            <i data-lucide="info" class="w-8 h-8 text-[#6B1028]" id="info-main-icon"></i>
+                        <div class="w-16 h-16 mx-auto rounded-xl bg-white dark:bg-slate-900 border border-[#E5E7EB] dark:border-slate-800 flex items-center justify-center mb-6 shadow-sm transition-colors duration-300" id="info-icon-wrapper">
+                            <i data-lucide="info" class="w-8 h-8 text-[#6B1028] dark:text-red-400" id="info-main-icon"></i>
                         </div>
                         
-                        <h1 class="text-3xl font-black text-[#1A1A1A] mb-3" id="info-title">من نحن</h1>
-                        <p class="text-xs font-bold uppercase tracking-wider mb-6 text-[#6B1028]" id="info-subtitle">عرب سايبر نيوز - الريادة والاستخبارات السيبرانية</p>
+                        <h1 class="text-3xl font-black text-[#1A1A1A] dark:text-white mb-3 animate-slide-up" id="info-title">من نحن</h1>
+                        <p class="text-xs font-bold uppercase tracking-wider mb-6 text-[#6B1028] dark:text-red-400" id="info-subtitle">عرب سايبر نيوز - الريادة والاستخبارات السيبرانية</p>
                         
-                        <div class="bg-white border border-[#E5E7EB] p-8 rounded-2xl shadow-sm text-right">
-                            <p class="text-[#1A1A1A] text-base leading-relaxed mb-8 font-medium" id="info-text">
+                        <div class="bg-white dark:bg-slate-900 border border-[#E5E7EB] dark:border-slate-800 p-8 rounded-2xl shadow-sm text-right transition-colors duration-300">
+                            <p class="text-[#1A1A1A] dark:text-gray-200 text-base leading-relaxed mb-8 font-medium" id="info-text">
                                 منصة عربية مستقلة تقدم تغطية شاملة وحية لأبرز تطورات الأمن الرقمي والاستخبارات السيبرانية على الصعيد الإقليمي والعالمي، مع مساحة لدعم الخبراء والمهتمين بالتعلم.
                             </p>
 
                             <!-- About Us Extra Grid -->
                             <div id="info-about-extra" class="grid md:grid-cols-3 gap-6 mt-8">
-                                <div class="p-4 border-r border-[#E5E7EB] text-right">
-                                    <h4 class="text-[#1A1A1A] font-bold mb-1">رؤيتنا</h4>
-                                    <p class="text-xs text-[#666666]">سيادة ووعي رقمي عربي متكامل.</p>
+                                <div class="p-4 border-r border-[#E5E7EB] dark:border-slate-800 text-right">
+                                    <h4 class="text-[#1A1A1A] dark:text-white font-bold mb-1">رؤيتنا</h4>
+                                    <p class="text-xs text-[#666666] dark:text-gray-400">سيادة ووعي رقمي عربي متكامل.</p>
                                 </div>
-                                <div class="p-4 border-r border-[#E5E7EB] text-right">
-                                    <h4 class="text-[#1A1A1A] font-bold mb-1">رسالتنا</h4>
-                                    <p class="text-xs text-[#666666]">تقديم الخبر الموثوق والأداة التفاعلية الفعالة.</p>
+                                <div class="p-4 border-r border-[#E5E7EB] dark:border-slate-800 text-right">
+                                    <h4 class="text-[#1A1A1A] dark:text-white font-bold mb-1">رسالتنا</h4>
+                                    <p class="text-xs text-[#666666] dark:text-gray-400">تقديم الخبر الموثوق والأداة التفاعلية الفعالة.</p>
                                 </div>
                                 <div class="p-4 text-right">
-                                    <h4 class="text-[#1A1A1A] font-bold mb-1">قيمنا</h4>
-                                    <p class="text-xs text-[#666666]">المصداقية، الاستقلالية، والتميز الوقائي.</p>
+                                    <h4 class="text-[#1A1A1A] dark:text-white font-bold mb-1">قيمنا</h4>
+                                    <p class="text-xs text-[#666666] dark:text-gray-400">المصداقية، الاستقلالية، والتميز الوقائي.</p>
                                 </div>
                             </div>
 
                             <!-- Contact Us Extra Grid -->
                             <div id="info-contact-extra" class="hidden grid md:grid-cols-2 gap-6 mt-8">
-                                <div class="bg-[#F8F9FA] border border-[#E5E7EB] p-4 rounded-xl flex items-center justify-end gap-3 hover:border-[#6B1028]/20 transition-all">
+                                <div class="bg-[#F8F9FA] dark:bg-slate-950 border border-[#E5E7EB] dark:border-slate-800 p-4 rounded-xl flex items-center justify-end gap-3 hover:border-[#6B1028]/20 dark:hover:border-red-500/20 transition-all">
                                     <div class="text-right">
-                                        <span class="block text-[10px] text-[#666666] font-bold uppercase">البريد الإلكتروني</span>
-                                        <span class="text-[#1A1A1A] font-bold block">pbeb4009@mtu.edu.iq</span>
+                                        <span class="block text-[10px] text-[#666666] dark:text-gray-400 font-bold uppercase">البريد الإلكتروني</span>
+                                        <span class="text-[#1A1A1A] dark:text-white font-bold block">pbeb4009@mtu.edu.iq</span>
                                     </div>
-                                    <i data-lucide="mail" class="w-5 h-5 text-[#6B1028]"></i>
+                                    <i data-lucide="mail" class="w-5 h-5 text-[#6B1028] dark:text-red-400"></i>
                                 </div>
-                                <div class="bg-[#F8F9FA] border border-[#E5E7EB] p-4 rounded-xl flex items-center justify-end gap-3 hover:border-[#6B1028]/20 transition-all">
+                                <div class="bg-[#F8F9FA] dark:bg-slate-950 border border-[#E5E7EB] dark:border-slate-800 p-4 rounded-xl flex items-center justify-end gap-3 hover:border-[#6B1028]/20 dark:hover:border-red-500/20 transition-all">
                                     <div class="text-right">
-                                        <span class="block text-[10px] text-[#666666] font-bold uppercase">واتساب</span>
-                                        <span class="text-[#1A1A1A] font-bold">07736274737</span>
+                                        <span class="block text-[10px] text-[#666666] dark:text-gray-400 font-bold uppercase">واتساب</span>
+                                        <span class="text-[#1A1A1A] dark:text-white font-bold">07736274737</span>
                                     </div>
-                                    <i data-lucide="phone" class="w-5 h-5 text-[#16A34A]"></i>
+                                    <i data-lucide="phone" class="w-5 h-5 text-[#16A34A] dark:text-green-400"></i>
                                 </div>
-                                <div class="md:col-span-2 bg-[#F8F9FA] border border-[#E5E7EB] p-4 rounded-xl flex items-center justify-end gap-3 hover:border-[#6B1028]/20 transition-all">
+                                <div class="md:col-span-2 bg-[#F8F9FA] dark:bg-slate-950 border border-[#E5E7EB] dark:border-slate-800 p-4 rounded-xl flex items-center justify-end gap-3 hover:border-[#6B1028]/20 dark:hover:border-red-500/20 transition-all">
                                     <div class="text-right">
-                                        <span class="block text-[10px] text-[#666666] font-bold uppercase">المقر الرئيسي</span>
-                                        <span class="text-[#1A1A1A] font-bold text-xs">الجامعة التقنية الوسطى، الكلية الهندسية الكهربائية</span>
+                                        <span class="block text-[10px] text-[#666666] dark:text-gray-400 font-bold uppercase">المقر الرئيسي</span>
+                                        <span class="text-[#1A1A1A] dark:text-white font-bold text-xs">الجامعة التقنية الوسطى، الكلية الهندسية الكهربائية</span>
                                     </div>
                                     <i data-lucide="map-pin" class="w-5 h-5 text-[#EA580C]"></i>
                                 </div>
@@ -565,37 +574,37 @@
 
         <!-- EXPERT CONSULTATION POPUP MODAL -->
         <div id="consultation-modal" class="hidden fixed inset-0 z-[150] flex items-center justify-center p-4">
-            <div id="modal-overlay" class="absolute inset-0 bg-[#1A1A1A]/40 backdrop-blur-sm"></div>
-            <div class="relative w-full max-w-xs bg-white border border-[#E5E7EB] rounded-2xl p-6 shadow-2xl animate-slide-up">
-                <button id="modal-close" class="absolute top-3 left-3 text-[#666666] hover:text-[#1A1A1A]">
+            <div id="modal-overlay" class="absolute inset-0 bg-[#1A1A1A]/40 dark:bg-black/60 backdrop-blur-sm"></div>
+            <div class="relative w-full max-w-xs bg-white dark:bg-slate-900 border border-[#E5E7EB] dark:border-slate-800 rounded-2xl p-6 shadow-2xl animate-slide-up transition-colors duration-300">
+                <button id="modal-close" class="absolute top-3 left-3 text-[#666666] dark:text-gray-400 hover:text-[#1A1A1A] dark:hover:text-white">
                     <i data-lucide="x" class="w-4 h-4"></i>
                 </button>
                 <div class="text-center mb-5">
-                    <div class="w-10 h-10 bg-[#6B1028]/5 rounded-xl border border-[#6B1028]/10 flex items-center justify-center text-[#6B1028] mx-auto mb-2">
+                    <div class="w-10 h-10 bg-[#6B1028]/5 dark:bg-red-500/10 rounded-xl border border-[#6B1028]/10 dark:border-red-500/20 flex items-center justify-center text-[#6B1028] dark:text-red-400 mx-auto mb-2">
                         <i data-lucide="user-check" class="w-5 h-5"></i>
                     </div>
-                    <h3 id="modal-expert-name" class="text-sm font-bold text-[#1A1A1A]">الخبير</h3>
+                    <h3 id="modal-expert-name" class="text-sm font-bold text-[#1A1A1A] dark:text-white">الخبير</h3>
                 </div>
                 <div class="space-y-2">
-                    <button class="w-full flex items-center justify-between p-2.5 rounded-lg border border-[#E5E7EB] bg-white hover:border-[#6B1028]/30 hover:bg-[#F8F9FA] transition-all group">
-                        <i data-lucide="external-link" class="w-3.5 h-3.5 text-[#666666] group-hover:text-[#6B1028]"></i>
+                    <button class="w-full flex items-center justify-between p-2.5 rounded-lg border border-[#E5E7EB] dark:border-slate-800 bg-white dark:bg-slate-950 hover:border-[#6B1028]/30 dark:hover:border-red-500/30 hover:bg-[#F8F9FA] dark:hover:bg-slate-900 transition-all group">
+                        <i data-lucide="external-link" class="w-3.5 h-3.5 text-[#666666] dark:text-gray-400 group-hover:text-[#6B1028] dark:group-hover:text-red-400"></i>
                         <div class="flex items-center gap-2.5 text-right">
-                            <span class="text-[11px] font-bold text-[#1A1A1A]">واتساب المباشر</span>
+                            <span class="text-[11px] font-bold text-[#1A1A1A] dark:text-gray-200">واتساب المباشر</span>
                             <div class="p-1 rounded-md bg-[#16A34A]/10 text-[#16A34A]"><i data-lucide="message-circle" class="w-3.5 h-3.5"></i></div>
                         </div>
                     </button>
-                    <button class="w-full flex items-center justify-between p-2.5 rounded-lg border border-[#E5E7EB] bg-white hover:border-[#6B1028]/30 hover:bg-[#F8F9FA] transition-all group">
-                        <i data-lucide="external-link" class="w-3.5 h-3.5 text-[#666666] group-hover:text-[#6B1028]"></i>
+                    <button class="w-full flex items-center justify-between p-2.5 rounded-lg border border-[#E5E7EB] dark:border-slate-800 bg-white dark:bg-slate-950 hover:border-[#6B1028]/30 dark:hover:border-red-500/30 hover:bg-[#F8F9FA] dark:hover:bg-slate-900 transition-all group">
+                        <i data-lucide="external-link" class="w-3.5 h-3.5 text-[#666666] dark:text-gray-400 group-hover:text-[#6B1028] dark:group-hover:text-red-400"></i>
                         <div class="flex items-center gap-2.5 text-right">
-                            <span class="text-[11px] font-bold text-[#1A1A1A]">البريد الإلكتروني</span>
+                            <span class="text-[11px] font-bold text-[#1A1A1A] dark:text-gray-200">البريد الإلكتروني</span>
                             <div class="p-1 rounded-md bg-[#6B1028]/10 text-[#6B1028]"><i data-lucide="mail" class="w-3.5 h-3.5"></i></div>
                         </div>
                     </button>
-                    <button class="w-full flex items-center justify-between p-2.5 rounded-lg border border-[#E5E7EB] bg-white hover:border-[#6B1028]/30 hover:bg-[#F8F9FA] transition-all group">
-                        <i data-lucide="external-link" class="w-3.5 h-3.5 text-[#666666] group-hover:text-[#6B1028]"></i>
+                    <button class="w-full flex items-center justify-between p-2.5 rounded-lg border border-[#E5E7EB] dark:border-slate-800 bg-white dark:bg-slate-950 hover:border-[#6B1028]/30 dark:hover:border-red-500/30 hover:bg-[#F8F9FA] dark:hover:bg-slate-900 transition-all group">
+                        <i data-lucide="external-link" class="w-3.5 h-3.5 text-[#666666] dark:text-gray-400 group-hover:text-[#6B1028] dark:group-hover:text-red-400"></i>
                         <div class="flex items-center gap-2.5 text-right">
-                            <span class="text-[11px] font-bold text-[#1A1A1A]">LinkedIn</span>
-                            <div class="p-1 rounded-md bg-blue-50 text-blue-600"><i data-lucide="linkedin" class="w-3.5 h-3.5"></i></div>
+                            <span class="text-[11px] font-bold text-[#1A1A1A] dark:text-gray-200">LinkedIn</span>
+                            <div class="p-1 rounded-md bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400"><i data-lucide="linkedin" class="w-3.5 h-3.5"></i></div>
                         </div>
                     </button>
                 </div>

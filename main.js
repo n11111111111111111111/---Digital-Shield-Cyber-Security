@@ -487,31 +487,31 @@ function renderStories() {
   if (!grid) return;
 
   grid.innerHTML = INITIAL_STORIES.map(story => `
-    <div class="group relative bg-white border border-[#E5E7EB] p-6 hover:border-[#6B1028]/20 hover:shadow-md transition-all duration-300 rounded-xl animate-slide-up shadow-sm">
+    <div class="group relative bg-white dark:bg-slate-900 border border-[#E5E7EB] dark:border-slate-800 p-6 hover:border-[#6B1028]/20 dark:hover:border-red-500/20 hover:shadow-md transition-all duration-300 rounded-xl animate-slide-up shadow-sm">
       <div class="relative z-10">
         <div class="flex justify-between items-start mb-4">
           <span class="text-3xl">${story.icon}</span>
-          <span class="px-2.5 py-0.5 bg-[#6B1028]/5 border border-[#6B1028]/10 text-[9px] text-[#6B1028] font-bold rounded-full">
+          <span class="px-2.5 py-0.5 bg-[#6B1028]/5 dark:bg-red-500/10 border border-[#6B1028]/10 dark:border-red-500/20 text-[9px] text-[#6B1028] dark:text-red-400 font-bold rounded-full">
             ${story.category}
           </span>
         </div>
         
-        <h3 class="text-base font-black text-[#1A1A1A] mb-2 group-hover:text-[#6B1028] transition-colors">
+        <h3 class="text-base font-black text-[#1A1A1A] dark:text-white mb-2 group-hover:text-[#6B1028] dark:group-hover:text-red-400 transition-colors">
           ${story.title}
         </h3>
         
-        <p class="text-[#666666] text-xs leading-relaxed mb-6 line-clamp-3 font-medium">
+        <p class="text-[#666666] dark:text-gray-300 text-xs leading-relaxed mb-6 line-clamp-3 font-medium">
           ${story.preview}
         </p>
         
-        <div class="flex items-center justify-between pt-4 border-t border-[#E5E7EB]">
-          <div class="flex items-center gap-1.5 text-[#666666] text-[11px] font-mono">
-            <i data-lucide="clock" class="w-3.5 h-3.5 text-[#666666]"></i>
+        <div class="flex items-center justify-between pt-4 border-t border-[#E5E7EB] dark:border-slate-800">
+          <div class="flex items-center gap-1.5 text-[#666666] dark:text-gray-400 text-[11px] font-mono">
+            <i data-lucide="clock" class="w-3.5 h-3.5 text-[#666666] dark:text-gray-400"></i>
             ${story.readTime}
           </div>
-          <button class="inline-flex items-center gap-1.5 text-xs font-bold text-[#1A1A1A] hover:text-[#6B1028] group/btn">
+          <button class="inline-flex items-center gap-1.5 text-xs font-bold text-[#1A1A1A] dark:text-gray-200 hover:text-[#6B1028] dark:hover:text-red-400 group/btn">
             ابدأ القراءة
-            <i data-lucide="book-open" class="w-3.5 h-3.5 text-[#6B1028] group-hover/btn:translate-x-[-2px] transition-transform"></i>
+            <i data-lucide="book-open" class="w-3.5 h-3.5 text-[#6B1028] dark:text-red-400 group-hover/btn:translate-x-[-2px] transition-transform"></i>
           </button>
         </div>
       </div>
@@ -524,34 +524,34 @@ function renderExperts() {
   if (!grid) return;
 
   grid.innerHTML = EXPERTS.map(exp => `
-    <div class="group bg-white border border-[#E5E7EB] p-5 rounded-2xl hover:border-[#6B1028]/20 hover:shadow-md transition-all duration-300 flex flex-col gap-4 relative animate-slide-up shadow-sm text-right">
+    <div class="group bg-white dark:bg-slate-900 border border-[#E5E7EB] dark:border-slate-800 p-5 rounded-2xl hover:border-[#6B1028]/20 dark:hover:border-red-500/20 hover:shadow-md transition-all duration-300 flex flex-col gap-4 relative animate-slide-up shadow-sm text-right">
       <div class="flex justify-between items-start flex-row-reverse">
-        <div class="w-10 h-10 bg-[#F8F9FA] rounded-xl border border-[#E5E7EB] flex items-center justify-center text-[#6B1028] group-hover:border-[#6B1028]/20 transition-colors">
+        <div class="w-10 h-10 bg-[#F8F9FA] dark:bg-slate-950 rounded-xl border border-[#E5E7EB] dark:border-slate-800 flex items-center justify-center text-[#6B1028] dark:text-red-400 group-hover:border-[#6B1028]/20 dark:group-hover:border-red-500/20 transition-colors">
           <i data-lucide="${exp.icon}" class="w-5 h-5"></i>
         </div>
         <div class="text-right">
-          <h4 class="text-[#1A1A1A] font-black text-sm">${exp.name}</h4>
+          <h4 class="text-[#1A1A1A] dark:text-white font-black text-sm">${exp.name}</h4>
           <div class="flex items-center justify-end gap-1 text-[#EA580C]">
             <i data-lucide="star" class="w-3 h-3 fill-current"></i>
-            <span class="text-[10px] text-[#666666] font-bold font-mono">${exp.rating}</span>
+            <span class="text-[10px] text-[#666666] dark:text-gray-400 font-bold font-mono">${exp.rating}</span>
           </div>
         </div>
       </div>
 
       <div class="text-right flex-1 flex flex-col">
-        <h3 class="text-xs sm:text-sm font-black text-[#6B1028] mb-1 group-hover:text-[#8A1D3D] transition-colors line-clamp-1">${exp.title}</h3>
-        <p class="text-[#666666] text-xs leading-relaxed mb-4 h-8 line-clamp-2 font-medium">${exp.desc}</p>
+        <h3 class="text-xs sm:text-sm font-black text-[#6B1028] dark:text-red-400 mb-1 group-hover:text-[#8A1D3D] dark:group-hover:text-red-300 transition-colors line-clamp-1">${exp.title}</h3>
+        <p class="text-[#666666] dark:text-gray-300 text-xs leading-relaxed mb-4 h-8 line-clamp-2 font-medium">${exp.desc}</p>
         
         <div class="flex flex-wrap justify-end gap-1 mb-4 mt-auto">
-          ${exp.skills.map(sk => `<span class="text-[9px] font-bold text-[#6B1028] bg-[#6B1028]/5 border border-[#6B1028]/10 px-2 py-0.5 rounded-lg">${sk}</span>`).join('')}
+          ${exp.skills.map(sk => `<span class="text-[9px] font-bold text-[#6B1028] dark:text-red-400 bg-[#6B1028]/5 dark:bg-red-500/10 border border-[#6B1028]/10 dark:border-red-500/20 px-2 py-0.5 rounded-lg">${sk}</span>`).join('')}
         </div>
 
-        <div class="flex items-center justify-between border-t border-[#E5E7EB] pt-3">
-          <div class="flex items-center gap-1 text-[#6B1028] text-[9px] font-bold uppercase tracking-wider">
-            <i data-lucide="shield-check" class="w-3.5 h-3.5 text-[#16A34A]"></i>
+        <div class="flex items-center justify-between border-t border-[#E5E7EB] dark:border-slate-800 pt-3">
+          <div class="flex items-center gap-1 text-[#6B1028] dark:text-red-400 text-[9px] font-bold uppercase tracking-wider">
+            <i data-lucide="shield-check" class="w-3.5 h-3.5 text-[#16A34A] dark:text-green-400"></i>
             مستشار معتمد
           </div>
-          <button class="consult-trigger-btn bg-white hover:bg-[#6B1028] text-[#6B1028] hover:text-white px-3 py-1.5 rounded-lg text-[10px] font-bold transition-all border border-[#6B1028]/20 hover:border-[#6B1028] flex items-center gap-1.5" data-name="${exp.name}">
+          <button class="consult-trigger-btn bg-white dark:bg-slate-950 hover:bg-[#6B1028] dark:hover:bg-red-500 text-[#6B1028] dark:text-red-400 hover:text-white dark:hover:text-white px-3 py-1.5 rounded-lg text-[10px] font-bold transition-all border border-[#6B1028]/20 dark:border-red-500/20 hover:border-[#6B1028] dark:hover:border-red-500 flex items-center gap-1.5" data-name="${exp.name}">
             استشارة
             <i data-lucide="send" class="w-3 h-3"></i>
           </button>
@@ -575,21 +575,21 @@ function renderLearning() {
 
   if (toolsContainer) {
     toolsContainer.innerHTML = CYBER_TOOLS.map(tool => `
-      <div class="group bg-white border border-[#E5E7EB] p-5 rounded-2xl hover:border-[#6B1028]/20 hover:shadow-md transition-all text-right relative overflow-hidden animate-slide-up shadow-sm">
-        <div class="absolute top-0 right-0 w-1 h-full bg-[#6B1028]/10 group-hover:bg-[#6B1028] transition-all"></div>
+      <div class="group bg-white dark:bg-slate-900 border border-[#E5E7EB] dark:border-slate-800 p-5 rounded-2xl hover:border-[#6B1028]/20 dark:hover:border-red-500/20 hover:shadow-md transition-all text-right relative overflow-hidden animate-slide-up shadow-sm">
+        <div class="absolute top-0 right-0 w-1 h-full bg-[#6B1028]/10 group-hover:bg-[#6B1028] dark:group-hover:bg-red-500 transition-all"></div>
         <div class="flex items-center justify-end gap-4 mb-3">
           <div class="text-right">
-            <span class="text-[9px] font-bold text-[#6B1028] uppercase tracking-wider bg-[#6B1028]/5 px-2 py-0.5 rounded border border-[#6B1028]/10">${tool.category}</span>
-            <h4 class="text-base font-black text-[#1A1A1A] mt-1">${tool.name}</h4>
+            <span class="text-[9px] font-bold text-[#6B1028] dark:text-red-400 uppercase tracking-wider bg-[#6B1028]/5 dark:bg-red-500/10 px-2 py-0.5 rounded border border-[#6B1028]/10 dark:border-red-500/20">${tool.category}</span>
+            <h4 class="text-base font-black text-[#1A1A1A] dark:text-white mt-1">${tool.name}</h4>
           </div>
-          <div class="p-2.5 bg-[#F8F9FA] rounded-xl border border-[#E5E7EB] text-[#6B1028]">
+          <div class="p-2.5 bg-[#F8F9FA] dark:bg-slate-950 rounded-xl border border-[#E5E7EB] dark:border-slate-800 text-[#6B1028] dark:text-red-400">
             <i data-lucide="${tool.icon}" class="w-5 h-5"></i>
           </div>
         </div>
-        <p class="text-[#666666] text-xs leading-relaxed mb-3 font-medium">${tool.desc}</p>
-        <div class="flex items-center justify-between pt-3 border-t border-[#E5E7EB]">
-           <span class="text-[9px] text-[#666666] font-bold uppercase tracking-wider">${tool.useCase}</span>
-           <button class="text-[10px] font-bold text-[#6B1028] hover:text-[#8A1D3D] flex items-center gap-1.5 transition-colors">
+        <p class="text-[#666666] dark:text-gray-300 text-xs leading-relaxed mb-3 font-medium">${tool.desc}</p>
+        <div class="flex items-center justify-between pt-3 border-t border-[#E5E7EB] dark:border-slate-800">
+           <span class="text-[9px] text-[#666666] dark:text-gray-400 font-bold uppercase tracking-wider">${tool.useCase}</span>
+           <button class="text-[10px] font-bold text-[#6B1028] dark:text-red-400 hover:text-[#8A1D3D] dark:hover:text-red-300 flex items-center gap-1.5 transition-colors">
               <i data-lucide="arrow-left" class="w-3 h-3"></i> التثبيت
            </button>
         </div>
@@ -599,18 +599,18 @@ function renderLearning() {
 
   if (coursesContainer) {
     coursesContainer.innerHTML = FREE_COURSES.map(course => `
-      <div class="bg-white border border-[#E5E7EB] p-5 rounded-2xl hover:border-[#6B1028]/20 hover:shadow-md transition-all text-right group relative overflow-hidden flex flex-col justify-between animate-slide-up shadow-sm">
+      <div class="bg-white dark:bg-slate-900 border border-[#E5E7EB] dark:border-slate-800 p-5 rounded-2xl hover:border-[#6B1028]/20 dark:hover:border-red-500/20 hover:shadow-md transition-all text-right group relative overflow-hidden flex flex-col justify-between animate-slide-up shadow-sm">
          <div class="flex justify-between items-start mb-3">
-           <i data-lucide="${course.icon}" class="w-6 h-6 text-[#6B1028]/30 group-hover:text-[#6B1028] transition-colors"></i>
+           <i data-lucide="${course.icon}" class="w-6 h-6 text-[#6B1028]/30 dark:text-red-400/30 group-hover:text-[#6B1028] dark:group-hover:text-red-400 transition-colors"></i>
            <div class="text-right">
-             <span class="px-2.5 py-0.5 bg-[#16A34A]/10 border border-[#16A34A]/20 text-[9px] text-[#16A34A] font-bold rounded-full">
+             <span class="px-2.5 py-0.5 bg-[#16A34A]/10 dark:bg-green-500/10 border border-[#16A34A]/20 dark:border-green-500/20 text-[9px] text-[#16A34A] dark:text-green-400 font-bold rounded-full">
                ${course.type}
              </span>
            </div>
          </div>
-         <h4 class="text-base font-black text-[#1A1A1A] mb-2 group-hover:text-[#6B1028] transition-colors">${course.title}</h4>
-         <p class="text-[#666666] text-xs leading-relaxed mb-4 font-medium">${course.desc}</p>
-         <a href="${course.link}" target="_blank" class="w-full bg-[#6B1028] hover:bg-[#8A1D3D] text-white py-2 rounded-lg text-[10px] font-bold transition-all flex items-center justify-center gap-1.5 group/btn">
+         <h4 class="text-base font-black text-[#1A1A1A] dark:text-white mb-2 group-hover:text-[#6B1028] dark:group-hover:text-red-400 transition-colors">${course.title}</h4>
+         <p class="text-[#666666] dark:text-gray-300 text-xs leading-relaxed mb-4 font-medium">${course.desc}</p>
+         <a href="${course.link}" target="_blank" class="w-full bg-[#6B1028] dark:bg-red-700 hover:bg-[#8A1D3D] dark:hover:bg-red-600 text-white py-2 rounded-lg text-[10px] font-bold transition-all flex items-center justify-center gap-1.5 group/btn">
            <i data-lucide="external-link" class="w-3.5 h-3.5"></i> الانتقال للموقع
          </a>
       </div>
@@ -925,59 +925,22 @@ let currentActiveView = 'home';
 function applyThemeAndVisibility() {
   const currentTheme = localStorage.getItem('theme');
   const isDarkEnabled = currentTheme === 'dark' || (!currentTheme && window.matchMedia('(prefers-color-scheme: dark)').matches);
-  const navBar = document.querySelector('nav');
   const expertsBtn = document.getElementById('nav-experts');
   const learningBtn = document.getElementById('nav-learning');
   const sidebarExperts = document.getElementById('sidebar-experts');
   const sidebarLearning = document.getElementById('sidebar-learning');
 
-  // 1. Handle visibility of experts and tools in the top bar and sidebar when theme is Dark:
-  if (expertsBtn) {
-    if (isDarkEnabled) {
-      expertsBtn.classList.add('hidden');
-    } else {
-      expertsBtn.classList.remove('hidden');
-    }
-  }
-  if (learningBtn) {
-    if (isDarkEnabled) {
-      learningBtn.classList.add('hidden');
-    } else {
-      learningBtn.classList.remove('hidden');
-    }
-  }
-  if (sidebarExperts) {
-    if (isDarkEnabled) {
-      sidebarExperts.classList.add('hidden');
-    } else {
-      sidebarExperts.classList.remove('hidden');
-    }
-  }
-  if (sidebarLearning) {
-    if (isDarkEnabled) {
-      sidebarLearning.classList.add('hidden');
-    } else {
-      sidebarLearning.classList.remove('hidden');
-    }
-  }
+  // Ensure navigation and sidebar buttons are always visible in both light and dark mode
+  if (expertsBtn) expertsBtn.classList.remove('hidden');
+  if (learningBtn) learningBtn.classList.remove('hidden');
+  if (sidebarExperts) sidebarExperts.classList.remove('hidden');
+  if (sidebarLearning) sidebarLearning.classList.remove('hidden');
 
-  // 2. Handle dark mode application depending on current active view:
-  if (currentActiveView === 'experts' || currentActiveView === 'learning') {
-    // Only the top bar remains in dark mode; the main page content remains in light theme
-    document.documentElement.classList.remove('dark');
-    if (navBar) {
-      navBar.classList.add('dark');
-    }
+  // Apply dark mode theme consistently to the entire site
+  if (isDarkEnabled) {
+    document.documentElement.classList.add('dark');
   } else {
-    // Normal theme behavior
-    if (navBar) {
-      navBar.classList.remove('dark');
-    }
-    if (isDarkEnabled) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
+    document.documentElement.classList.remove('dark');
   }
   
   updateThemeIcons(isDarkEnabled);
@@ -989,15 +952,27 @@ function initializeTheme() {
 
 function updateThemeIcons(isDark) {
   const icon = document.getElementById('theme-icon');
-  if (!icon) return;
+  const mobileIcon = document.getElementById('mobile-theme-icon');
 
-  if (isDark) {
-    icon.setAttribute('data-lucide', 'sun');
-  } else {
-    icon.setAttribute('data-lucide', 'moon');
+  if (icon) {
+    if (isDark) {
+      icon.setAttribute('data-lucide', 'sun');
+    } else {
+      icon.setAttribute('data-lucide', 'moon');
+    }
+  }
+
+  if (mobileIcon) {
+    if (isDark) {
+      mobileIcon.setAttribute('data-lucide', 'sun');
+    } else {
+      mobileIcon.setAttribute('data-lucide', 'moon');
+    }
   }
   
-  lucide.createIcons();
+  if (window.lucide) {
+    lucide.createIcons();
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -1058,14 +1033,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Dark Mode Toggle Button Event Listener
   const themeToggleBtn = document.getElementById('theme-toggle');
+  const mobileThemeToggleBtn = document.getElementById('mobile-theme-toggle');
+
+  const handleThemeToggle = () => {
+    const currentTheme = localStorage.getItem('theme');
+    const isDark = currentTheme === 'dark' || (!currentTheme && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    const newTheme = isDark ? 'light' : 'dark';
+    localStorage.setItem('theme', newTheme);
+    applyThemeAndVisibility();
+  };
+
   if (themeToggleBtn) {
-    themeToggleBtn.addEventListener('click', () => {
-      const currentTheme = localStorage.getItem('theme');
-      const isDark = currentTheme === 'dark' || (!currentTheme && window.matchMedia('(prefers-color-scheme: dark)').matches);
-      const newTheme = isDark ? 'light' : 'dark';
-      localStorage.setItem('theme', newTheme);
-      applyThemeAndVisibility();
-    });
+    themeToggleBtn.addEventListener('click', handleThemeToggle);
+  }
+  if (mobileThemeToggleBtn) {
+    mobileThemeToggleBtn.addEventListener('click', handleThemeToggle);
   }
 
   // User Dropdown Toggler
