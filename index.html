@@ -107,11 +107,11 @@
                     <div class="flex items-center gap-2 cursor-pointer group" id="logo-btn">
                         <div class="flex flex-col text-right">
                             <span class="text-xl sm:text-2xl font-bold leading-tight select-none">
-                                <span class="text-[#666666] dark:text-gray-400">عرب</span>
+                                <span class="text-[#1A1A1A] dark:text-white">عرب</span>
                                 <span class="text-[#6B1028] dark:text-red-500 font-black">سايبر</span>
                                 <span class="text-[#1A1A1A] dark:text-white">نيوز</span>
                             </span>
-                            <span class="text-[10px] tracking-wider font-mono text-[#666666] dark:text-gray-400 leading-none uppercase -mt-0.5 font-eng">
+                            <span class="text-[12px] sm:text-[13px] tracking-wider font-mono text-[#666666] dark:text-gray-400 leading-none uppercase -mt-0.5 font-eng">
                                 <span class="text-[#666666] dark:text-gray-400">Arab</span> <span class="text-[#6B1028] dark:text-red-500 font-semibold">Cyber</span> <span class="text-[#1A1A1A] dark:text-white">News</span>
                             </span>
                         </div>
@@ -305,20 +305,25 @@
                     <div class="lg:col-span-4 space-y-8">
                         
                         <!-- 7. Threat Intelligence Panel -->
-                        <div class="bg-slate-50 dark:bg-slate-900/40 border border-gray-200 dark:border-slate-800 p-5 rounded-2xl shadow-sm">
+                        <div class="bg-slate-50 dark:bg-slate-900/40 border border-gray-200 dark:border-slate-800 p-5 rounded-2xl shadow-sm relative overflow-hidden">
                             <div class="flex items-center justify-between mb-4 border-b border-gray-200 dark:border-slate-800 pb-3">
                                 <h3 class="text-sm font-black text-[#1A1A1A] dark:text-white flex items-center gap-2">
                                     <i data-lucide="activity" class="w-4 h-4 text-[#6B1028] dark:text-red-500 animate-pulse"></i>
                                     استخبارات التهديدات
                                 </h3>
-                                <span class="text-[9px] font-bold font-mono px-2 py-0.5 bg-red-500/10 text-red-600 dark:text-red-400 rounded-full animate-pulse uppercase">Active</span>
+                                <div class="flex items-center gap-2">
+                                    <button id="refresh-intel-btn" class="p-1 hover:bg-gray-200 dark:hover:bg-slate-800 rounded-md text-gray-500 hover:text-[#6B1028] dark:hover:text-red-400 transition-colors flex items-center justify-center" title="تحديث الاستخبارات المباشرة">
+                                        <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+                                    </button>
+                                    <span class="text-[9px] font-bold font-mono px-2 py-0.5 bg-red-500/10 text-red-600 dark:text-red-400 rounded-full animate-pulse uppercase">Active</span>
+                                </div>
                             </div>
                             
                             <div class="space-y-4">
                                 <div class="flex items-center justify-between bg-white dark:bg-slate-800/40 p-3 rounded-xl border border-gray-100 dark:border-slate-800">
                                     <span class="text-xs font-bold text-[#666666] dark:text-gray-400">مستوى الخطر العام:</span>
                                     <div class="flex items-center gap-2">
-                                        <span class="text-xs font-bold font-mono text-red-600 dark:text-red-400">CRITICAL (88%)</span>
+                                        <span id="threat-risk-level" class="text-xs font-bold font-mono text-red-600 dark:text-red-400">CRITICAL (88%)</span>
                                         <span class="relative flex h-2 w-2">
                                           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
                                           <span class="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
@@ -329,15 +334,15 @@
                                 <div class="space-y-3 pt-1">
                                     <div class="flex justify-between items-start text-xs gap-3">
                                         <span class="text-[#666666] dark:text-gray-400 font-medium shrink-0">القطاعات المستهدفة:</span>
-                                        <span class="font-bold text-[#1A1A1A] dark:text-gray-200 text-left">الحكومي، البنوك، البنية التحتية</span>
+                                        <span id="threat-sectors" class="font-bold text-[#1A1A1A] dark:text-gray-200 text-left">الحكومي، البنوك، البنية التحتية</span>
                                     </div>
                                     <div class="flex justify-between items-start text-xs gap-3">
                                         <span class="text-[#666666] dark:text-gray-400 font-medium shrink-0">البرمجيات النشطة:</span>
-                                        <span class="font-bold text-[#1A1A1A] dark:text-gray-200 text-left font-mono">LockBit 3.0, BlackCat, CobaltStrike</span>
+                                        <span id="threat-malware" class="font-bold text-[#1A1A1A] dark:text-gray-200 text-left font-mono">LockBit 3.0, BlackCat, CobaltStrike</span>
                                     </div>
                                     <div class="flex justify-between items-start text-xs gap-3">
                                         <span class="text-[#666666] dark:text-gray-400 font-medium shrink-0">مجموعات الهجوم APT:</span>
-                                        <span class="font-bold text-[#1A1A1A] dark:text-gray-200 text-left font-mono">APT41, Lazarus Group, Volt Typhoon</span>
+                                        <span id="threat-apts" class="font-bold text-[#1A1A1A] dark:text-gray-200 text-left font-mono">APT41, Lazarus Group, Volt Typhoon</span>
                                     </div>
                                 </div>
                             </div>

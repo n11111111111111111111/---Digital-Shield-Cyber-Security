@@ -64,6 +64,8 @@ const INITIAL_ARTICLES = [
   }
 ];
 
+let currentArticles = [...INITIAL_ARTICLES];
+
 const INITIAL_STORIES = [
   {
     id: 'ubisoft-breach',
@@ -189,13 +191,82 @@ async function getCyberAdvice(userInput) {
   }
 }
 
+async function fetchLiveCyberIntel(isManual = false) {
+  const refreshBtn = document.getElementById('refresh-intel-btn');
+  if (refreshBtn) {
+    const icon = refreshBtn.querySelector('i');
+    if (icon) icon.classList.add('animate-spin');
+  }
+
+  try {
+    const response = await fetch('/api/cyber-intel');
+    if (!response.ok) {
+      throw new Error(`REST Error: ${response.status}`);
+    }
+
+    const parsed = await response.json();
+    if (parsed.error) {
+      throw new Error(parsed.error);
+    }
+    
+    if (parsed.threatIntel) {
+      const riskEl = document.getElementById('threat-risk-level');
+      const sectorsEl = document.getElementById('threat-sectors');
+      const malwareEl = document.getElementById('threat-malware');
+      const aptsEl = document.getElementById('threat-apts');
+
+      if (riskEl) riskEl.innerText = parsed.threatIntel.riskLevel || 'CRITICAL (92%)';
+      if (sectorsEl) sectorsEl.innerText = parsed.threatIntel.targetedSectors || 'الحكومي، البنوك، الطاقة';
+      if (malwareEl) malwareEl.innerText = parsed.threatIntel.activeMalware || 'LockBit 3.0, CobaltStrike';
+      if (aptsEl) aptsEl.innerText = parsed.threatIntel.aptGroups || 'APT41, Lazarus Group';
+    }
+
+    if (parsed.cves && parsed.cves.length > 0) {
+      CVE_DATA = parsed.cves.slice(0, 4);
+      renderCVEs();
+    }
+
+    if (parsed.trendingNews && parsed.trendingNews.length > 0) {
+      const newArticles = parsed.trendingNews.map(item => ({
+        id: item.id || `live-${Math.random()}`,
+        title: item.title,
+        excerpt: item.excerpt,
+        category: item.category || 'Cyber News',
+        subCategory: item.subCategory || 'تحليل أمني',
+        date: item.date || new Date().toISOString().split('T')[0],
+        image: item.image || 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=800',
+        author: item.author || 'رصد ذكي'
+      }));
+
+      currentArticles = [...newArticles, ...INITIAL_ARTICLES.slice(0, 4)];
+      renderHomeNews();
+    }
+
+    if (parsed.breakingNews && parsed.breakingNews.length > 0) {
+      const ticker = document.getElementById('breaking-ticker');
+      if (ticker) {
+        ticker.innerHTML = parsed.breakingNews.map(news => `<span>${news}</span>`).join('');
+      }
+    }
+
+    console.log("Live intelligence updates successfully synced!");
+  } catch (err) {
+    console.error("Failed to parse or fetch live cyber intelligence:", err);
+  } finally {
+    if (refreshBtn) {
+      const icon = refreshBtn.querySelector('i');
+      if (icon) icon.classList.remove('animate-spin');
+    }
+  }
+}
+
 // --- 3. RENDERING ENGINE FUNCTIONS ---
 
 // System States for Filtering
 let activeCategory = 'الكل';
 let searchQuery = '';
 
-const CVE_DATA = [
+let CVE_DATA = [
   { id: 'CVE-2024-3094', score: '10.0', severity: 'CRITICAL', desc: 'زر خلفي خبيث تم زرعه في حزمة XZ Utils يؤدي إلى اختراق المصادقة على خوادم SSH عن بعد.' },
   { id: 'CVE-2024-21626', score: '8.6', severity: 'HIGH', desc: 'ثغرة هروب من حاوية RunC تسمح للمهاجمين بالوصول لملفات المضيف من داخل بيئة العمل الافتراضية.' },
   { id: 'CVE-2023-38831', score: '7.8', severity: 'HIGH', desc: 'ثغرة تنفيذ برمجيات خبيثة عن بعد في برنامج WinRAR عند فتح ملفات ZIP منسقة بشكل مريب.' },
@@ -219,7 +290,7 @@ function renderHomeNews() {
   if (!featuredContainer || !latestGrid || !trendingList) return;
 
   // Apply search query and category filters
-  let filtered = [...INITIAL_ARTICLES];
+  let filtered = [...currentArticles];
 
   // 1. Category Filter
   if (activeCategory !== 'الكل') {
@@ -335,7 +406,7 @@ function renderHomeNews() {
   `).join('');
 
   // Render Trending News
-  const trendingData = INITIAL_ARTICLES.slice(0, 4);
+  const trendingData = currentArticles.slice(0, 4);
   trendingList.innerHTML = trendingData.map((art, idx) => `
     <div class="flex items-start gap-3.5 group cursor-pointer hover:bg-gray-50 dark:hover:bg-slate-800/20 p-2 rounded-xl transition-all">
       <span class="text-lg font-black font-mono text-[#6B1028]/25 dark:text-red-500/20 group-hover:text-[#6B1028] dark:group-hover:text-red-500 transition-colors pt-0.5">
@@ -991,6 +1062,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initialize all Lucide Icons
   lucide.createIcons();
+
+  // Trigger Live Cyber Intelligence Feeds
+  fetchLiveCyberIntel();
+
+  // Automatic refresh interval (every 120 seconds)
+  setInterval(() => {
+    fetchLiveCyberIntel();
+  }, 120000);
+
+  // Manual refresh button listener
+  const refreshIntelBtn = document.getElementById('refresh-intel-btn');
+  if (refreshIntelBtn) {
+    refreshIntelBtn.addEventListener('click', () => {
+      fetchLiveCyberIntel(true);
+    });
+  }
 
   // Search Synchronization across desktop & mobile inputs
   const desktopSearch = document.getElementById('global-search-input');
